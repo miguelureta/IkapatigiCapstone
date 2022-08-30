@@ -3,17 +3,15 @@ using System.Collections.Generic;
 
 namespace IkapatigiCapstone.Models
 {
-    public partial class Cure
+    public partial class Status
     {
-        public Cure()
+        public Status()
         {
             Diagnostics = new HashSet<Diagnostic>();
         }
 
-        public int CureId { get; set; }
-        public string CureName { get; set; } = null!;
-        public decimal Srp { get; set; }
-        public int? UserId { get; set; }
+        public int StatusId { get; set; }
+        public string StatusType { get; set; } = null!;
 
         public virtual ICollection<Diagnostic> Diagnostics { get; set; }
     }

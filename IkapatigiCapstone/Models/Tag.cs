@@ -1,16 +1,21 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.Collections.Generic;
 
 namespace IkapatigiCapstone.Models
 {
-    public class Tag
+    public partial class Tag
     {
-        [Key]
-        public int TagID { get; set; }
+        public Tag()
+        {
+            Diagnostics = new HashSet<Diagnostic>();
+            PlantDiseases = new HashSet<PlantDisease>();
+        }
 
-        [Required (ErrorMessage ="Required")]
-        [Display(Name = "Tag Name")]
-        public string TagName { get; set; } 
+        public int TagId { get; set; }
+        public string? TagName { get; set; }
+        public int? UserId { get; set; }
 
-        public int UserID { get; set; }
+        public virtual ICollection<Diagnostic> Diagnostics { get; set; }
+        public virtual ICollection<PlantDisease> PlantDiseases { get; set; }
     }
 }
