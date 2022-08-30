@@ -15,7 +15,7 @@ namespace IkapatigiCapstone.Controllers
 
         public IActionResult Index()
         {
-            var list = _context.Tag.ToList();
+            var list = _context.Tags.ToList();
             return View(list);
         }
 
@@ -31,7 +31,7 @@ namespace IkapatigiCapstone.Controllers
             var tag = new Tag()
             {
                 TagName = record.TagName,
-                UserID = record.UserID
+                UserId = record.UserId
             };
 
             _context.Tag.Add(tag);  
@@ -47,7 +47,7 @@ namespace IkapatigiCapstone.Controllers
                 return RedirectToAction("Index");
             }
 
-            var tag = _context.Tag.Where(i => i.TagID == id).SingleOrDefault();
+            var tag = _context.Tags.Where(i => i.TagId == id).SingleOrDefault();
             if (tag == null)
             {
                 return RedirectToAction("Index");
@@ -59,12 +59,12 @@ namespace IkapatigiCapstone.Controllers
         [HttpPost]
         public IActionResult Edit(int? id, Tag record)
         {
-            var tag = _context.Tag.Where(i => i.TagID == id).SingleOrDefault();
+            var tag = _context.Tags.Where(i => i.TagId == id).SingleOrDefault();
             tag.TagName = record.TagName;
-            tag.UserID = record.UserID;
+            tag.UserId = record.UserId;
 
 
-            _context.Tag.Update(tag);
+            _context.Tags.Update(tag);
             _context.SaveChanges();
 
             return RedirectToAction("Index");
@@ -78,13 +78,13 @@ namespace IkapatigiCapstone.Controllers
                 return RedirectToAction("Index");
             }
 
-            var tag = _context.Tag.Where(i => i.TagID == id).SingleOrDefault();
+            var tag = _context.Tags.Where(i => i.TagId == id).SingleOrDefault();
             if (tag == null)
             {
                 return RedirectToAction("Index");
             }
 
-            _context.Tag.Remove(tag);
+            _context.Tags.Remove(tag);
             _context.SaveChanges();
 
             return RedirectToAction("Index");
