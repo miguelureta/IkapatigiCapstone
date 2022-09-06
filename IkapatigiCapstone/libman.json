@@ -2,9 +2,11 @@
   "version": "1.0",
   "defaultProvider": "unpkg",
   "libraries": [
+
     {
+      "provider": "unpkg",
       "library": "font-awesome@4.7.0",
-      "destination": "wwwroot/font-awesome/"
+      "destination": "wwwroot/lib/font-awesome/"
     }
   ]
 }
