@@ -34,7 +34,7 @@ namespace IkapatigiCapstone.Controllers
                 UserId = record.UserId
             };
 
-            _context.Tag.Add(tag);  
+            _context.Tags.Add(tag);  
             _context.SaveChanges();
 
             return RedirectToAction("Index");
