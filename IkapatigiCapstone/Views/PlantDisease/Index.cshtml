@@ -1,0 +1,74 @@
+﻿@model IEnumerable<IkapatigiCapstone.Models.PlantDisease>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table id="records" class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.DiseaseName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ImageOfDisease)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CureId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Tag)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.DiseaseName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ImageOfDisease)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CureId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Tag.TagId)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.PlantDiseaseId">
+                    <i class="fa fa-pencil" style="color:blue"></i>
+                </a> 
+         
+                 <a asp-action="Delete" asp-route-id="@item.PlantDiseaseId"
+                   onclick='return confirm("Are you sure?");'>
+                    <i class="fa fa-trash" style="color:red"></i>
+                </a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+@section Scripts{
+    <script src="~/lib/datatables/js/jquery.dataTables.js"></script>
+    <script src="~/lib/datatables/js/dataTables.bootstrap4.js"></script>
+    <script> 
+        $(document).ready(function () {
+            $('#records').DataTable();
+        });
+    </script>
+}
