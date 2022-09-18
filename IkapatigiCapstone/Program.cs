@@ -1,6 +1,21 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+})
+    .AddCookie(options =>
+    {
+        options.LoginPath = "/account/google-login";
+    })
+    .AddGoogle(options =>
+    {
+        options.ClientId = "595742388124-ilit7pfdflmjr4os8uah31e5k74ijqfo.apps.googleusercontent.com";
+        options.ClientSecret = "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";
+    });
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
@@ -18,6 +33,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
