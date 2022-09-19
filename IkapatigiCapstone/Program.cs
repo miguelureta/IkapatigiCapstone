@@ -4,9 +4,11 @@ using IkapatigiCapstone.Models;
 using IkapatigiCapstone.Data;
 var builder = WebApplication.CreateBuilder(args);
 
-
+// Add services to the container.
+var connectionString = builder.Configuration.GetConnectionString("MyConnection");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
+
 
 builder.Services.AddDefaultIdentity<ApplicationUser>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
@@ -33,8 +35,16 @@ app.UseAuthentication();;
 
 app.UseAuthorization();
 
-app.MapControllerRoute(
+
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllerRoute(
+
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+    endpoints.MapRazorPages();
+});
+
+   
 
 app.Run();
