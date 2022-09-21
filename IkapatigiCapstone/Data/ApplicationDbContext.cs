@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using IkapatigiCapstone.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace IkapatigiCapstone.Data
 {
-    public partial class ApplicationDbContext : DbContext
+    public partial class ApplicationDbContext : IdentityDbContext<Application>
     {
         public ApplicationDbContext()
         {
