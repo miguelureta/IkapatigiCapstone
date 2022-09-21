@@ -1,8 +1,14 @@
+using IkapatigiCapstone.Data;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-
+builder.Services.AddControllers();
+var connectionString = builder.Configuration.GetConnectionString("MyConnection");
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseSqlServer(connectionString)); 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
