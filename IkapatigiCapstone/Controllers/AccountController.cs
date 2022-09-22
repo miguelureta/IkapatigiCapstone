@@ -28,8 +28,13 @@ namespace IkapatigiCapstone.Controllers
                     claim.Type,
                     claim.Value,
                 });
-            return Json(claims);
+            // originally return Json(claims);
+            return RedirectToAction("RedirectToLanding",claims);
         }
 
+        public IActionResult RedirectToLanding()
+        {
+            return RedirectToAction("Privacy","Home");
+        }
     }
 }
