@@ -1,4 +1,6 @@
 using IkapatigiCapstone.Data;
+using IkapatigiCapstone.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,8 +9,16 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddControllers();
 var connectionString = builder.Configuration.GetConnectionString("MyConnection");
+
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(connectionString)); 
+    options.UseSqlServer(connectionString));
+
+//UserManager thing
+/*builder.Services.AddIdentityCore<Users>(
+    option => option.SignIn.RequireConfirmedAccount = true)
+    .AddRoles<IdentityRole<Users>>()
+    .AddEntityFrameworkStores<ApplicationDbContext>();
+*/
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

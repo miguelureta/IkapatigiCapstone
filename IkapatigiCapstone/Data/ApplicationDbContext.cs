@@ -10,11 +10,13 @@ namespace IkapatigiCapstone.Data
     {
         public ApplicationDbContext()
         {
+
         }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
+
         }
 
         public virtual DbSet<AddRequestDiagnostic> AddRequestDiagnostics { get; set; } = null!;
@@ -24,7 +26,7 @@ namespace IkapatigiCapstone.Data
         public virtual DbSet<PlantDiseasesNoCure> PlantDiseasesNoCures { get; set; } = null!;
         public virtual DbSet<Status> Statuses { get; set; } = null!;
         public virtual DbSet<Tag> Tags { get; set; } = null!;
-        public virtual DbSet<User> Users { get; set; } = null!;
+        public virtual DbSet<Users> Users { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -187,7 +189,7 @@ namespace IkapatigiCapstone.Data
                 entity.Property(e => e.UserId).HasColumnName("UserID");
             });
 
-            modelBuilder.Entity<User>(entity =>
+            modelBuilder.Entity<Users>(entity =>
             {
                 entity.Property(e => e.UserId).HasColumnName("UserID");
 
