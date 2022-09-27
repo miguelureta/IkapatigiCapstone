@@ -23,6 +23,16 @@ namespace IkapatigiCapstone.Controllers
             return View(await _context.Users.ToListAsync());
         }
 
+        public async Task<IActionResult> Detail(int? id)
+        {
+            if(id == null)
+            {
+                return NotFound();
+            }
+            var user = await _context.Users.FirstOrDefaultAsync();
+            return View();
+        }
+
         public IActionResult LoadMembers()
         {
             return View();
@@ -49,7 +59,7 @@ namespace IkapatigiCapstone.Controllers
                 newUser.RoleId = model.RoleId;
                 //1 for DiagnosticMod, 2 for HowTosMod, 3 for ForumMod
 
-                await _userManager.CreateAsync(newUser, model.Password);
+                //await _userManager.CreateAsync(newUser, model.Password);
 
                 return RedirectToAction("Index", "HeadAdmin");
             }

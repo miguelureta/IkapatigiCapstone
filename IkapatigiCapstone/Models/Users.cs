@@ -7,7 +7,7 @@ namespace IkapatigiCapstone.Models
 {
     public partial class Users
     {
-        //[Key]
+        [Key]
         public int UserId { get; set; }
 
         //[DisplayName("User Name")]
