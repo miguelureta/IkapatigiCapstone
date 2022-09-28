@@ -11,10 +11,10 @@ namespace IkapatigiCapstone.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<Users> _userManager;
-        public HeadAdminController(ApplicationDbContext context, UserManager<Users> userManager)
+        public HeadAdminController(ApplicationDbContext context/*, UserManager<Users> userManager*/)
         {
             _context = context;
-            _userManager = userManager;
+            //_userManager = userManager;
         }
 
         //GET: Users 

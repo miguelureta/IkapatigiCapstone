@@ -14,11 +14,9 @@ builder.Services.AddControllers();
 
 
 //UserManager thing
-/*builder.Services.AddIdentityCore<Users>(
-    option => option.SignIn.RequireConfirmedAccount = true)
-    .AddRoles<IdentityRole<Users>>()
-    .AddEntityFrameworkStores<ApplicationDbContext>();
-*/
+builder.Services.AddIdentity<Users, IdentityRole>()
+    .AddEntityFrameworkStores<ApplicationDbContext>(); ;
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
