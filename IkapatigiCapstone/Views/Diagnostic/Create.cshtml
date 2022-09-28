@@ -10,13 +10,13 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form enctype="multipart/form-data" asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
+            @*<div class="form-group">
                 <label asp-for="PictureCollectionFromId" class="control-label"></label>
                 <input asp-for="PictureCollectionFromId" class="form-control" />
                 <span asp-validation-for="PictureCollectionFromId" class="text-danger"></span>
-            </div>
+            </div>*@
             <div class="form-group">
                 <label asp-for="CureId" class="control-label"></label>
                 <select asp-for="CureId" class ="form-control" asp-items="ViewBag.CureId"></select>
@@ -34,6 +34,16 @@
                 <select asp-for="PlantDiseaseId" class ="form-control" asp-items="ViewBag.PlantDiseaseId"></select>
             </div>
             <div class="form-group">
+                <label asp-for="DisplayImage" class="control-label"></label>
+                <div class="custom-file">
+                    <input asp-for="DisplayImage" class="custom-file-input" id="DisImage"
+                    onchange="document.getElementById('DisplayImgPrv').src = window.URL.createObjectURL(this.files[0])">
+                    <label class="custom-file-label" for="DisImage">Choose Display Image</label>
+                </div>
+                <span asp-validation-for="DisplayImage" class="text-danger"></span>
+                <img id="DisplayImgPrv" src="" alt="displayimg" width="150" height="150" style="border:1px;margin-top:20px;margin-left:120px;" />
+            </div>
+            <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
@@ -46,4 +56,10 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+<script type="text/javascript">
+$(".custom-file-input").on("change"function() {
+    var fileName = $(this).val().split("\\").pop();
+    $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+});
+</script>
 }

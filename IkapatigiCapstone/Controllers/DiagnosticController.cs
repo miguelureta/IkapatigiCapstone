@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using IkapatigiCapstone.Models;
 using IkapatigiCapstone.Data;
-
+using System.IO;
 namespace IkapatigiCapstone.Controllers
 {
     public class DiagnosticController : Controller
@@ -19,10 +19,11 @@ namespace IkapatigiCapstone.Controllers
             return View(list);
         }
 
-
+        [HttpGet]
         public IActionResult Create()
         {
-            return View();
+            Diagnostic diagInput = new Diagnostic();
+            return View(diagInput);
         }
 
 
