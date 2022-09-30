@@ -37,16 +37,16 @@
                 @Html.DisplayFor(modelItem => item.PictureCollectionFromId)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Cure.CureId)
+                @Html.DisplayFor(modelItem => item.Cure.CureName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.PlantDisease.PlantDiseaseId)
+                @Html.DisplayFor(modelItem => item.PlantDisease.DiseaseName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Status.StatusId)
+                @Html.DisplayFor(modelItem => item.Status.StatusType)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Tag.TagId)
+                @Html.DisplayFor(modelItem => item.Tag.TagName)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.DiagnosticsId">
