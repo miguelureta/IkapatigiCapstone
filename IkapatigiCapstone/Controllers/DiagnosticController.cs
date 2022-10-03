@@ -4,6 +4,7 @@ using IkapatigiCapstone.Data;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Dynamic;
 
 namespace IkapatigiCapstone.Controllers
 {
@@ -17,20 +18,47 @@ namespace IkapatigiCapstone.Controllers
             _context = context;
             this.webHostEnvironment = webHost;
         }
+        public IEnumerable<Cure> GetCure { get; set; }
+        public IEnumerable<Status> GetStatus { get; set; }
+        public IEnumerable<Tag> GetTag { get; set; }
+        public IEnumerable<PlantDisease> GetDisease { get; set; }
 
+       
         public IActionResult Index()
         {
-            var list = _context.Diagnostics.ToList();
-            return View(list);
+            var dvm = new DiagnosticViewModel();
+            //List<DiagnosticViewModel> list = new List<DiagnosticViewModel>();
+            //var diag = _context.Diagnostics.Include(a => a.CureId).ThenInclude<Tag => Diagnostic.Tag>;
+            //var diag = _context.Diagnostics.ToList();
+            //foreach(var Diagnostic in diag)
+            //{
+            //Diagnostic d = new Diagnostic();
+            //DiagnosticViewModel dvm = new DiagnosticViewModel();
+            //var diagCureItem = _context.Cures.Where(x => x.CureId == d.CureId);
+            //var diagDiseaseItem = _context.PlantDiseases.Where(x => x.PlantDiseaseId == d.PlantDiseaseId);
+            //var diagStatusItem = _context.Statuses.Where(x => x.StatusId == d.StatusId);
+            //var diagTagItem = _context.Tags.Where(x => x.TagId == d.TagId);
+            dvm.CureList = _context.Cures.ToList();
+            dvm.DiseaseList = _context.PlantDiseases.ToList();
+            dvm.StatusList = _context.Statuses.ToList();
+            dvm.TagsList = _context.Tags.ToList();
+            dvm.Diagnostic = _context.Diagnostics.ToList();
+            //dvm.CureList = diagCureItem;
+            //dvm.DiseaseList = diagDiseaseItem;
+            //dvm.StatusList = diagStatusItem;
+            //dvm.TagsList = diagTagItem;
+            //    list.Add(dvm);
+            //}
+            return View(dvm);
         }
 
         [HttpGet]
         public IActionResult Create()
         {
-            ViewBag.CureId = GetCure();
-            ViewBag.TagId = GetTag();
-            ViewBag.StatusId = GetStatus();
-            ViewBag.PlantDiseaseId = GetPlantDiseases();
+            ViewBag.CureId = GetCureList();
+            ViewBag.TagId = GetTagList();
+            ViewBag.StatusId = GetStatusList();
+            ViewBag.PlantDiseaseId = GetPlantDiseasesList();
             Diagnostic diagInput = new Diagnostic();
             return View(diagInput);
         }
@@ -127,7 +155,7 @@ namespace IkapatigiCapstone.Controllers
             return uniqueImageName;
         }
 
-        private List<SelectListItem> GetTag()
+        private List<SelectListItem> GetTagList()
         {
             var lstTags = new List<SelectListItem>();
             lstTags = _context.Tags.Select(ct => new SelectListItem()
@@ -147,7 +175,7 @@ namespace IkapatigiCapstone.Controllers
             return lstTags;
         }
 
-        private List<SelectListItem> GetCure()
+        private List<SelectListItem> GetCureList()
         {
             var lstCures = new List<SelectListItem>();
             lstCures = _context.Cures.Select(ct => new SelectListItem()
@@ -167,7 +195,7 @@ namespace IkapatigiCapstone.Controllers
             return lstCures;
         }
 
-        private List<SelectListItem> GetStatus()
+        private List<SelectListItem> GetStatusList()
         {
             var lstStatus = new List<SelectListItem>();
             lstStatus = _context.Statuses.Select(ct => new SelectListItem()
@@ -187,7 +215,7 @@ namespace IkapatigiCapstone.Controllers
             return lstStatus;
         }
 
-        private List<SelectListItem> GetPlantDiseases()
+        private List<SelectListItem> GetPlantDiseasesList()
         {
             var lstPlantDiseases = new List<SelectListItem>();
             lstPlantDiseases = _context.PlantDiseases.Select(ct => new SelectListItem()

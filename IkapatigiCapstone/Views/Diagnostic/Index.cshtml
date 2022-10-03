@@ -1,10 +1,10 @@
-﻿@model IEnumerable<IkapatigiCapstone.Models.Diagnostic>
+﻿@model IkapatigiCapstone.Models.DiagnosticViewModel;
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Diagnostic Record";
 }
 
-<h1>Index</h1>
+<h1>Diagnostic Record</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -12,40 +12,46 @@
 <table id="records" class="table">
     <thead>
         <tr>
-            <th>
+            @*<th>
                 @Html.DisplayNameFor(model => model.PictureCollectionFromId)
+            </th>*@
+            
+            <th>
+                @Html.DisplayNameFor(model => model.CureList)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Cure)
+                @Html.DisplayNameFor(model => model.DiseaseList)   
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.PlantDisease)
+                @Html.DisplayNameFor(model => model.StatusList)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Status)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Tag)
+                @Html.DisplayNameFor(model => model.TagsList)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
+        @foreach (var item in Model.Diagnostic){
+            int i = 0;
+            <tr>
+            @*<td>
                 @Html.DisplayFor(modelItem => item.PictureCollectionFromId)
-            </td>
+            </td>*@
             <td>
+                @*@Html.DisplayFor(modelItem => item.CureList.Where(x => x.CureId == item.Diagnostic.CureId))*@
                 @Html.DisplayFor(modelItem => item.Cure.CureName)
             </td>
             <td>
+                @*@Html.DisplayFor(modelItem => item.DiseaseList.Where(x => x.PlantDiseaseId == item.Diagnostic.PlantDiseaseId))*@
                 @Html.DisplayFor(modelItem => item.PlantDisease.DiseaseName)
             </td>
             <td>
+                @*@Html.DisplayFor(modelItem => item.StatusList.Where(x => x.StatusId == item.Diagnostic.StatusId))*@
                 @Html.DisplayFor(modelItem => item.Status.StatusType)
             </td>
             <td>
+                @*@Html.DisplayFor(modelItem => item.TagsList.Where(x => x.TagId == item.Diagnostic.TagId))*@
                 @Html.DisplayFor(modelItem => item.Tag.TagName)
             </td>
             <td>
@@ -59,6 +65,7 @@
                 </a>
             </td>
         </tr>
+        i++;
 }
     </tbody>
 </table>

@@ -19,7 +19,8 @@ namespace IkapatigiCapstone.Data
 
         public virtual DbSet<AddRequestDiagnostic> AddRequestDiagnostics { get; set; } = null!;
         public virtual DbSet<Cure> Cures { get; set; } = null!;
-        public virtual DbSet<Diagnostic> Diagnostics { get; set; } = null!;
+        //Removed Diagnostics "=null!"
+        public virtual DbSet<Diagnostic> Diagnostics { get; set; }
         public virtual DbSet<PlantDisease> PlantDiseases { get; set; } = null!;
         public virtual DbSet<PlantDiseasesNoCure> PlantDiseasesNoCures { get; set; } = null!;
         public virtual DbSet<Status> Statuses { get; set; } = null!;
