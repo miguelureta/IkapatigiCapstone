@@ -63,7 +63,6 @@ namespace IkapatigiCapstone.Controllers
             return View(diagInput);
         }
 
-
         [HttpPost]
         public IActionResult Create(Diagnostic record)
         {
