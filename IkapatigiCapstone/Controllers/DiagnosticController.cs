@@ -20,14 +20,14 @@ namespace IkapatigiCapstone.Controllers
         }
 
 
-        public IActionResult Create()
+        public IActionResult CreateHowTo()
         {
             return View();
         }
 
 
         [HttpPost]
-        public IActionResult Create(Diagnostic record)
+        public IActionResult CreateHowTo(Diagnostic record)
         {
             var diagnostic = new Diagnostic()
             {
