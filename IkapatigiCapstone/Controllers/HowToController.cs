@@ -13,6 +13,7 @@ namespace IkapatigiCapstone.Controllers
             _context = context;
         }
 
+
         public IActionResult Index()
         {
             var list = _context.HowTos.ToList();
@@ -37,6 +38,7 @@ namespace IkapatigiCapstone.Controllers
             howto.StatusID = record.StatusID;
             howto.PictureCollectionFromID = record.PictureCollectionFromID;
             howto.DateCreated = DateTime.Now;
+            howto.ArticleBody = record.ArticleBody;
 
 
             _context.HowTos.Add(howto);
@@ -77,6 +79,7 @@ namespace IkapatigiCapstone.Controllers
             howto.StatusID = record.StatusID;
             howto.PictureCollectionFromID = record.PictureCollectionFromID;
             howto.DateUpdated = DateTime.Now;
+            howto.ArticleBody = record.ArticleBody;
 
 
             _context.HowTos.Update(howto);
@@ -105,5 +108,22 @@ namespace IkapatigiCapstone.Controllers
 
             return RedirectToAction("Index");
         }
+
+
+        //This is Add Details in the Index page, just fixed.
+
+        
+
+
+        //Previous WRONG details page>>>
+        public IActionResult Article()
+        {
+            var list = _context.HowTos.ToList();
+            return View(list);
+        }
+
+
+        //
+
     }
 }

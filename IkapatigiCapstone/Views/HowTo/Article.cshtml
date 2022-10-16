@@ -1,16 +1,14 @@
 ﻿@model IEnumerable<IkapatigiCapstone.Models.HowTo>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Article";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
+<h1>Article</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table id="records" class="table">
+
+<table class="table">
     <thead>
         <tr>
             <th>
@@ -85,27 +83,8 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Status.StatusId)
             </td>
-             <td>
-                <a asp-action="Edit" asp-route-id="@item.HowTosID">
-                    <i class="fa fa-pencil" style="color:blue"></i>
-                </a> |
-                <a asp-action="Article" asp-route-id="@item.HowTosID">Details</a> |
-                 <a asp-action="Delete" asp-route-id="@item.HowTosID"
-                   onclick='return confirm("Are you sure?");'>
-                    <i class="fa fa-trash" style="color:red"></i>
-                </a>
-            </td>
+            
         </tr>
 }
     </tbody>
 </table>
-
-@section Scripts{
-    <script src="~/lib/datatables/js/jquery.dataTables.js"></script>
-    <script src="~/lib/datatables/js/dataTables.bootstrap4.js"></script>
-    <script> 
-        $(document).ready(function () {
-            $('#records').DataTable();
-        });
-    </script>
-}

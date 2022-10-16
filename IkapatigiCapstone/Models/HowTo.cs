@@ -37,7 +37,9 @@ namespace IkapatigiCapstone.Models
 
         public DateTime? DateUpdated { get; set; }
 
-
+        [DataType(DataType.MultilineText)]
+        //Make sure to put the limits of the database here. Article Body is only 5,000 words.
+        public string? ArticleBody { get; set; }
         public virtual Status Status { get; set; } = null!;
     }
 
