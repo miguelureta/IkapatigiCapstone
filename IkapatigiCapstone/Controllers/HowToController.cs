@@ -112,15 +112,26 @@ namespace IkapatigiCapstone.Controllers
 
         //This is Add Details in the Index page, just fixed.
 
-        
-
+        public ActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return RedirectToAction("Index");
+            }
+            HowTo howto = _context.HowTos.Find(id);
+            if (howto == null)
+            {
+                return RedirectToAction("Index");
+            }
+            return View(howto);
+        }
 
         //Previous WRONG details page>>>
-        public IActionResult Article()
-        {
-            var list = _context.HowTos.ToList();
-            return View(list);
-        }
+        //public IActionResult Article()
+        //{
+        //    var list = _context.HowTos.ToList();
+        //    return View(list);
+        //}
 
 
         //
