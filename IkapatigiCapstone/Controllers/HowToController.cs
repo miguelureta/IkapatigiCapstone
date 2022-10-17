@@ -66,7 +66,6 @@ namespace IkapatigiCapstone.Controllers
 
 
         [HttpPost]
-
         public IActionResult Edit(int? id, HowTo record)
         {
             var howto = _context.HowTos.Where(i => i.HowTosID == id).SingleOrDefault();
@@ -112,7 +111,20 @@ namespace IkapatigiCapstone.Controllers
 
         //This is Add Details in the Index page, just fixed.
 
-        
+        public ActionResult Details(int? id)
+        {
+            HowTo page = new HowTo();
+            if(id==null)
+            {
+                return RedirectToAction("Index");
+            }
+            page = _context.HowTos.Find();
+            if(page == null)
+            {
+                return RedirectToAction("Index");
+            }
+            return View(page);
+        }
 
 
         //Previous WRONG details page>>>
