@@ -25,9 +25,11 @@ namespace IkapatigiCapstone.Models
 
         public int? DislikeCount { get; set; }
 
-        public Availability IsPublic { get; set; }
+        public Availability? IsPublic { get; set; }
 
         public int? UserID { get; set; }
+
+       // public StatusChange? StatusID { get; set; }
 
         public int? StatusID { get; set; }
 
@@ -50,5 +52,13 @@ namespace IkapatigiCapstone.Models
         IsPublic = 2
         
     }
+
+    //public enum StatusChange
+    //{
+    //    MembersOnly = 1,
+    //    IsPublic = 2
+
+    //}
+
 }
 

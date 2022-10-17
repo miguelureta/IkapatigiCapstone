@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using IkapatigiCapstone.Data;
 using IkapatigiCapstone.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace IkapatigiCapstone.Controllers
 {
@@ -13,6 +14,7 @@ namespace IkapatigiCapstone.Controllers
             _context = context;
         }
 
+        public IEnumerable<Status> GetStatus { get; set; }
 
         public IActionResult Index()
         {
@@ -127,7 +129,7 @@ namespace IkapatigiCapstone.Controllers
         }
 
 
-        //This is Banned in the Index Page.
+        //This is Banned in the Index Page. -- Currently can't change the StatusID
 
         public IActionResult Banned(int? id)
         {
@@ -161,6 +163,27 @@ namespace IkapatigiCapstone.Controllers
             return RedirectToAction("Index");
 
 
+        }
+
+
+        //Get Foreign Key Status
+
+        private List<SelectListItem> GetStatusList()
+        {
+            var lstStatus = new List<SelectListItem>();
+            lstStatus = _context.Statuses.Select(ct => new SelectListItem()
+            {
+                ValueTask = ct.StatusId.ToString(),
+                TextReader = ct.StatusType
+            }).ToList();
+
+            var dmyItem = new SelectListItem()
+            {
+                Value = null;
+                Text = "Select Status"
+            };
+
+            return lstStatus;
         }
 
     }
