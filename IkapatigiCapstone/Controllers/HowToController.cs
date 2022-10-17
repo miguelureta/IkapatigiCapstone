@@ -110,7 +110,7 @@ namespace IkapatigiCapstone.Controllers
         }
 
 
-        //This is Add Details in the Index page, just fixed.
+        //This is Add Details in the Index page.
 
         public ActionResult Details(int? id)
         {
@@ -126,15 +126,42 @@ namespace IkapatigiCapstone.Controllers
             return View(howto);
         }
 
-        //Previous WRONG details page>>>
-        //public IActionResult Article()
-        //{
-        //    var list = _context.HowTos.ToList();
-        //    return View(list);
-        //}
+
+        //This is Banned in the Index Page.
+
+        public IActionResult Banned(int? id)
+        {
+            if (id == null)
+            {
+                return RedirectToAction("Index");
+            }
+
+            var howto = _context.HowTos.Where(i => i.HowTosID == id).SingleOrDefault();
+            if (howto == null)
+            {
+                return RedirectToAction("Index");
+            }
+
+            return View(howto);
+        }
 
 
-        //
+        [HttpPost]
+
+        public IActionResult Banned(int? id, HowTo record)
+        {
+            var howto = _context.HowTos.Where(i => i.HowTosID == id).SingleOrDefault();
+            howto.StatusID = record.StatusID;
+            
+
+
+            _context.HowTos.Update(howto);
+            _context.SaveChanges();
+
+            return RedirectToAction("Index");
+
+
+        }
 
     }
 }
