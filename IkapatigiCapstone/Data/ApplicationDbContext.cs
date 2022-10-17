@@ -17,8 +17,11 @@ namespace IkapatigiCapstone.Data
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
-
+        
         }
+
+        
+
 
         public virtual DbSet<AddRequestDiagnostic> AddRequestDiagnostics { get; set; } = null!;
         public virtual DbSet<Cure> Cures { get; set; } = null!;
@@ -193,7 +196,7 @@ namespace IkapatigiCapstone.Data
             modelBuilder.Entity<Users>(entity =>
             {
                 entity.Property(e => e.UserId).HasColumnName("UserID");
-
+                
                 entity.Property(e => e.DateCreated).HasColumnType("datetime");
 
                 entity.Property(e => e.DateUpdated).HasColumnType("datetime");
@@ -232,7 +235,7 @@ namespace IkapatigiCapstone.Data
                     .HasMaxLength(25)
                     .IsUnicode(false);
             });
-
+            base.OnModelCreating(modelBuilder);
             OnModelCreatingPartial(modelBuilder);
         }
 

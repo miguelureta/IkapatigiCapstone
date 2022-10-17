@@ -16,9 +16,14 @@ builder.Services.AddControllers();
 //UserManager thing
 builder.Services.AddIdentity<Users, IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>(); ;
+builder.Services.AddMemoryCache();
 
 var app = builder.Build();
 
+if (args.Length == 1 && args[0].ToLower() == "seeddata")
+{
+    await Seed.SeedUsersAndRolesAsync(app);
+}
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
