@@ -8,12 +8,20 @@ namespace IkapatigiCapstone.Controllers
     public class HowToController : Controller
     {
         private readonly ApplicationDbContext _context;
-
+        private readonly IWebHostEnvironment _webHostEnvironment;//This is for the GetStatusList()
         public HowToController(ApplicationDbContext context)
         {
             _context = context;
-        }
 
+        }
+        /* Uncomment this Controller constructor and comment the above constructor to
+         * work with GetStatusList()
+        public HowToController(ApplicationDbContext context, IWebHostEnvironment webHost)
+        {
+            _context = context;
+            this.webHostEnvironment = webHost;
+        }
+        */
         public IEnumerable<Status> GetStatus { get; set; }
 
         public IActionResult Index()
@@ -68,7 +76,6 @@ namespace IkapatigiCapstone.Controllers
 
 
         [HttpPost]
-
         public IActionResult Edit(int? id, HowTo record)
         {
             var howto = _context.HowTos.Where(i => i.HowTosID == id).SingleOrDefault();
@@ -131,6 +138,7 @@ namespace IkapatigiCapstone.Controllers
 
         //This is Banned in the Index Page. -- Currently can't change the StatusID
 
+        /*COMMENTING THIS OUT SO YOU STILL HAVE YOUR CODE
         public IActionResult Banned(int? id)
         {
             if (id == null)
@@ -164,25 +172,64 @@ namespace IkapatigiCapstone.Controllers
 
 
         }
+        */
+        //MICO'S ATTEMPT TO EDIT STATUS START
+        [HttpGet]
+        public IActionResult Banned(int id)
+        {
+            var howto = _context.HowTos.Where(i => i.HowTosID == id).SingleOrDefault();
+            if (howto == null)
+            {
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                //Make Banned ViewPage with just the dropdownlist
+                //to change the Status of the selected article
+                ViewBag.StatusId = GetStatusList(id);
+            }
+            
 
+            return View(howto);
+        }
 
+        [HttpPost]
+        public IActionResult Banned(int? id, HowTo article)
+        {
+            var howto = _context.HowTos.Where(i => i.StatusID == article.StatusID).SingleOrDefault();
+            UpdateHowToStatusModel mod = new UpdateHowToStatusModel();
+            if(howto != null)
+            {
+                howto.StatusID = model.StatusId;
+                howto.Status = model.StatusType;
+            }
+
+            _context.HowTos.Update(howto);
+            _context.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
+        //MICO'S ATTEMPT TO EDIT STATUS END
         //Get Foreign Key Status
 
-        private List<SelectListItem> GetStatusList()
+        //Should assign currect status of article and other selectable statuses from database
+        //Needs constructor with iwebhostenvironment to work
+        private List<SelectListItem> GetStatusList(int id)
         {
             var lstStatus = new List<SelectListItem>();
             lstStatus = _context.Statuses.Select(ct => new SelectListItem()
             {
-                ValueTask = ct.StatusId.ToString(),
-                TextReader = ct.StatusType
+                Value = ct.StatusId.ToString(),
+                Text = ct.StatusType
             }).ToList();
-
-            var dmyItem = new SelectListItem()
+            var article = _context.HowTos.Where( s => s.HowTosID == id).ToString()
+            var listItem = new SelectListItem()
             {
-                Value = null;
-                Text = "Select Status"
+                
+                Value = ,
+                Text = 
             };
-
+            lstStatus.Insert(0, listItem);
             return lstStatus;
         }
 
