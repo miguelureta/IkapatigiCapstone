@@ -168,23 +168,23 @@ namespace IkapatigiCapstone.Controllers
 
         //Get Foreign Key Status
 
-        private List<SelectListItem> GetStatusList()
-        {
-            var lstStatus = new List<SelectListItem>();
-            lstStatus = _context.Statuses.Select(ct => new SelectListItem()
-            {
-                ValueTask = ct.StatusId.ToString(),
-                TextReader = ct.StatusType
-            }).ToList();
+        //private List<SelectListItem> GetStatusList()
+        //{
+        //    var lstStatus = new List<SelectListItem>();
+        //    lstStatus = _context.Statuses.Select(ct => new SelectListItem()
+        //    {
+        //        ValueTask = ct.StatusId.ToString(),
+        //        TextReader = ct.StatusType
+        //    }).ToList();
 
-            var dmyItem = new SelectListItem()
-            {
-                Value = null;
-                Text = "Select Status"
-            };
+        //    var dmyItem = new SelectListItem()
+        //    {
+        //        Value = null;
+        //        Text = "Select Status"
+        //    };
 
-            return lstStatus;
-        }
+        //    return lstStatus;
+        //}
 
     }
 }
