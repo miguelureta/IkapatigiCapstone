@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using IkapatigiCapstone.Models;
 using Microsoft.AspNetCore.Identity;
-
+using IkapatigiCapstone.Data;
 
 namespace IkapatigiCapstone.Controllers
 {

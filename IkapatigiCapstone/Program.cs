@@ -1,4 +1,4 @@
-using IkapatigiCapstone.Models;
+using IkapatigiCapstone.Data;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 
@@ -21,8 +21,8 @@ builder.Services.AddAuthentication(options =>
     })
     .AddGoogle(options =>
     {
-        options.ClientId = "595742388124-ilit7pfdflmjr4os8uah31e5k74ijqfo.apps.googleusercontent.com";
-        options.ClientSecret = "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";
+        options.ClientId = builder.Configuration["Authentication:Google:ClientId"];
+        options.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"];
     });
 builder.Services.AddControllersWithViews();
 
