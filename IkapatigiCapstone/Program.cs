@@ -8,6 +8,7 @@ var connectionString = builder.Configuration.GetConnectionString("MyConnection")
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 
+//You need to add login stuff here. Especially for the Forum. Remember video 3 of the series I used when making the Forum.
 
 builder.Services.AddControllersWithViews();
 
