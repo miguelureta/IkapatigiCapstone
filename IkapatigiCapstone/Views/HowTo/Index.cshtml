@@ -89,8 +89,12 @@
                 <a asp-action="Edit" asp-route-id="@item.HowTosID">
                     <i class="fa fa-pencil" style="color:blue"></i>
                 </a> |
-                <a asp-action="Details" asp-route-id="@item.HowTosID">Details</a> |
-                <a asp-action="Banned" asp-route-id="@item.HowTosID">Banned</a> |
+                <a asp-action="Details" asp-route-id="@item.HowTosID">
+                    <i class="bi bi-box-arrow-in-right"></i>
+                </a> |
+                <a asp-action="Banned" asp-route-id="@item.HowTosID">
+                    <i class="bi bi-slash-circle"></i>
+                </a> |
                  <a asp-action="Delete" asp-route-id="@item.HowTosID"
                    onclick='return confirm("Are you sure?");'>
                     <i class="fa fa-trash" style="color:red"></i>

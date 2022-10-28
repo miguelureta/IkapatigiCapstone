@@ -4,7 +4,7 @@ namespace IkapatigiCapstone.Models
 {
     public class Forum
     {
-       public int Id { get; set; }
+       public int ForumId { get; set; }
        public string Title { get; set; }
 
        public string Description { get; set; }
