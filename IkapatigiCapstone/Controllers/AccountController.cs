@@ -11,14 +11,14 @@ namespace IkapatigiCapstone.Controllers
     [AllowAnonymous, Route("account")]
     public class AccountController : Controller
     {
-        private readonly UserManager<User> _userManager;
+        //private readonly UserManager<User> _userManager;
         private readonly ApplicationDbContext _context;
-        private readonly SignInManager<User> _signInManager;
-        public AccountController(UserManager<User> userManager, ApplicationDbContext context, SignInManager<User> signInManager)
+        //private readonly SignInManager<User> _signInManager;
+        public AccountController(/*UserManager<User> userManager, */ApplicationDbContext context/*, SignInManager<User> signInManager*/)
         {
             _context = context;
-            _userManager = userManager;
-            _signInManager = signInManager;
+            //_userManager = userManager;
+            //_signInManager = signInManager;
         }
 
         [Route("google-login")]
@@ -34,7 +34,7 @@ namespace IkapatigiCapstone.Controllers
         public async Task<IActionResult> GoogleResponse()
         {
             var result = await HttpContext.AuthenticateAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            User newUser = new User();
+            //User newUser = new User();
             var claims = result.Principal.Identities.FirstOrDefault()
                 .Claims.Select(claim => new
                 {
@@ -43,20 +43,36 @@ namespace IkapatigiCapstone.Controllers
                     claim.Type,
                     claim.Value
                 });
-            newUser.Email = result.Principal.Identities.FirstOrDefault()
-                .Claims.Select(claim => new
-            {
-                claim.Value
-            }).ToString();
+            //newUser.Email = result.Principal.Identities.FirstOrDefault()
+            //    .Claims.Select(claim => new
+            //{
+            //    claim.Value
+            //}).ToString();
 
             //await userManager.CreateAsync(newUser, );
-            // originally return Json(claims);
-            return RedirectToAction("RedirectToLanding",claims);
+            /*originally*/ return Json(claims);
+            //return RedirectToAction("RedirectToLanding",claims);
+        }
+
+        public IActionResult Register()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult Register(User u)
+        {
+            var user = new User();
+            user.Email = u.Email;
+            user.Password = u.Password;
+            _context.Users.Add(user);
+            _context.SaveChanges();
+
+            return RedirectToAction("Index");
         }
 
         public IActionResult RedirectToLanding()
         {
-            return RedirectToAction("Privacy","Home");
+            return RedirectToAction("Index","Home");
         }
     }
 }

@@ -30,7 +30,12 @@ namespace IkapatigiCapstone.Data
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Server=DESKTOP-KJFVQAM\\MSSQLSERVER2;Database=FloraDB;UID=sa;PWD=benilde;MultipleActiveResultSets=true;");
+                //optionsBuilder.UseSqlServer("Server=DESKTOP-KJFVQAM\\MSSQLSERVER2;Database=FloraDB;UID=sa;PWD=benilde;MultipleActiveResultSets=true;");
+                IConfigurationRoot configuration = new ConfigurationBuilder()
+                    .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
+                    .AddJsonFile("appsettings.json")
+                    .Build();
+                optionsBuilder.UseSqlServer(configuration.GetConnectionString("MyConnection"));
             }
         }
 
