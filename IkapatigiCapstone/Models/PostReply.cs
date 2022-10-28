@@ -8,7 +8,7 @@
         public DateTime Created { get; set; }
 
 
-
+        v
         public virtual User User { get; set; }
         public virtual Post Post { get; set; }
     }
