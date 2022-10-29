@@ -8,7 +8,7 @@
 <h1>Index</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Create New<i class="fa fa-plus-circle" aria-hidden="true"></i></a>
 </p>
 <table id="records" class="table">
     <thead>
@@ -88,13 +88,16 @@
              <td>
                 <a asp-action="Edit" asp-route-id="@item.HowTosID">
                     <i class="fa fa-pencil" style="color:blue"></i>
-                </a> |
+                </a> 
                 <a asp-action="Details" asp-route-id="@item.HowTosID">
-                    <i class="bi bi-box-arrow-in-right" style="color: green"></i>
-                </a> |
+                   <i class="fa fa-info-circle" aria-hidden="true" style="color: green"></i>
+              @*     <i class="fa-solid fa-arrow-right-to-arc" ></i> UPDATE FontAwesome if you want to use the other icons.*@
+                    
+                </a> 
                 <a asp-action="Banned" asp-route-id="@item.HowTosID">
-                    <i class="bi bi-slash-circle" style="color:red"></i>
-                </a> |
+                   <i class="fa fa-ban" aria-hidden="true"  style="color:red"></i>
+                   
+                </a> 
                  <a asp-action="Delete" asp-route-id="@item.HowTosID"
                    onclick='return confirm("Are you sure?");'>
                     <i class="fa fa-trash" style="color:red"></i>
