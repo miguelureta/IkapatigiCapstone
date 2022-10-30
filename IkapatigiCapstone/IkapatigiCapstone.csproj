@@ -7,6 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="EasyAbp.Forum.Application" Version="0.3.0" />
+    <PackageReference Include="EasyAbp.Forum.Application.Contracts" Version="0.3.0" />
+    <PackageReference Include="EasyAbp.Forum.Domain" Version="0.3.0" />
+    <PackageReference Include="EasyAbp.Forum.Domain.Shared" Version="0.3.0" />
+    <PackageReference Include="EasyAbp.Forum.EntityFrameworkCore" Version="0.3.0" />
+    <PackageReference Include="EasyAbp.Forum.HttpApi" Version="0.3.0" />
+    <PackageReference Include="EasyAbp.Forum.HttpApi.Client" Version="0.3.0" />
+    <PackageReference Include="EasyAbp.Forum.Web" Version="0.3.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.10" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.10" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.10">
