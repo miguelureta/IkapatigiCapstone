@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 using IkapatigiCapstone.Models;
 using Microsoft.AspNetCore.Identity;
 using IkapatigiCapstone.Data;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace IkapatigiCapstone.Controllers
 {
@@ -71,6 +73,24 @@ namespace IkapatigiCapstone.Controllers
             return RedirectToAction("Index");
         }
 
+        //Code for hashing password
+        private string hashPassword(string pw)
+        {
+            var sha = SHA256.Create();
+            var asByteArray = Encoding.Default.GetBytes(pw);
+            var hash = sha.ComputeHash(asByteArray);
+            return Convert.ToBase64String(hash);
+        }
+
+        private bool checkPassword(string pw)
+        {
+            string storedpass="";
+            if(pw == hashPassword(storedpass))
+            {
+                return true;
+            }
+            return false;
+        }
         //public IActionResult RedirectToLanding()
         //{
         //    return RedirectToAction("Index","Home");
