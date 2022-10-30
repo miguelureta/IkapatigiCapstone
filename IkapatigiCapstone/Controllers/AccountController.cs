@@ -43,6 +43,7 @@ namespace IkapatigiCapstone.Controllers
                     claim.Type,
                     claim.Value
                 });
+            return Json(claims);
             //newUser.Email = result.Principal.Identities.FirstOrDefault()
             //    .Claims.Select(claim => new
             //{
@@ -50,7 +51,7 @@ namespace IkapatigiCapstone.Controllers
             //}).ToString();
 
             //await userManager.CreateAsync(newUser, );
-            /*originally*/ return Json(claims);
+            /*originally*/ 
             //return RedirectToAction("RedirectToLanding",claims);
         }
 
@@ -70,9 +71,9 @@ namespace IkapatigiCapstone.Controllers
             return RedirectToAction("Index");
         }
 
-        public IActionResult RedirectToLanding()
-        {
-            return RedirectToAction("Index","Home");
-        }
+        //public IActionResult RedirectToLanding()
+        //{
+        //    return RedirectToAction("Index","Home");
+        //}
     }
 }
