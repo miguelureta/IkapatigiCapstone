@@ -11,7 +11,11 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-    .AddEntityFrameworkStores<ApplicationDbContext>();
+    .AddEntityFrameworkStores<ApplicationDbContext>()
+    .AddDefaultTokenProviders();
+
+//There's supposed to be a Services layer mentioned here but the Service layer wasn't made automatically, so I'm not sure what to do.
+
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
