@@ -251,15 +251,15 @@ paket-files/
 .idea/
 *.sln.iml
 
-# IkapatigiCapstone
-src/EasyAbp.IkapatigiCapstone.Web/Logs/*
-src/EasyAbp.IkapatigiCapstone.Web.Host/Logs/*
-src/EasyAbp.IkapatigiCapstone.AuthServer/Logs/*
-src/EasyAbp.IkapatigiCapstone.HttpApi.Host/Logs/*
-src/EasyAbp.IkapatigiCapstone.HttpApi.HostWithIds/Logs/*
-src/EasyAbp.IkapatigiCapstone.DbMigrator/Logs/*
-src/EasyAbp.IkapatigiCapstone.Blazor.Server/Logs/*
-src/EasyAbp.IkapatigiCapstone.Blazor.Server.Tiered/Logs/*
+# BookStore
+src/Acme.BookStore.Web/Logs/*
+src/Acme.BookStore.Web.Host/Logs/*
+src/Acme.BookStore.AuthServer/Logs/*
+src/Acme.BookStore.HttpApi.Host/Logs/*
+src/Acme.BookStore.HttpApi.HostWithIds/Logs/*
+src/Acme.BookStore.DbMigrator/Logs/*
+src/Acme.BookStore.Blazor.Server/Logs/*
+src/Acme.BookStore.Blazor.Server.Tiered/Logs/*
 
 # Use abp install-libs to restore.
 **/wwwroot/libs/*
