@@ -10,7 +10,7 @@
     <link href="~/lib/font-awesome/css/font-awesome.css" rel="stylesheet" />
     <link href="~/lib/datatables/css/dataTables.bootstrap4.css" rel="stylesheet"/>
 </head>
-<body>
+@*<body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
@@ -31,8 +31,49 @@
                 </div>
             </div>
         </nav>
-    </header>
-    <div class="container">
+    </header>*@
+
+<body>
+
+
+    <div class="bg-container">
+
+
+
+        <input type="checkbox" id="check" />
+        <label for="check">
+            <i class="fa-solid fa-bars" id="okbutton"></i>
+            <i class="fa-solid fa-x" id="cancelbutton"></i>
+
+        </label>
+        <div class="SideBar">
+            <h1>IkapaTigi</h1>
+            <ul>
+                <li><a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"> <i class="fa-solid fa-home"></i> Home </a> </li>
+                <li><a class="navbar-brand" asp-area="" asp-controller="Diagnose" asp-action="Index"> <i class="fa-solid fa-stethoscope"></i> Diagnose </a> </li>
+                <li><a class="navbar-brand" asp-area="" asp-controller="Diagnose" asp-action="Index"> <i class="fa-solid fa-book"></i> How To's </a> </li>
+                <li> <a class="navbar-brand" asp-area="" asp-controller="Diagnose" asp-action="Index"> <i class="fa-solid fa-people-group"></i> About Us </a> </li>
+                <li> <a class="navbar-brand" asp-area="" asp-controller="Diagnose" asp-action="Index"> <i class="fa-solid fa-tag"></i> Pricing </a> </li>
+            </ul>
+            <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+            <ul>
+                <li> <a class="navbar-brand" asp-area="" asp-page="/Index">  <i class="fa-solid fa-right-to-bracket"></i> Login </a> </li>
+                <li> <a class="navbar-brand" asp-area="" asp-page="/Index">  <i class="fa-solid fa-file-pen"></i> Register </a> </li>
+
+            </ul>
+
+
+        </div>
+
+        <div class="Logo">
+            <img src="~/BackgroundImages/Logo.png" />
+        </div>
+
+        <br />  <br /> <br />
+
+
+
+        <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
@@ -49,3 +90,30 @@
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
+
+
+@*After this is the prototype for the Layout page.*@
+
+
+
+
+
+
+        <div class="container">
+            <main role="main" class="pb-3">
+                @RenderBody()
+            </main>
+        </div>
+
+
+
+    </div>
+
+
+    <footer class="text-center footer text-muted">
+        <div class="footercontainer">
+            &copy; 2022 - FloraCapstone2nd - <a asp-area="" asp-page="/Privacy">Privacy</a>
+        </div>
+    </footer>
+
+
