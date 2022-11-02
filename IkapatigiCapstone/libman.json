@@ -2,16 +2,20 @@
   "version": "1.0",
   "defaultProvider": "unpkg",
   "libraries": [
-
-    {
-      "provider": "unpkg",
-      "library": "font-awesome@4.7.0",
-      "destination": "wwwroot/lib/font-awesome/"
-    },
     {
       "provider": "cdnjs",
       "library": "datatables@1.10.21",
       "destination": "wwwroot/lib/datatables/"
+    },
+    {
+      "provider": "cdnjs",
+      "library": "font-awesome@6.2.0",
+      "destination": "wwwroot/lib/font-awesome/"
+    },
+    {
+      "provider": "cdnjs",
+      "library": "bootstrap@5.2.2",
+      "destination": "wwwroot/lib/bootstrap/"
     }
   ]
 }
