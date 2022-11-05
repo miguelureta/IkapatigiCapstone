@@ -6,9 +6,9 @@ namespace IkapatigiCapstone.Controllers
 {
     public class PlantDiseaseController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly ApplicationDbContextOut _context;
 
-        public PlantDiseaseController(ApplicationDbContext context)
+        public PlantDiseaseController(ApplicationDbContextOut context)
         {
             _context = context;
         }

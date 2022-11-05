@@ -10,10 +10,10 @@ namespace IkapatigiCapstone.Controllers
 {
     public class DiagnosticController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly ApplicationDbContextOut _context;
         private readonly IWebHostEnvironment webHostEnvironment;
 
-        public DiagnosticController(ApplicationDbContext context, IWebHostEnvironment webHost)
+        public DiagnosticController(ApplicationDbContextOut context, IWebHostEnvironment webHost)
         {
             _context = context;
             this.webHostEnvironment = webHost;
