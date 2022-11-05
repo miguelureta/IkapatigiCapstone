@@ -1,0 +1,73 @@
+﻿@model IkapatigiCapstone.Models.HowTo
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Create</h1>
+
+<h4>HowTo</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Title" class="control-label"></label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <textarea asp-for="Description" class="form-control"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LikeCount" class="control-label"></label>
+                <input asp-for="LikeCount" class="form-control" />
+                <span asp-validation-for="LikeCount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DislikeCount" class="control-label"></label>
+                <input asp-for="DislikeCount" class="form-control" />
+                <span asp-validation-for="DislikeCount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IsPublic" class="control-label"></label>
+                <select asp-for="IsPublic" class="form-control" asp-items="Html.GetEnumSelectList<Availability>()"></select>
+                <span asp-validation-for="IsPublic" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UserID" class="control-label"></label>
+                <input asp-for="UserID" class="form-control" />
+                <span asp-validation-for="UserID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StatusID" class="control-label"></label>
+                <select asp-for="StatusID" class ="form-control" asp-items="ViewBag.StatusID"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="PictureCollectionFromID" class="control-label"></label>
+                <input asp-for="PictureCollectionFromID" class="form-control" />
+                <span asp-validation-for="PictureCollectionFromID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ArticleBody" class="control-label"></label>
+                <input asp-for="ArticleBody" class="form-control" />
+                <span asp-validation-for="ArticleBody" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

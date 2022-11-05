@@ -64,7 +64,7 @@ namespace IkapatigiCapstone.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(Diagnostic record)
+        public IActionResult CreateHowTo(Diagnostic record)
         {
             var diagnostic = new Diagnostic()
             {
