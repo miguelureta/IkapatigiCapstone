@@ -6,9 +6,9 @@ namespace IkapatigiCapstone.Controllers
 {
     public class CureController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly ApplicationDbContextOut _context;
 
-        public CureController(ApplicationDbContext context)
+        public CureController(ApplicationDbContextOut context)
         {
             _context = context;
         }

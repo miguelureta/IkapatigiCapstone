@@ -6,9 +6,9 @@ namespace IkapatigiCapstone.Controllers
 {
     public class HowToController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly ApplicationDbContextOut _context;
 
-        public HowToController(ApplicationDbContext context)
+        public HowToController(ApplicationDbContextOut context)
         {
             _context = context;
         }

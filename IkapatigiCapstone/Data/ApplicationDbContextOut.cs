@@ -6,13 +6,13 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace IkapatigiCapstone.Data
 {
-    public partial class ApplicationDbContext : DbContext
+    public partial class ApplicationDbContextOut : DbContext
     {
-        public ApplicationDbContext()
+        public ApplicationDbContextOut()
         {
         }
 
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+        public ApplicationDbContextOut(DbContextOptions<ApplicationDbContextOut> options)
             : base(options)
         {
         }

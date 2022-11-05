@@ -6,9 +6,9 @@ namespace IkapatigiCapstone.Controllers
 {
     public class DiagnosticController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly ApplicationDbContextOut _context;
 
-        public DiagnosticController(ApplicationDbContext context)
+        public DiagnosticController(ApplicationDbContextOut context)
         {
             _context = context;
         }
