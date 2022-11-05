@@ -1,15 +1,18 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using IkapatigiCapstone.Models;
 using System;
 using System.Collections.Generic;
 
-namespace IkapatigiCapstone.Models
+namespace IkapatigiCapstone
 {
     public partial class User
     {
-        
         public int UserId { get; set; }
         public string? Username { get; set; }
-        public string? Password { get; set; }
+        public byte[] PasswordHash { get; set; } = null!;
+        public byte[]? PasswordSalt { get; set; }
+        public string? VerificationToken { get; set; }
+        public string? PasswordResetToken { get; set; }
+        public DateTime? ResetTokenExpires { get; set; }
         public byte[]? ProfilePicture { get; set; }
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
@@ -24,5 +27,7 @@ namespace IkapatigiCapstone.Models
         public int? RoleId { get; set; }
         public int? SubscriptionId { get; set; }
         public int? StatusId { get; set; }
+
+        public virtual Role UserNavigation { get; set; } = null!;
     }
 }

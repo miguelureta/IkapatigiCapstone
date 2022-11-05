@@ -6,13 +6,13 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace IkapatigiCapstone.Data
 {
-    public partial class ApplicationDbContext : DbContext
+    public partial class ApplicationDbContextOut : DbContext
     {
-        public ApplicationDbContext()
+        public ApplicationDbContextOut()
         {
         }
 
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+        public ApplicationDbContextOut(DbContextOptions<ApplicationDbContextOut> options)
             : base(options)
         {
         }
@@ -20,9 +20,8 @@ namespace IkapatigiCapstone.Data
         public virtual DbSet<AddRequestDiagnostic> AddRequestDiagnostics { get; set; } = null!;
         public virtual DbSet<Cure> Cures { get; set; } = null!;
         public virtual DbSet<Diagnostic> Diagnostics { get; set; } = null!;
-        public virtual DbSet<HowTo> HowTos { get; set; } = null!;
         public virtual DbSet<PlantDisease> PlantDiseases { get; set; } = null!;
-        public virtual DbSet<Role> Roles { get; set; } = null!;
+        public virtual DbSet<PlantDiseasesNoCure> PlantDiseasesNoCures { get; set; } = null!;
         public virtual DbSet<Status> Statuses { get; set; } = null!;
         public virtual DbSet<Tag> Tags { get; set; } = null!;
         public virtual DbSet<User> Users { get; set; } = null!;
@@ -33,9 +32,9 @@ namespace IkapatigiCapstone.Data
             {
                 //optionsBuilder.UseSqlServer("Server=DESKTOP-KJFVQAM\\MSSQLSERVER2;Database=FloraDB;UID=sa;PWD=benilde;MultipleActiveResultSets=true;");
                 IConfigurationRoot configuration = new ConfigurationBuilder()
-                                    .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
-                                    .AddJsonFile("appsettings.json")
-                                    .Build();
+                    .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
+                    .AddJsonFile("appsettings.json")
+                    .Build();
                 optionsBuilder.UseSqlServer(configuration.GetConnectionString("MyConnection"));
             }
         }
@@ -133,40 +132,6 @@ namespace IkapatigiCapstone.Data
                     .HasConstraintName("FK_Diagnostics_Tags");
             });
 
-            modelBuilder.Entity<HowTo>(entity =>
-            {
-                entity.HasKey(e => e.HowTosId);
-
-                entity.Property(e => e.HowTosId).HasColumnName("HowTosID");
-
-                entity.Property(e => e.ArticleBody)
-                    .HasMaxLength(5000)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.DateCreated).HasColumnType("datetime");
-
-                entity.Property(e => e.DateUpdated).HasColumnType("datetime");
-
-                entity.Property(e => e.Description)
-                    .HasMaxLength(1000)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.PictureCollectionFromId).HasColumnName("PictureCollectionFromID");
-
-                entity.Property(e => e.StatusId).HasColumnName("StatusID");
-
-                entity.Property(e => e.Title)
-                    .HasMaxLength(500)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.UserId).HasColumnName("UserID");
-
-                entity.HasOne(d => d.Status)
-                    .WithMany(p => p.HowTos)
-                    .HasForeignKey(d => d.StatusId)
-                    .HasConstraintName("FK_HowTos_Status");
-            });
-
             modelBuilder.Entity<PlantDisease>(entity =>
             {
                 entity.Property(e => e.PlantDiseaseId).HasColumnName("PlantDiseaseID");
@@ -187,14 +152,22 @@ namespace IkapatigiCapstone.Data
                     .HasConstraintName("FK_PlantDiseases_Tags");
             });
 
-            modelBuilder.Entity<Role>(entity =>
+            modelBuilder.Entity<PlantDiseasesNoCure>(entity =>
             {
-                entity.Property(e => e.RoleId).HasColumnName("RoleID");
+                entity.HasKey(e => e.PlantDiseaseId)
+                    .HasName("PK_PlantDiseases");
 
-                entity.Property(e => e.Role1)
+                entity.ToTable("PlantDiseases-no cures");
+
+                entity.Property(e => e.PlantDiseaseId).HasColumnName("PlantDiseaseID");
+
+                entity.Property(e => e.CureId).HasColumnName("CureID");
+
+                entity.Property(e => e.DiseaseName)
                     .HasMaxLength(50)
-                    .IsUnicode(false)
-                    .HasColumnName("Role");
+                    .IsUnicode(false);
+
+                entity.Property(e => e.TagId).HasColumnName("TagID");
             });
 
             modelBuilder.Entity<Status>(entity =>
@@ -221,9 +194,7 @@ namespace IkapatigiCapstone.Data
 
             modelBuilder.Entity<User>(entity =>
             {
-                entity.Property(e => e.UserId)
-                    .ValueGeneratedOnAdd()
-                    .HasColumnName("UserID");
+                entity.Property(e => e.UserId).HasColumnName("UserID");
 
                 entity.Property(e => e.DateCreated).HasColumnType("datetime");
 
@@ -249,11 +220,9 @@ namespace IkapatigiCapstone.Data
                     .HasMaxLength(30)
                     .IsUnicode(false);
 
-                entity.Property(e => e.PasswordResetToken)
+                entity.Property(e => e.PasswordHash)
                     .HasMaxLength(25)
                     .IsUnicode(false);
-
-                entity.Property(e => e.ResetTokenExpires).HasColumnType("datetime");
 
                 entity.Property(e => e.RoleId).HasColumnName("RoleID");
 
@@ -264,12 +233,6 @@ namespace IkapatigiCapstone.Data
                 entity.Property(e => e.Username)
                     .HasMaxLength(25)
                     .IsUnicode(false);
-
-                entity.HasOne(d => d.UserNavigation)
-                    .WithOne(p => p.User)
-                    .HasForeignKey<User>(d => d.UserId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Users_Roles");
             });
 
             OnModelCreatingPartial(modelBuilder);

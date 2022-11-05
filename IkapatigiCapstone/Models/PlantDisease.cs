@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace IkapatigiCapstone.Models
+namespace IkapatigiCapstone
 {
     public partial class PlantDisease
     {
