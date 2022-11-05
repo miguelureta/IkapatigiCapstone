@@ -186,52 +186,53 @@ namespace IkapatigiCapstone.Controllers
             {
                 //Make Banned ViewPage with just the dropdownlist
                 //to change the Status of the selected article
-                ViewBag.StatusId = GetStatusList(id);
+                //ViewBag.StatusId = GetStatusList(id);
+                return BadRequest("Screen for retrieving banned list");
             }
             
 
             return View(howto);
         }
 
-        [HttpPost]
-        public IActionResult Banned(int? id, HowTo article)
-        {
-            var howto = _context.HowTos.Where(i => i.StatusID == article.StatusID).SingleOrDefault();
-            UpdateHowToStatusModel mod = new UpdateHowToStatusModel();
-            if(howto != null)
-            {
-                howto.StatusID = model.StatusId;
-                howto.Status = model.StatusType;
-            }
+        //[HttpPost]
+        //public IActionResult Banned(int? id, HowTo article)
+        //{
+        //    var howto = _context.HowTos.Where(i => i.StatusID == article.StatusID).SingleOrDefault();
+        //    UpdateHowToStatusModel mod = new UpdateHowToStatusModel();
+        //    if(howto != null)
+        //    {
+        //        howto.StatusID = model.StatusId;
+        //        howto.Status = model.StatusType;
+        //    }
 
-            _context.HowTos.Update(howto);
-            _context.SaveChanges();
+        //    _context.HowTos.Update(howto);
+        //    _context.SaveChanges();
 
-            return RedirectToAction("Index");
-        }
+        //    return RedirectToAction("Index");
+        //}
         //MICO'S ATTEMPT TO EDIT STATUS END
         //Get Foreign Key Status
 
         //Should assign currect status of article and other selectable statuses from database
         //Needs constructor with iwebhostenvironment to work
-        private List<SelectListItem> GetStatusList(int id)
-        {
-            var lstStatus = new List<SelectListItem>();
-            lstStatus = _context.Statuses.Select(ct => new SelectListItem()
-            {
-                Value = ct.StatusId.ToString(),
-                Text = ct.StatusType
-            }).ToList();
-            var article = _context.HowTos.Where( s => s.HowTosID == id).ToString()
-            var listItem = new SelectListItem()
-            {
+        //private List<SelectListItem> GetStatusList(int id)
+        //{
+        //    var lstStatus = new List<SelectListItem>();
+        //    lstStatus = _context.Statuses.Select(ct => new SelectListItem()
+        //    {
+        //        Value = ct.StatusId.ToString(),
+        //        Text = ct.StatusType
+        //    }).ToList();
+        //    var article = _context.HowTos.Where(s => s.HowTosID == id).ToString()
+        //    var listItem = new SelectListItem()
+        //    {
                 
-                Value = ,
-                Text = 
-            };
-            lstStatus.Insert(0, listItem);
-            return lstStatus;
-        }
+        //        Value = ,
+        //        Text = 
+        //    };
+        //    lstStatus.Insert(0, listItem);
+        //    return lstStatus;
+        //}
 
     }
 }
