@@ -4,64 +4,79 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<br/>
+<div class="titlecontainer">
+    <div class="text-center">
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table id="records" class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.PictureCollectionFromId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Cure)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PlantDisease)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Status)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Tag)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.PictureCollectionFromId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Cure.CureId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PlantDisease.PlantDiseaseId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Status.StatusId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Tag.TagId)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.DiagnosticsId">
-                    <i class="fa fa-pencil" style="color:blue"></i>
-                </a> 
+        <h1 class="display-4">Index</h1>
+    </div>
+</div>
+<br />
+
+<div class="bgtable">
+
+
+    <p>
+        <a asp-action="Create"><i class="fa-solid fa-circle-plus"> Create New</i></a>
+    </p>
+
+    <br/>
+
+    <table id="records" class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.PictureCollectionFromId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Cure)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PlantDisease)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Status)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Tag)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+    @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PictureCollectionFromId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cure.CureId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PlantDisease.PlantDiseaseId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status.StatusId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Tag.TagId)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.DiagnosticsId">
+                        <i class="fa fa-pencil" style="color:blue"></i>
+                    </a> 
          
-                 <a asp-action="Delete" asp-route-id="@item.DiagnosticsId"
-                   onclick='return confirm("Are you sure?");'>
-                    <i class="fa fa-trash" style="color:red"></i>
-                </a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+                     <a asp-action="Delete" asp-route-id="@item.DiagnosticsId"
+                       onclick='return confirm("Are you sure?");'>
+                        <i class="fa fa-trash" style="color:red"></i>
+                    </a>
+                </td>
+            </tr>
+    }
+        </tbody>
+    </table>
+</div>
+
 
 @section Scripts{
     <script src="~/lib/datatables/js/jquery.dataTables.js"></script>
