@@ -12,6 +12,11 @@
       "provider": "cdnjs",
       "library": "datatables@1.10.21",
       "destination": "wwwroot/lib/datatables/"
+    }, 
+    {
+      "provider": "unpkg",
+      "library": "yarn@1.22.19",
+      "destination": "wwwroot/lib/yarn/"
     }
   ]
 }

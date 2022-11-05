@@ -17,6 +17,9 @@ namespace IkapatigiCapstone.Data
         {
         }
 
+        public virtual DbSet<Forum> Forums { get; set; }
+        public virtual DbSet<Post> Posts { get; set; }
+        public virtual DbSet<PostReply> PostReplies { get; set; }
         public virtual DbSet<AddRequestDiagnostic> AddRequestDiagnostics { get; set; } = null!;
         public virtual DbSet<Cure> Cures { get; set; } = null!;
         public virtual DbSet<Diagnostic> Diagnostics { get; set; } = null!;

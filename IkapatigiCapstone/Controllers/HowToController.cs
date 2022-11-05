@@ -213,24 +213,21 @@ namespace IkapatigiCapstone.Controllers
         //MICO'S ATTEMPT TO EDIT STATUS END
         //Get Foreign Key Status
 
-        //Should assign currect status of article and other selectable statuses from database
-        //Needs constructor with iwebhostenvironment to work
-        //private List<SelectListItem> GetStatusList(int id)
+        //private List<SelectListItem> GetStatusList()
         //{
         //    var lstStatus = new List<SelectListItem>();
         //    lstStatus = _context.Statuses.Select(ct => new SelectListItem()
         //    {
-        //        Value = ct.StatusId.ToString(),
-        //        Text = ct.StatusType
+        //        ValueTask = ct.StatusId.ToString(),
+        //        TextReader = ct.StatusType
         //    }).ToList();
-        //    var article = _context.HowTos.Where(s => s.HowTosID == id).ToString()
-        //    var listItem = new SelectListItem()
+
+        //    var dmyItem = new SelectListItem()
         //    {
-                
-        //        Value = ,
-        //        Text = 
+        //        Value = null;
+        //        Text = "Select Status"
         //    };
-        //    lstStatus.Insert(0, listItem);
+
         //    return lstStatus;
         //}
 
