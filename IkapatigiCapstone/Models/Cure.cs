@@ -10,10 +10,9 @@ namespace IkapatigiCapstone.Models
         {
             Diagnostics = new HashSet<Diagnostic>();
         }
-        
+
         public int CureId { get; set; }
-        //Removed a null! after CureName
-        public string CureName { get; set; }
+        public string CureName { get; set; } = null!;
         public decimal Srp { get; set; }
         public int? UserId { get; set; }
 

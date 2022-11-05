@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using System.ComponentModel.DataAnnotations;
-
-
-namespace IkapatigiCapstone.Models
+namespace IkapatigiCapstone
 {
-    public class HowTo
+    public partial class HowTo
     {
         [Key]
         public int HowTosID { get; set; }
@@ -50,7 +47,8 @@ namespace IkapatigiCapstone.Models
     {
         MembersOnly = 1,
         IsPublic = 2
-        
+
+        public virtual Status? Status { get; set; }
     }
 
     //public enum StatusChange

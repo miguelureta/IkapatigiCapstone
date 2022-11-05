@@ -1,5 +1,6 @@
-global using IkapatigiCapstone.Data;
-global using Microsoft.EntityFrameworkCore;
+using IkapatigiCapstone.Data;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +10,25 @@ builder.Services.AddDbContext<ApplicationDbContextOut>(options =>
     options.UseSqlServer(connectionString));
 
 
+builder.Services.AddControllersWithViews();
+builder.Services.AddControllers();
+var connectionString = builder.Configuration.GetConnectionString("MyConnection");
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseSqlServer(connectionString));
+
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+})
+    .AddCookie(options =>
+    {
+        options.LoginPath = "/Account/google-login"; 
+    })
+    .AddGoogle(options =>
+    {
+        options.ClientId = builder.Configuration["Authentication:Google:ClientId"];
+        options.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"];
+    });
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
@@ -26,6 +46,8 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
