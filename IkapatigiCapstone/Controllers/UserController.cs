@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace IkapatigiCapstone.Controllers
 {
-    public class User : Controller
+    public class UserController : Controller
     {
         // GET: User
         public ActionResult Index()

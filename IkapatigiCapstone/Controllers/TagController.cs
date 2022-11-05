@@ -6,9 +6,9 @@ namespace IkapatigiCapstone.Controllers
 {
     public class TagController : Controller
     {
-        private readonly ApplicationDbContextOut _context;
+        private readonly ApplicationDbContext _context;
 
-        public TagController(ApplicationDbContextOut context)
+        public TagController(ApplicationDbContext context)
         {
             _context = context;
         }

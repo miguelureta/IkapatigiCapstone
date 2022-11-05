@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
-namespace IkapatigiCapstone
+namespace IkapatigiCapstone.Models
 {
     public partial class HowTo
     {
@@ -9,15 +10,12 @@ namespace IkapatigiCapstone
         public int HowTosID { get; set; }
 
         [Required (ErrorMessage = "Required")]
-
         public string Title { get; set; }
-
 
         [Required(ErrorMessage = "Required")]
         [DataType (DataType.MultilineText)]
         public string Description { get; set; }
 
-       
         public int? LikeCount { get; set; }
 
         public int? DislikeCount { get; set; }
@@ -26,7 +24,7 @@ namespace IkapatigiCapstone
 
         public int? UserID { get; set; }
 
-       // public StatusChange? StatusID { get; set; }
+        //public StatusChange? StatusID { get; set; }
 
         public int? StatusID { get; set; }
 
@@ -47,16 +45,13 @@ namespace IkapatigiCapstone
     {
         MembersOnly = 1,
         IsPublic = 2
-
-        public virtual Status? Status { get; set; }
     }
-
+    //public virtual Status? Status { get; set; }
     //public enum StatusChange
     //{
     //    MembersOnly = 1,
     //    IsPublic = 2
 
     //}
-
 }
 

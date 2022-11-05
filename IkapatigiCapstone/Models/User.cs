@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace IkapatigiCapstone
+namespace IkapatigiCapstone.Models
 {
     public partial class User
     {
