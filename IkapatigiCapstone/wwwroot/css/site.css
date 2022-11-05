@@ -1,18 +1,143 @@
-html {
-  font-size: 14px;
+
+/*After this is the navbar code*/
+#DiagnosticDropdown {
+    color: white;
 }
 
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+#HowToDropdown {
+    color: white;
 }
 
-html {
-  position: relative;
-  min-height: 100%;
+
+#ForumDropdown {
+    color: white;
 }
+
+/*After this line are the codes for the background picture.*/
+html, body {
+    margin: 0;
+    height: 100%;
+}
+
 
 body {
-  margin-bottom: 60px;
+    background-image: url('../backgroundimages/bg1.png');
+    background-repeat: no-repeat;
+    background-size: cover;
 }
+
+
+
+/*.bg-container {
+    width: 100%;
+    height: 100%;
+    background-image: url('../backgroundimages/bg1.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    display:flex;
+    padding-top:0;
+}*/
+
+.bgtable {
+    background-color: #f3ebd3;
+    padding: 10px;
+}
+
+/*After this line are the codes for the logo.
+.Logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-repeat: no-repeat;
+}
+
+HOME PAGE is after this line.*/
+
+
+
+/*After this line are the codes for the title box background.*/
+.titlecontainer {
+    background-color: #f3ebd3;
+}
+
+/*After this line are the codes for the box Diagnose.*/
+.containerleftdiagnose {
+    background-color: #f3ebd3;
+    float: left;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.textcontainerleftdiagnose {
+    padding-right: 20px;
+}
+
+.diagnoseicon img {
+    width: 200px;
+    height: auto;
+    padding: 10px;
+    flex-basis: 40%;
+    background-repeat: no-repeat;
+}
+
+/*After this line are the codes for the box How To's.*/
+.containerrighthowto {
+    background-color: #f3ebd3;
+    float: right;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.textcontainerrighthowto {
+    padding-right: 20px;
+}
+
+.howtoicon img {
+    width: 195px;
+    height: auto;
+    padding: 10px;
+    flex-basis: 40%;
+    background-repeat: no-repeat;
+}
+
+/*After this line are the codes for the box About Us.*/
+.containerbottomaboutus {
+    background-color: #f3ebd3;
+    width: 1300px;
+    position: absolute;
+    padding: 10px;
+    bottom: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.textcontainerbottomaboutus {
+    padding-right: 20px;
+}
+
+.aboutusicon img {
+    width: 200px;
+    height: auto;
+    padding: 10px;
+    flex-basis: 40%;
+    background-repeat: no-repeat;
+}
+
+
+
+.footer-container {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1030;
+}
+
+
+
+
