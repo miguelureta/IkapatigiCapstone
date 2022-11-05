@@ -4,11 +4,23 @@
     ViewData["Title"] = "Diagnostic Record";
 }
 
-<h1>Diagnostic Record</h1>
+<br/>
+<div class="titlecontainer">
+    <div class="text-center">
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+        <h1 class="display-4">Index</h1>
+    </div>
+</div>
+<br />
+
+<div class="bgtable">
+
+
+    <p>
+        <a asp-action="Create"><i class="fa-solid fa-circle-plus"> Create New</i></a>
+    </p>
+
+    <br/>
 <table id="records" class="table">
     <thead>
         <tr>
@@ -68,7 +80,7 @@
 }
     </tbody>
 </table>
-
+</div>
 @section Scripts{
     <script src="~/lib/datatables/js/jquery.dataTables.js"></script>
     <script src="~/lib/datatables/js/dataTables.bootstrap4.js"></script>
