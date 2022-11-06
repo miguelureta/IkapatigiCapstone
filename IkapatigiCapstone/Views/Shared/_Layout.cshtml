@@ -108,7 +108,7 @@
                             <a class="nav-link active" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" asp-area="" asp-controller="Home" asp-action="Privacy">About Us</a>
+                            <a class="nav-link active" asp-area="" asp-controller="Home" asp-action="AboutUs">About Us</a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="DiagnosticDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -116,9 +116,9 @@
                             </a>
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" asp-area="" asp-controller="Diagnostic" asp-action="Index">Diagnose</a></li>
-                                <li><a class="dropdown-item" href="#">Edit Diagnostic</a></li>
+                                @*Took Edit because you need to go to Index to figure out what you want to Edit.*@
                                 <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="#">Create Diagnostic</a></li>
+                                <li><a class="dropdown-item" asp-area="" asp-controller="Diagnostic" asp-action="Create">Create Diagnostic</a></li>
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
@@ -126,10 +126,9 @@
                                 How To's
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">Action</a></li>
-                                <li><a class="dropdown-item" href="#">Another action</a></li>
+                                <li><a class="dropdown-item" asp-area="" asp-controller="HowTo" asp-action="Index">How To's'</a></li>
                                 <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                <li><a class="dropdown-item" asp-area="" asp-controller="HowTo" asp-action="Create">Create ow To's'</a></li>
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
@@ -146,11 +145,11 @@
                     </ul>
                     <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link active" asp-area="" asp-controller="Home" asp-action="Index"><i class="fa-solid fa-right-to-bracket"></i> Login </a>
+                            <a class="nav-link active" asp-area="" asp-controller="Account" asp-action="Login">@*<i class="fa-solid fa-right-to-bracket"></i>*@ Login </a>
 
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" asp-area="" asp-controller="Home" asp-action="Privacy"><i class="fa-solid fa-file-pen"></i> Register </a>
+                            <a class="nav-link active" asp-area="" asp-controller="Account" asp-action="Register">@*<i class="fa-solid fa-file-pen"></i> *@Register </a>
                         </li>
 
 

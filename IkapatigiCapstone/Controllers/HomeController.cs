@@ -32,7 +32,10 @@ namespace IkapatigiCapstone.Controllers
             return View();
         }
 
-        
+        public IActionResult AboutUs()
+        {
+            return View();
+        }
 
         //public async Task OnGetAsync(string returnUrl = null)
         //{

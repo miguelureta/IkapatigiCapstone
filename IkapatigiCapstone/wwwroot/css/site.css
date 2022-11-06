@@ -110,7 +110,7 @@ HOME PAGE is after this line.*/
     width: 1300px;
     position: absolute;
     padding: 10px;
-    bottom: 40px;
+    bottom: 20vh;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -138,6 +138,98 @@ HOME PAGE is after this line.*/
     z-index: 1030;
 }
 
+
+/* About Us Page - For Non-members*/
+.outerTableAboutUs {
+    display: grid;
+    align-content: space-between;
+    /*height: 100vh;
+    width: 145vh;*/
+    display: flex;
+    background-color: /*#839A50;*/ #f3ebd3;
+}
+
+/*Jeanelle's Box*/
+
+.innerTableAboutUs#1 {
+    background-color: #f3ebd3;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+ 
+}
+
+.JeanelleText {
+    padding-left: 20px;
+   /* background-color: #f3ebd3;*/
+    padding: 10px;
+}
+
+.JeanellePic {
+    width: 100px;
+    height: auto;
+    padding: 10px;
+    flex-basis: 40%;
+    background-repeat: no-repeat;
+   /* align-content: center;*/
+}
+
+
+
+
+/*Gabbi's Box*/
+
+.innerTableAboutUs#2 {
+    background-color: #f3ebd3;
+    float: right;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.GabbiText {
+    padding-right: 20px;
+   /* background-color: #f3ebd3;*/
+    padding: 10px;
+}
+
+.GabbiPic {
+    width: 200px;
+    height: auto;
+    padding: 10px;
+    flex-basis: 40%;
+    background-repeat: no-repeat;
+}
+
+
+
+/*Mico's Boz*/
+
+.innerTableAboutUs#3 {
+    background-color: #f3ebd3;
+    float: right;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.MicoText {
+    padding-right: 20px;
+   /* background-color: #f3ebd3;*/
+    padding: 10px;
+}
+
+
+.MicoPic {
+    width: 200px;
+    height: auto;
+    padding: 10px;
+    flex-basis: 40%;
+    background-repeat: no-repeat;
+}
 
 
 
