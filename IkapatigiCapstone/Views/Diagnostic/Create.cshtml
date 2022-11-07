@@ -4,56 +4,62 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+<br />
+<div class="titlecontainer">
+    <div class="text-center">
 
-<h4>Diagnostic</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form enctype="multipart/form-data" asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            @*<div class="form-group">
-                <label asp-for="PictureCollectionFromId" class="control-label"></label>
-                <input asp-for="PictureCollectionFromId" class="form-control" />
-                <span asp-validation-for="PictureCollectionFromId" class="text-danger"></span>
-            </div>*@
-            <div class="form-group">
-                <label asp-for="CureId" class="control-label"></label>
-                <select asp-for="CureId" class ="form-control" asp-items="ViewBag.CureId"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="StatusId" class="control-label"></label>
-                <select asp-for="StatusId" class ="form-control" asp-items="ViewBag.StatusId"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="TagId" class="control-label"></label>
-                <select asp-for="TagId" class ="form-control" asp-items="ViewBag.TagId"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="PlantDiseaseId" class="control-label"></label>
-                <select asp-for="PlantDiseaseId" class ="form-control" asp-items="ViewBag.PlantDiseaseId"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="DisplayImage" class="control-label"></label>
-                <div class="custom-file">
-                    <input asp-for="DisplayImage" class="custom-file-input" id="DisImage"
-                    onchange="document.getElementById('DisplayImgPrv').src = window.URL.createObjectURL(this.files[0])">
-                    <label class="custom-file-label" for="DisImage">Choose Display Image</label>
-                </div>
-                <span asp-validation-for="DisplayImage" class="text-danger"></span>
-                <img id="DisplayImgPrv" src="" alt="displayimg" width="150" height="150" style="border:1px;margin-top:20px;margin-left:120px;" />
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+        <h1 class="display-4">Create Diagnostic</h1>
     </div>
 </div>
+<br />
+<hr />
+<div class="bgtable">
+    <div class="row">
+        <div class="col-md-4">
+            <form enctype="multipart/form-data" asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                @*<div class="form-group">
+                    <label asp-for="PictureCollectionFromId" class="control-label"></label>
+                    <input asp-for="PictureCollectionFromId" class="form-control" />
+                    <span asp-validation-for="PictureCollectionFromId" class="text-danger"></span>
+                </div>*@
+                <div class="form-group">
+                    <label asp-for="CureId" class="control-label"></label>
+                    <select asp-for="CureId" class ="form-control" asp-items="ViewBag.CureId"></select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="StatusId" class="control-label"></label>
+                    <select asp-for="StatusId" class ="form-control" asp-items="ViewBag.StatusId"></select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="TagId" class="control-label"></label>
+                    <select asp-for="TagId" class ="form-control" asp-items="ViewBag.TagId"></select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="PlantDiseaseId" class="control-label"></label>
+                    <select asp-for="PlantDiseaseId" class ="form-control" asp-items="ViewBag.PlantDiseaseId"></select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="DisplayImage" class="control-label"></label>
+                    <div class="custom-file">
+                        <input asp-for="DisplayImage" class="custom-file-input" id="DisImage"
+                        onchange="document.getElementById('DisplayImgPrv').src = window.URL.createObjectURL(this.files[0])">
+                        <label class="custom-file-label" for="DisImage">Choose Display Image</label>
+                    </div>
+                    <span asp-validation-for="DisplayImage" class="text-danger"></span>
+                    <img id="DisplayImgPrv" src="" alt="displayimg" width="150" height="150" style="border:1px;margin-top:20px;margin-left:120px;" />
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>
 </div>
-
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 <script type="text/javascript">
