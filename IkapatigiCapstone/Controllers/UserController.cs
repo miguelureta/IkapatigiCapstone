@@ -1,14 +1,32 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using IkapatigiCapstone.Models;
+using IkapatigiCapstone.Data;
+using System.IO;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Dynamic;
 
 namespace IkapatigiCapstone.Controllers
 {
     public class UserController : Controller
     {
+        private readonly ApplicationDbContext _context;
+        private readonly IWebHostEnvironment webHostEnvironment;
+
+        public UserController(ApplicationDbContext context, IWebHostEnvironment webHost)
+        {
+            _context = context;
+            this.webHostEnvironment = webHost;
+        }
+
+        public IEnumerable<User> GetUserList { get; set; }
         // GET: User
         public ActionResult Index()
         {
-            return View();
+            var userl = new UserManagementViewModel();
+            userl.Status = _context.Statuses.ToList().ToString();
+            userl.User = _context.Users.ToList();
+            return View(userl);
         }
 
         // GET: User/Details/5
@@ -79,5 +97,7 @@ namespace IkapatigiCapstone.Controllers
                 return View();
             }
         }
+
+        
     }
 }

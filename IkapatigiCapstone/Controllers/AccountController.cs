@@ -16,10 +16,12 @@ namespace IkapatigiCapstone.Controllers
     {
         //private readonly UserManager<User> _userManager;
         private readonly ApplicationDbContext _context;
+        private readonly EmailController _econtrol;
         //private readonly SignInManager<User> _signInManager;
-        public AccountController(/*UserManager<User> userManager, */ApplicationDbContext context/*, SignInManager<User> signInManager*/)
+        public AccountController(/*UserManager<User> userManager, */ApplicationDbContext context, EmailController econtrol/*SignInManager<User> signInManager*/)
         {
             _context = context;
+            _econtrol = econtrol;
             //_userManager = userManager;
             //_signInManager = signInManager;
         }
@@ -90,16 +92,19 @@ namespace IkapatigiCapstone.Controllers
             }
             hashPassword(request.Password, 
                 out byte[] passwordHash, out byte[] passwordSalt);
+            var token = CreateRandomToken();
             var user = new User
             {
                 Email = request.Email,
                 PasswordHash = passwordHash,
-                PasswordSalt = passwordSalt
+                PasswordSalt = passwordSalt,
+                VerificationToken = token
             };
+            _econtrol.SendEmail(token, user.Email);
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
 
-            return Ok("User Registered!");
+            return RedirectToAction("Index");
         }
 
         [HttpPost("Login")]
@@ -120,8 +125,8 @@ namespace IkapatigiCapstone.Controllers
                     //return BadRequest("User does not exist");
                     return View("Login");
                 }
-                return Ok("User Signed In");
-                //return RedirectToAction("Index", "Home");
+
+                return RedirectToAction("Details", "User");
             }
             else
             {
@@ -137,12 +142,15 @@ namespace IkapatigiCapstone.Controllers
 
             if (user == null)
             {
-                return BadRequest("User is not verified");
+                return BadRequest("Invalid token");
             }
+
             user.DateUpdated = DateTime.Now;
             await _context.SaveChangesAsync();
-            return RedirectToAction("Home", "Index");
+            return RedirectToAction("Index", "User");
         }
+
+
         //Code for hashing password
         private void hashPassword(string pw, out byte[] passHash, out byte[] passSalt)
         {
