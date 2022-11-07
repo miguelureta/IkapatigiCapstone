@@ -8,7 +8,7 @@ namespace IkapatigiCapstone.Controllers
     public class HowToController : Controller
     {
         private readonly ApplicationDbContext _context;
-        private readonly IWebHostEnvironment _webHostEnvironment;//This is for the GetStatusList()
+        //private readonly IWebHostEnvironment _webHostEnvironment;//This is for the GetStatusList()
         public HowToController(ApplicationDbContext context)
         {
             _context = context;

@@ -1,17 +1,33 @@
 ﻿@{
     ViewData["Title"] = "Privacy Policy";
 }
-<h1>@ViewData["Title"]</h1>
 
-<p>Use this page to detail your site's privacy policy.</p>
-</b>@*
-<p>Log-out icon on a button:
-        <button type="button" class="btn btn-default btn-sm">
-          <span class="glyphicon glyphicon-log-out"></span> Log out
-        </button>
-</p>
+<br />
+<div class="titlecontainer">
+    <div class="text-center">
+        <h1>@ViewData["Title"]</h1>
+    </div>
+</div>
+<br />
 
- <a asp-action="Logout" 
+<div class="bgtable">
+
+
+    <p>Use this page to detail your site's privacy policy.</p>
+    </b>@*
+    <p>Log-out icon on a button:
+    <button type="button" class="btn btn-default btn-sm">
+    <span class="glyphicon glyphicon-log-out"></span> Log out
+    </button>
+    </p>
+
+    <a asp-action="Logout"
     onclick='return confirm("Are you sure you want to logout?");'>
-          <i class="fa fa-trash" style="color:red"></i>
-</a>*@
+    <i class="fa fa-trash" style="color:red"></i>
+    </a>*@
+
+    <br />
+
+ </div>
+
+
