@@ -11,53 +11,53 @@ using Microsoft.EntityFrameworkCore;
 
 namespace IkapatigiCapstone.Controllers
 {
-    [AllowAnonymous, Route("Account")]
     public class AccountController : Controller
     {
         //private readonly UserManager<User> _userManager;
         private readonly ApplicationDbContext _context;
-        private readonly EmailController _econtrol;
+        //private readonly EmailController _econtrol;
         //private readonly SignInManager<User> _signInManager;
-        public AccountController(/*UserManager<User> userManager, */ApplicationDbContext context, EmailController econtrol/*SignInManager<User> signInManager*/)
+        public AccountController(/*UserManager<User> userManager, */ApplicationDbContext context/*, EmailController econtrolSignInManager<User> signInManager*/)
         {
             _context = context;
-            _econtrol = econtrol;
+            //_econtrol = econtrol;
             //_userManager = userManager;
             //_signInManager = signInManager;
         }
 
-        [Route("google-login")]
-        public IActionResult GoogleLogin()
-        {
-            var properties = new AuthenticationProperties{RedirectUri = Url.Action("GoogleResponse")};
-            return Challenge(properties, Microsoft.AspNetCore.Authentication.Google.GoogleDefaults.AuthenticationScheme);
-        }
+        //[Route("google-login")]
+        //public IActionResult GoogleLogin()
+        //{
+        //    var properties = new AuthenticationProperties{RedirectUri = Url.Action("GoogleResponse")};
+        //    return Challenge(properties, Microsoft.AspNetCore.Authentication.Google.GoogleDefaults.AuthenticationScheme);
+        //}
 
-        [ValidateAntiForgeryToken]
-        [Route("google-response")]
-        public async Task<IActionResult> GoogleResponse()
-        {
-            var result = await HttpContext.AuthenticateAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            //User newUser = new User();
-            var claims = result.Principal.Identities.FirstOrDefault()
-                .Claims.Select(claim => new
-                {
-                    claim.Issuer,
-                    claim.OriginalIssuer,
-                    claim.Type,
-                    claim.Value
-                });
-            return Json(claims);
-            //newUser.Email = result.Principal.Identities.FirstOrDefault()
-            //    .Claims.Select(claim => new
-            //{
-            //    claim.Value
-            //}).ToString();
+        //[ValidateAntiForgeryToken]
+        //[Route("google-response")]
+        //public async Task<IActionResult> GoogleResponse()
+        //{
+        //    var result = await HttpContext.AuthenticateAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+        //    //User newUser = new User();
+        //    var claims = result.Principal.Identities.FirstOrDefault()
+        //        .Claims.Select(claim => new
+        //        {
+        //            claim.Issuer,
+        //            claim.OriginalIssuer,
+        //            claim.Type,
+        //            claim.Value
+        //        });
+        //    return Json(claims);
+        //    //newUser.Email = result.Principal.Identities.FirstOrDefault()
+        //    //    .Claims.Select(claim => new
+        //    //{
+        //    //    claim.Value
+        //    //}).ToString();
 
-            //await userManager.CreateAsync(newUser, );
-            /*originally*/ 
-            //return RedirectToAction("RedirectToLanding",claims);
-        }
+        //    //await userManager.CreateAsync(newUser, );
+        //    /*originally*/ 
+        //    //return RedirectToAction("RedirectToLanding",claims);
+        //}
+
         //First way to register, manual input into database, no hash
         [Route("Register")]
         public IActionResult Register()
@@ -100,7 +100,7 @@ namespace IkapatigiCapstone.Controllers
                 PasswordSalt = passwordSalt,
                 VerificationToken = token
             };
-            _econtrol.SendEmail(token, user.Email);
+            //_econtrol.SendEmail(token, user.Email);
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
 
@@ -126,7 +126,7 @@ namespace IkapatigiCapstone.Controllers
                     return View("Login");
                 }
 
-                return RedirectToAction("Details", "User");
+                return RedirectToAction("MemberHome", "Home");
             }
             else
             {
@@ -144,10 +144,11 @@ namespace IkapatigiCapstone.Controllers
             {
                 return BadRequest("Invalid token");
             }
-
+            //Assigns Member Role to Verifying User
+            user.RoleId = 1;
             user.DateUpdated = DateTime.Now;
             await _context.SaveChangesAsync();
-            return RedirectToAction("Index", "User");
+            return RedirectToAction("Login", "Account");
         }
 
 
