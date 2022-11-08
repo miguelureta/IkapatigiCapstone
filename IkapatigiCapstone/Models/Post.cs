@@ -9,7 +9,8 @@
 
         public DateTime Created { get; set; }
 
-
+        public int? UserId { get; set; }
+        public int? ForumId { get; set; }
 
         public virtual User User { get; set; }
         public virtual Forum Forum { get; set; }
