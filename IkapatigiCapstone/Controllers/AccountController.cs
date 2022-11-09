@@ -104,7 +104,9 @@ namespace IkapatigiCapstone.Controllers
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
 
-            return RedirectToAction("Index");
+            //return RedirectToAction("Index");
+            return RedirectToAction("Login");
+            //Changed the page link. It goes to the Login now.
         }
 
         [HttpPost("Login")]
