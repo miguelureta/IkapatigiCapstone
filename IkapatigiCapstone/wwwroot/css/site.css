@@ -232,4 +232,13 @@ HOME PAGE is after this line.*/
 }
 
 
-/*Form Center Form Login & Register*/
+/*Form Login & Register*/
+
+.bglogin {
+    background-color: #f3ebd3;
+  
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

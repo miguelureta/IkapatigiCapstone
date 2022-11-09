@@ -1,5 +1,7 @@
+using AutoMapper.Execution;
 using IkapatigiCapstone.Data;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -25,7 +27,9 @@ builder.Services.AddControllers();
 //    .AddGoogle(options =>
 //    {
 //       
-//    });
+////    });
+//builder.Services.AddDefaultIdentity<IdentityUser>()
+//    .AddRoles<Member>();
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();

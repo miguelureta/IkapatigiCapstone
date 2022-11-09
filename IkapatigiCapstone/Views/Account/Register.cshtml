@@ -5,45 +5,43 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<br/>
-<div class="titlecontainer">
-    <div class="text-center">
-
-        <h1 class="display-4">Register</h1>
-    </div>
-</div>
-<br />
 
 
 <hr />
-<div class="bgtable">
-<div class="row">
-   @* <div class="col-md-4">*@
-        <div class="col d-flex justify-content-center">
-        <form asp-action="Register">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Password" class="control-label"></label>
-                <input asp-for="Password" class="form-control" type="password"/>
-                <span asp-validation-for="Password" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ConfirmPassword" class="control-label">Confirm Password</label>
-                <input asp-for="ConfirmPassword" class="form-control" />
-                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
-            </div>
-            <br />
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+
+<div class="card text-bg-success mb-3 mx-auto" style="max-width: 18rem;">
+    <br />
+    <h1 class="card-title text-center mb-1 fw-bold fs-1">Register</h1>
+    <br />
+    <div class="card-body">
+    <div class="row">
+       @* <div class="col-md-4">*@
+            <div class="col d-flex justify-content-center">
+            <form asp-action="Register">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Email" class="control-label"></label>
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Password" class="control-label"></label>
+                    <input asp-for="Password" class="form-control" type="password"/>
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ConfirmPassword" class="control-label">Confirm Password</label>
+                    <input asp-for="ConfirmPassword" class="form-control" />
+                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                </div>
+                <br />
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-light" />
+                </div>
+            </form>
+        </div>
     </div>
-</div>
+    </div>
 </div>
 
 

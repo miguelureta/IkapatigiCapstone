@@ -8,6 +8,7 @@ using IkapatigiCapstone.Data;
 
 namespace IkapatigiCapstone.Controllers
 {
+    [AllowAnonymous]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -19,7 +20,7 @@ namespace IkapatigiCapstone.Controllers
             _context = context;
         }
 
-        [AllowAnonymous]
+       
         public IActionResult Index()
         {
             return View();
@@ -35,6 +36,7 @@ namespace IkapatigiCapstone.Controllers
             return View();
         }
 
+        [Authorize(Roles = "Member")]
         public IActionResult MemberHome()
         {
             return View();

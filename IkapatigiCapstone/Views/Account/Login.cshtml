@@ -5,18 +5,14 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<br/>
-<div class="titlecontainer">
-    <div class="text-center">
-
-        <h1 class="display-4">Login</h1>
-    </div>
-</div>
-<br />
-
 <hr />
-<div class="bgtable">
+
+<div class="card text-bg-success mb-3 mx-auto" style="max-width: 18rem;">
+   <br /> 
+    <h1 class="card-title text-center mb-1 fw-bold fs-1">Login</h1>
+    <br />
     <div class="card-body">
+
         <div class="col d-flex justify-content-center">
             <form asp-controller="Account" asp-action="Login" method="post">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -38,10 +34,18 @@
                 </div>
                 <br />
                 <div class="form-group">
-                    <input type="submit" value="Login" class="btn btn-primary" id="loginbtn"/>
+                    <input type="submit" value="Login" class="btn btn-light" id="loginbtn" />
                 </div>
             </form>
+           
         </div>
+      @*  <button type="button" class="btn btn-primary">
+            <a class="nav-link active" asp-area="" asp-controller="Account" asp-action="Register">Register Here </a>
+
+        </button>
+        *@
+
+        @*<a class="btn btn-info" role="button" asp-area="" asp-controller="Account" asp-action="Register">Link Button</a>*@
     </div>
 </div>
 @section Scripts {
