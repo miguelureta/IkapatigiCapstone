@@ -14,19 +14,18 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddControllersWithViews();
 builder.Services.AddControllers();
 
-builder.Services.AddAuthentication(options =>
-{
-    options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-})
-    .AddCookie(options =>
-    {
-        options.LoginPath = "/Account/google-login"; 
-    })
-    .AddGoogle(options =>
-    {
-        options.ClientId = builder.Configuration["Authentication:Google:ClientId"];
-        options.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"];
-    });
+//builder.Services.AddAuthentication(options =>
+//{
+//    options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+//})
+//    .AddCookie(options =>
+//    {
+//        options.LoginPath = "/Account/google-login"; 
+//    })
+//    .AddGoogle(options =>
+//    {
+//       
+//    });
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
