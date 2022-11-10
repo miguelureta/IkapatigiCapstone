@@ -167,9 +167,9 @@ namespace IkapatigiCapstone.Models
 
             modelBuilder.Entity<HowTo>(entity =>
             {
-                entity.HasKey(e => e.HowTosId);
+                entity.HasKey(e => e.HowTosID);
 
-                entity.Property(e => e.HowTosId).HasColumnName("HowTosID");
+                entity.Property(e => e.HowTosID).HasColumnName("HowTosID");
 
                 entity.Property(e => e.ArticleBody)
                     .HasMaxLength(5000)
@@ -183,24 +183,24 @@ namespace IkapatigiCapstone.Models
                     .HasMaxLength(1000)
                     .IsUnicode(false);
 
-                entity.Property(e => e.PictureCollectionFromId).HasColumnName("PictureCollectionFromID");
+                entity.Property(e => e.PictureCollectionFromID).HasColumnName("PictureCollectionFromID");
 
-                entity.Property(e => e.StatusId).HasColumnName("StatusID");
+                entity.Property(e => e.StatusID).HasColumnName("StatusID");
 
                 entity.Property(e => e.Title)
                     .HasMaxLength(500)
                     .IsUnicode(false);
 
-                entity.Property(e => e.UserId).HasColumnName("UserID");
+                entity.Property(e => e.UserID).HasColumnName("UserID");
 
                 entity.HasOne(d => d.Status)
                     .WithMany(p => p.HowTos)
-                    .HasForeignKey(d => d.StatusId)
+                    .HasForeignKey(d => d.StatusID)
                     .HasConstraintName("FK_HowTos_Status");
 
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.HowTos)
-                    .HasForeignKey(d => d.UserId)
+                    .HasForeignKey(d => d.UserID)
                     .HasConstraintName("FK_HowTos_Users");
             });
 

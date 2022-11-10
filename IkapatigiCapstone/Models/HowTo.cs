@@ -37,10 +37,10 @@ namespace IkapatigiCapstone.Models
         [DataType(DataType.MultilineText)]
         //Make sure to put the limits of the database here. Article Body is only 5,000 words.
         public string? ArticleBody { get; set; }
-        public virtual Status Status { get; set; } = null!;
+        public virtual Status? Status { get; set; } = null!;
+        public virtual User? User { get; set; }
+
     }
-
-
     public enum Availability
     {
         MembersOnly = 1,
@@ -53,7 +53,5 @@ namespace IkapatigiCapstone.Models
     //    IsPublic = 2
 
     //}
-    public virtual Status? Status { get; set; }
-    public virtual User? User { get; set; }
     
 }
