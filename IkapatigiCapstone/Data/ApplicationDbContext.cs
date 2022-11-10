@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using IkapatigiCapstone.Models;
 
-namespace IkapatigiCapstone.Models
+namespace IkapatigiCapstone.Data
 {
     public partial class ApplicationDbContext : DbContext
     {

@@ -197,5 +197,38 @@ namespace IkapatigiCapstone.Controllers
         {
             return Convert.ToHexString(RandomNumberGenerator.GetBytes(64));
         }
+
+        public ActionResult aLogin()
+        {
+            return View();
+        }
+
+        [HttpPost("Login")]
+        public async Task<IActionResult> aLogin(UserLoginRequest request)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == request.Email);
+            if (ModelState.IsValid)
+            {
+                if (user == null)
+                {
+                    ViewData["LoginMessage"] = "User does not exist";
+
+                    return View("Login");
+                }
+                if (!verifyhashPassword(request.Password, user.PasswordHash, user.PasswordSalt))
+                {
+                    ViewData["LoginMessage"] = "Invalid Login";
+                    //return BadRequest("User does not exist");
+                    return View("Login");
+                }
+
+                return RedirectToAction("MemberHome", "Home");
+            }
+            else
+            {
+                ViewData["LoginMessage"] = "Login Error";
+                return View("Login");
+            }
+        }
     }
 }

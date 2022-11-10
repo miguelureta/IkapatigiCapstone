@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace IkapatigiCapstone.Models
 {
@@ -29,7 +31,8 @@ namespace IkapatigiCapstone.Models
         public string? LastName { get; set; }
         public string? DisplayName { get; set; }
         public string? Gender { get; set; }
-        public string? Email { get; set; }
+        [Display(Name = "User Email")]
+        public string Email { get; set; }
         public int? AccountNumber { get; set; }
         public DateTime? DateCreated { get; set; }
         public DateTime? DateUpdated { get; set; }

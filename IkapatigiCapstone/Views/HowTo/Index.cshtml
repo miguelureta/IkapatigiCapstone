@@ -27,7 +27,7 @@
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Title)
-            </th>
+            </th> 
             <th>
                 @Html.DisplayNameFor(model => model.Description)
             </th>
@@ -97,27 +97,26 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Status.StatusId)
             </td>
-             <td>
-                <a asp-action="Edit" asp-route-id="@item.HowTosID">
-                    <i class="fa fa-pencil" style="color:blue"></i>
-                </a> 
-                <a asp-action="Details" asp-route-id="@item.HowTosID">
-                   <i class="fa fa-info-circle" aria-hidden="true" style="color: green"></i>
-              @*     <i class="fa-solid fa-arrow-right-to-arc" ></i> UPDATE FontAwesome if you want to use the other icons.*@
-                    
-                </a> 
-                |
-                <a asp-action="Banned" asp-route-id="@item.HowTosID">
-                   <i class="fa-solid fa-ban" style="color:red"></i>
-                   
-                </a> 
-               @* |
-                <a asp-action="Article" asp-route-id="@item.HowTosID">Details</a>*@
-                |
-                 <a asp-action="Delete" asp-route-id="@item.HowTosID"
-                   onclick='return confirm("Are you sure?");'>
-                    <i class="fa fa-trash" style="color:red"></i>
-                </a>
+                <td>
+                   <a asp-action="Edit" asp-route-id="@item.HowTosID">
+                       <i class="fa fa-pencil" style="color:blue"></i>
+                   </a> 
+                   <a asp-action="Details" asp-route-id="@item.HowTosID">
+                      <i class="fa fa-info-circle" aria-hidden="true" style="color: green"></i>
+                    @*<i class="fa-solid fa-arrow-right-to-arc" ></i> UPDATE FontAwesome if you want to use the other icons.*@
+                       
+                   </a> 
+                   |
+                   <a asp-action="Banned" asp-route-id="@item.HowTosID">
+                      <i class="fa-solid fa-ban" style="color:red"></i>
+                      
+                   </a> 
+                  @* <a asp-action="Article" asp-route-id="@item.HowTosID">Details</a>*@
+                   |
+                    <a asp-action="Delete" asp-route-id="@item.HowTosID"
+                      onclick='return confirm("Are you sure?");'>
+                       <i class="fa fa-trash" style="color:red"></i>
+                   </a>
             </td>
         </tr>
 }

@@ -12,7 +12,6 @@ namespace IkapatigiCapstone.Controllers
         public HowToController(ApplicationDbContext context)
         {
             _context = context;
-
         }
         /* Uncomment this Controller constructor and comment the above constructor to
          * work with GetStatusList()
