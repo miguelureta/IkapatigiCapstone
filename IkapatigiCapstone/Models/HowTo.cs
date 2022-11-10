@@ -9,11 +9,11 @@ namespace IkapatigiCapstone.Models
         [Key]
         public int HowTosID { get; set; }
 
-        [Required (ErrorMessage = "Required")]
+        [Required(ErrorMessage = "Required")]
         public string Title { get; set; }
 
         [Required(ErrorMessage = "Required")]
-        [DataType (DataType.MultilineText)]
+        [DataType(DataType.MultilineText)]
         public string Description { get; set; }
 
         public int? LikeCount { get; set; }
@@ -53,5 +53,7 @@ namespace IkapatigiCapstone.Models
     //    IsPublic = 2
 
     //}
+    public virtual Status? Status { get; set; }
+    public virtual User? User { get; set; }
+    
 }
-

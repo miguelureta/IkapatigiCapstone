@@ -29,7 +29,7 @@ namespace IkapatigiCapstone.Models
         public virtual Tag Tag { get; set; }
         //Might use this ImageUrl for linking
         //public string ImageUrl { get; set; }
-        [Display(Name="Display Image")]
+        [Display(Name = "Display Image")]
         [NotMapped]
         public IFormFile DisplayImage { get; set; }
     }

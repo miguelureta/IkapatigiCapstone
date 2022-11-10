@@ -16,5 +16,7 @@ namespace IkapatigiCapstone.Models
         public int? RequestedUserId { get; set; }
         public DateTime? DateAdded { get; set; }
         public DateTime? DateApproved { get; set; }
+
+        public virtual User? RequestedUser { get; set; }
     }
 }

@@ -1,11 +1,22 @@
-﻿using IkapatigiCapstone.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace IkapatigiCapstone.Models
 {
     public partial class User
     {
+        //Orginally did not have this constructor
+        public User()
+        {
+            AddRequestDiagnostics = new HashSet<AddRequestDiagnostic>();
+            Forums = new HashSet<Forum>();
+            HowTos = new HashSet<HowTo>();
+            PlantDiseases = new HashSet<PlantDisease>();
+            PostReplies = new HashSet<PostReply>();
+            Posts = new HashSet<Post>();
+            Tags = new HashSet<Tag>();
+        }
+
         public int UserId { get; set; }
         public string? Username { get; set; }
         public byte[] PasswordHash { get; set; } = null!;
@@ -28,6 +39,14 @@ namespace IkapatigiCapstone.Models
         public int? SubscriptionId { get; set; }
         public int? StatusId { get; set; }
 
-        public virtual Role UserNavigation { get; set; } = null!;
+        //Below used to be public virtual Role UserNavigation { get; set; } = null!;
+        public virtual Role? Role { get; set; }
+        public virtual ICollection<AddRequestDiagnostic> AddRequestDiagnostics { get; set; }
+        public virtual ICollection<Forum> Forums { get; set; }
+        public virtual ICollection<HowTo> HowTos { get; set; }
+        public virtual ICollection<PlantDisease> PlantDiseases { get; set; }
+        public virtual ICollection<PostReply> PostReplies { get; set; }
+        public virtual ICollection<Post> Posts { get; set; }
+        public virtual ICollection<Tag> Tags { get; set; }
     }
 }

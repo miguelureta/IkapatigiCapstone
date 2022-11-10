@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using IkapatigiCapstone.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace IkapatigiCapstone.Data
+namespace IkapatigiCapstone.Models
 {
     public partial class ApplicationDbContext : DbContext
     {
@@ -17,14 +16,14 @@ namespace IkapatigiCapstone.Data
         {
         }
 
-        public virtual DbSet<Forum> Forums { get; set; }
-        public virtual DbSet<Post> Posts { get; set; }
-        public virtual DbSet<PostReply> PostReplies { get; set; }
         public virtual DbSet<AddRequestDiagnostic> AddRequestDiagnostics { get; set; } = null!;
         public virtual DbSet<Cure> Cures { get; set; } = null!;
         public virtual DbSet<Diagnostic> Diagnostics { get; set; } = null!;
+        public virtual DbSet<Forum> Forums { get; set; } = null!;
         public virtual DbSet<HowTo> HowTos { get; set; } = null!;
         public virtual DbSet<PlantDisease> PlantDiseases { get; set; } = null!;
+        public virtual DbSet<Post> Posts { get; set; } = null!;
+        public virtual DbSet<PostReply> PostReplies { get; set; } = null!;
         public virtual DbSet<Role> Roles { get; set; } = null!;
         public virtual DbSet<Status> Statuses { get; set; } = null!;
         public virtual DbSet<Tag> Tags { get; set; } = null!;
@@ -34,7 +33,6 @@ namespace IkapatigiCapstone.Data
         {
             if (!optionsBuilder.IsConfigured)
             {
-                //optionsBuilder.UseSqlServer("Server=DESKTOP-KJFVQAM\\MSSQLSERVER2;Database=FloraDB;UID=sa;PWD=benilde;MultipleActiveResultSets=true;");
                 IConfigurationRoot configuration = new ConfigurationBuilder()
                                     .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
                                     .AddJsonFile("appsettings.json")
@@ -80,6 +78,11 @@ namespace IkapatigiCapstone.Data
                 entity.Property(e => e.TagName)
                     .HasMaxLength(50)
                     .IsUnicode(false);
+
+                entity.HasOne(d => d.RequestedUser)
+                    .WithMany(p => p.AddRequestDiagnostics)
+                    .HasForeignKey(d => d.RequestedUserId)
+                    .HasConstraintName("FK_AddRequestDiagnostics_Users");
             });
 
             modelBuilder.Entity<Cure>(entity =>
@@ -136,11 +139,37 @@ namespace IkapatigiCapstone.Data
                     .HasConstraintName("FK_Diagnostics_Tags");
             });
 
+            modelBuilder.Entity<Forum>(entity =>
+            {
+                entity.ToTable("Forum");
+
+                entity.Property(e => e.ForumId)
+                    .ValueGeneratedNever()
+                    .HasColumnName("ForumID");
+
+                entity.Property(e => e.Created).HasColumnType("datetime");
+
+                entity.Property(e => e.Description).HasMaxLength(150);
+
+                entity.Property(e => e.ImageUrl)
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Title).HasMaxLength(100);
+
+                entity.Property(e => e.UserId).HasColumnName("UserID");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.Forums)
+                    .HasForeignKey(d => d.UserId)
+                    .HasConstraintName("FK_Forum_Users");
+            });
+
             modelBuilder.Entity<HowTo>(entity =>
             {
-                entity.HasKey(e => e.HowTosID);
+                entity.HasKey(e => e.HowTosId);
 
-                entity.Property(e => e.HowTosID).HasColumnName("HowTosID");
+                entity.Property(e => e.HowTosId).HasColumnName("HowTosID");
 
                 entity.Property(e => e.ArticleBody)
                     .HasMaxLength(5000)
@@ -154,20 +183,25 @@ namespace IkapatigiCapstone.Data
                     .HasMaxLength(1000)
                     .IsUnicode(false);
 
-                entity.Property(e => e.PictureCollectionFromID).HasColumnName("PictureCollectionFromID");
+                entity.Property(e => e.PictureCollectionFromId).HasColumnName("PictureCollectionFromID");
 
-                entity.Property(e => e.StatusID).HasColumnName("StatusID");
+                entity.Property(e => e.StatusId).HasColumnName("StatusID");
 
                 entity.Property(e => e.Title)
                     .HasMaxLength(500)
                     .IsUnicode(false);
 
-                entity.Property(e => e.UserID).HasColumnName("UserID");
+                entity.Property(e => e.UserId).HasColumnName("UserID");
 
                 entity.HasOne(d => d.Status)
                     .WithMany(p => p.HowTos)
-                    .HasForeignKey(d => d.StatusID)
+                    .HasForeignKey(d => d.StatusId)
                     .HasConstraintName("FK_HowTos_Status");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.HowTos)
+                    .HasForeignKey(d => d.UserId)
+                    .HasConstraintName("FK_HowTos_Users");
             });
 
             modelBuilder.Entity<PlantDisease>(entity =>
@@ -188,6 +222,67 @@ namespace IkapatigiCapstone.Data
                     .WithMany(p => p.PlantDiseases)
                     .HasForeignKey(d => d.TagId)
                     .HasConstraintName("FK_PlantDiseases_Tags");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.PlantDiseases)
+                    .HasForeignKey(d => d.UserId)
+                    .HasConstraintName("FK_PlantDiseases_Users");
+            });
+
+            modelBuilder.Entity<Post>(entity =>
+            {
+                entity.ToTable("Post");
+
+                entity.Property(e => e.PostId)
+                    .ValueGeneratedNever()
+                    .HasColumnName("PostID");
+
+                entity.Property(e => e.Content).HasMaxLength(500);
+
+                entity.Property(e => e.Created).HasColumnType("datetime");
+
+                entity.Property(e => e.ForumId).HasColumnName("ForumID");
+
+                entity.Property(e => e.Title).HasMaxLength(100);
+
+                entity.Property(e => e.UserId).HasColumnName("UserID");
+
+                entity.HasOne(d => d.Forum)
+                    .WithMany(p => p.Posts)
+                    .HasForeignKey(d => d.ForumId)
+                    .HasConstraintName("FK_Post_Forum");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.Posts)
+                    .HasForeignKey(d => d.UserId)
+                    .HasConstraintName("FK_Post_Users");
+            });
+
+            modelBuilder.Entity<PostReply>(entity =>
+            {
+                entity.ToTable("PostReply");
+
+                entity.Property(e => e.PostReplyId)
+                    .ValueGeneratedNever()
+                    .HasColumnName("PostReplyID");
+
+                entity.Property(e => e.Content).HasMaxLength(150);
+
+                entity.Property(e => e.Created).HasColumnType("datetime");
+
+                entity.Property(e => e.PostId).HasColumnName("PostID");
+
+                entity.Property(e => e.UserId).HasColumnName("UserID");
+
+                entity.HasOne(d => d.Post)
+                    .WithMany(p => p.PostReplies)
+                    .HasForeignKey(d => d.PostId)
+                    .HasConstraintName("FK_PostReply_Post");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.PostReplies)
+                    .HasForeignKey(d => d.UserId)
+                    .HasConstraintName("FK_PostReply_Users");
             });
 
             modelBuilder.Entity<Role>(entity =>
@@ -220,13 +315,16 @@ namespace IkapatigiCapstone.Data
                     .IsUnicode(false);
 
                 entity.Property(e => e.UserId).HasColumnName("UserID");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.Tags)
+                    .HasForeignKey(d => d.UserId)
+                    .HasConstraintName("FK_Tags_Users");
             });
 
             modelBuilder.Entity<User>(entity =>
             {
-                entity.Property(e => e.UserId)
-                    .ValueGeneratedOnAdd()
-                    .HasColumnName("UserID");
+                entity.Property(e => e.UserId).HasColumnName("UserID");
 
                 entity.Property(e => e.DateCreated).HasColumnType("datetime");
 
@@ -268,11 +366,10 @@ namespace IkapatigiCapstone.Data
                     .HasMaxLength(25)
                     .IsUnicode(false);
 
-                entity.HasOne(d => d.UserNavigation)
-                    .WithOne(p => p.User)
-                    .HasForeignKey<User>(d => d.UserId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Users_Roles");
+                entity.HasOne(d => d.Role)
+                    .WithMany(p => p.Users)
+                    .HasForeignKey(d => d.RoleId)
+                    .HasConstraintName("FK_Users_Roles1");
             });
 
             OnModelCreatingPartial(modelBuilder);

@@ -1,5 +1,4 @@
-﻿using IkapatigiCapstone.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace IkapatigiCapstone.Models

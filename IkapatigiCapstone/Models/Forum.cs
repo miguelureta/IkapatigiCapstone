@@ -1,21 +1,23 @@
-﻿
+﻿using System;
+using System.Collections.Generic;
 
 namespace IkapatigiCapstone.Models
 {
-    public class Forum
+    public partial class Forum
     {
-           public int ForumId { get; set; }
-           public string Title { get; set; }
+        public Forum()
+        {
+            Posts = new HashSet<Post>();
+        }
 
-           public string Description { get; set; }
+        public int ForumId { get; set; }
+        public string? Title { get; set; }
+        public string? Description { get; set; }
+        public DateTime Created { get; set; }
+        public string? ImageUrl { get; set; }
+        public int? UserId { get; set; }
 
-           public DateTime Created { get; set; }
-           
-           public string ImageUrl { get; set; }
-
-           public int? UserID { get; set; }
-
-           public virtual IEnumerable<Post> Posts { get; set; }
-
+        public virtual User? User { get; set; }
+        public virtual ICollection<Post> Posts { get; set; }
     }
 }

@@ -15,6 +15,7 @@ namespace IkapatigiCapstone.Models
         public string? TagName { get; set; }
         public int? UserId { get; set; }
 
+        public virtual User? User { get; set; }
         public virtual ICollection<Diagnostic> Diagnostics { get; set; }
         public virtual ICollection<PlantDisease> PlantDiseases { get; set; }
     }
