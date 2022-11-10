@@ -1,4 +1,5 @@
 using AutoMapper.Execution;
+using IkapatigiCapstone.Data;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
