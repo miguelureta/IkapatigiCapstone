@@ -1,13 +1,18 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
 using IkapatigiCapstone.Models;
 using Microsoft.AspNetCore.Identity;
 using IkapatigiCapstone.Data;
 using System.Security.Cryptography;
 using System.Text;
 using Microsoft.EntityFrameworkCore;
+using MailKit.Net.Smtp;
+using MailKit.Security;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using MimeKit;
+using MimeKit.Text;
 
 namespace IkapatigiCapstone.Controllers
 {
@@ -15,11 +20,13 @@ namespace IkapatigiCapstone.Controllers
     {
         //private readonly UserManager<User> _userManager;
         private readonly ApplicationDbContext _context;
+        private readonly IConfiguration _config;
         //private readonly EmailController _econtrol;
         //private readonly SignInManager<User> _signInManager;
-        public AccountController(/*UserManager<User> userManager, */ApplicationDbContext context/*, EmailController econtrolSignInManager<User> signInManager*/)
+        public AccountController(/*UserManager<User> userManager, */ApplicationDbContext context, IConfiguration config/*, EmailController econtrolSignInManager<User> signInManager*/)
         {
             _context = context;
+            _config = config;
             //_econtrol = econtrol;
             //_userManager = userManager;
             //_signInManager = signInManager;
@@ -197,16 +204,16 @@ namespace IkapatigiCapstone.Controllers
         {
             return Convert.ToHexString(RandomNumberGenerator.GetBytes(64));
         }
-
+        [Route("aLogin")]
         public ActionResult aLogin()
         {
             return View();
         }
 
-        [HttpPost("Login")]
-        public async Task<IActionResult> aLogin(UserLoginRequest request)
+        [HttpPost("aLogin")]
+        public async Task<IActionResult> aLogin(AdminLoginRequest request)
         {
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == request.Email);
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Username == request.Username);
             if (ModelState.IsValid)
             {
                 if (user == null)
@@ -222,13 +229,36 @@ namespace IkapatigiCapstone.Controllers
                     return View("Login");
                 }
 
-                return RedirectToAction("MemberHome", "Home");
+                return RedirectToAction("Index", "User");
             }
             else
             {
                 ViewData["LoginMessage"] = "Login Error";
                 return View("Login");
             }
+        }
+
+        [HttpPost]
+        public IActionResult SendEmail(string body, string temail)
+        {
+            var email = new MimeMessage();
+            //Sender for this service
+            email.From.Add(MailboxAddress.Parse(_config.GetSection("EmailUsername").Value));
+
+            //Recipient of email
+            email.To.Add(MailboxAddress.Parse("miguelblanco.ureta@benilde.edu.ph"));
+
+            //Subject and content of email
+            email.Subject = "Test Email Subject";
+            email.Body = new TextPart(TextFormat.Html) { Text = body };
+
+            using var smtp = new SmtpClient();
+            smtp.Connect(_config.GetSection("EmailHost").Value, 587, SecureSocketOptions.StartTls);
+            smtp.Authenticate(_config.GetSection("EmailUsername").Value, _config.GetSection("EmailPassword").Value);
+            smtp.Send(email);
+            smtp.Disconnect(true);
+
+            return RedirectToAction("Index", "Home");
         }
     }
 }
