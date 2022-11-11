@@ -14,6 +14,7 @@ namespace IkapatigiCapstone.Models
 
         [Required(ErrorMessage = "Required")]
         [DataType(DataType.MultilineText)]
+        [MaxLength(1000)]
         public string Description { get; set; }
 
         public int? LikeCount { get; set; }
@@ -29,13 +30,14 @@ namespace IkapatigiCapstone.Models
         public int? StatusID { get; set; }
 
         public int? PictureCollectionFromID { get; set; }
-
+        [Display(Name ="Date Created")]
         public DateTime DateCreated { get; set; }
-
+        [Display(Name ="Date Updated")]
         public DateTime? DateUpdated { get; set; }
 
+        [Display(Name = "Content")]
+        [MaxLength(5000)]
         [DataType(DataType.MultilineText)]
-        //Make sure to put the limits of the database here. Article Body is only 5,000 words.
         public string? ArticleBody { get; set; }
         public virtual Status? Status { get; set; } = null!;
         public virtual User? User { get; set; }

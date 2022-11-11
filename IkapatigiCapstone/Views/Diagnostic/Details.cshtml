@@ -1,0 +1,45 @@
+﻿@model IkapatigiCapstone.Models.Diagnostic
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Details</h1>
+<div class="bgtable">
+    <div>
+        <h4>Diagnostic</h4>
+        <hr />
+        <dl class="row">
+            <dt class = "col-sm-2">
+                @Html.DisplayNameFor(model => model.Cure)
+            </dt>
+            <dd class = "col-sm-2">
+                @Html.DisplayFor(model => model.Cure.CureName)
+            </dd>
+            <dt class = "col-sm-2">
+                @Html.DisplayNameFor(model => model.PlantDisease)
+            </dt>
+            <dd class = "col-sm-2">
+                @Html.DisplayFor(model => model.PlantDisease.DiseaseName)
+            </dd>
+            <dt class = "col-sm-2">
+                @Html.DisplayNameFor(model => model.Status)
+            </dt>
+            <dd class = "col-sm-2">
+                @Html.DisplayFor(model => model.Status.StatusType)
+            </dd>
+            <dt class = "col-sm-2">
+                @Html.DisplayNameFor(model => model.Tag)
+            </dt>
+            <dd class = "col-sm-2">
+                @Html.DisplayFor(model => model.Tag.TagName)
+            </dd>
+        </dl>
+    </div>
+    
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.DiagnosticsId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

@@ -8,7 +8,7 @@ namespace IkapatigiCapstone.Models
         public IEnumerable<Cure> CureList { get; set; }
         [Display(Name = "Disease")]
         public IEnumerable<PlantDisease> DiseaseList{ get; set; }
-        [Display(Name = "Tag")]
+        [Display(Name = "Tags")]
         public IEnumerable<Tag> TagsList { get; set; }
         [Display(Name = "Status")]
         public IEnumerable<Status> StatusList { get; set; }

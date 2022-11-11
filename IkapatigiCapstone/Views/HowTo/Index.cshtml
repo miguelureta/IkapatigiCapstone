@@ -41,10 +41,7 @@
                 @Html.DisplayNameFor(model => model.IsPublic)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.UserID)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PictureCollectionFromID)
+                @Html.DisplayNameFor(model => model.User.Email)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.DateCreated)
@@ -80,10 +77,7 @@
                 @Html.DisplayFor(modelItem => item.IsPublic)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.UserID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PictureCollectionFromID)
+                @Html.DisplayFor(modelItem => item.User.Email)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.DateCreated)

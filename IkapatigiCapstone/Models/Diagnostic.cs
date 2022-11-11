@@ -33,4 +33,15 @@ namespace IkapatigiCapstone.Models
         [NotMapped]
         public IFormFile DisplayImage { get; set; }
     }
+    public partial class DiagnosticDetails
+    {
+        [Display(Name = "Cure")]
+        public virtual Cure Cure { get; set; }
+        [Display(Name = "Plant Disease")]
+        public virtual PlantDisease PlantDisease { get; set; }
+        [Display(Name = "Status")]
+        public virtual Status Status { get; set; }
+        [Display(Name = "Tag")]
+        public virtual Tag Tag { get; set; }
+    }
 }

@@ -136,6 +136,21 @@ namespace IkapatigiCapstone.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpGet]
+        public ActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return RedirectToAction("Index");
+            }
+            Diagnostic diag = _context.Diagnostics.Find(id);
+            if (diag == null)
+            {
+                return RedirectToAction("Index");
+            }
+            return View(diag);
+        }
+
         //For uploading image to application folders
         private string UploadedFile(Diagnostic diag)
         {
