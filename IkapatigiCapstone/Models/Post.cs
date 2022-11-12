@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace IkapatigiCapstone.Models
 {
@@ -9,12 +11,15 @@ namespace IkapatigiCapstone.Models
         {
             PostReplies = new HashSet<PostReply>();
         }
-
+        [Key]
         public int PostId { get; set; }
         public string? Title { get; set; }
+        [DataType(DataType.MultilineText)]
         public string? Content { get; set; }
         public DateTime Created { get; set; }
+        [ForeignKey("User")]
         public int? UserId { get; set; }
+        [ForeignKey("Forum")]
         public int? ForumId { get; set; }
 
         public virtual Forum? Forum { get; set; }

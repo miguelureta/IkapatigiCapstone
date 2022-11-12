@@ -19,7 +19,7 @@
     </p>
 
     <br />
-    <table>
+    <table id="records" class="table">
         <thead>
             <tr>
                 <th>
@@ -111,7 +111,6 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
     <script src="~/lib/datatables/js/jquery.dataTables.js"></script>
     <script src="~/lib/datatables/js/dataTables.bootstrap4.js"></script>
     <script> 
@@ -119,4 +118,5 @@
             $('#records').DataTable();
         });
     </script>
+
 }

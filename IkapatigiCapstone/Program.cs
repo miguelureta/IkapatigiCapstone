@@ -11,12 +11,23 @@ var connectionString = builder.Configuration.GetConnectionString("MyConnection")
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
+//Mailing service
+
 
 //You need to add login stuff here. Especially for the Forum. Remember video 3 of the series I used when making the Forum.
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddControllers();
-
+//Session services for passing data
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession(options =>
+{
+    options.Cookie.Name = ".IkapatigiCapstone.Session";
+    options.IdleTimeout = TimeSpan.FromMinutes(1);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 //builder.Services.AddAuthentication(options =>
 //{
 //    options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
@@ -51,6 +62,7 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
+app.UseSession();
 
 app.MapControllerRoute(
     name: "default",

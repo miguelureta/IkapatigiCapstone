@@ -143,9 +143,8 @@ namespace IkapatigiCapstone.Data
             modelBuilder.Entity<Forum>(entity =>
             {
                 entity.ToTable("Forum");
-
+                entity.HasKey(e => e.ForumId);
                 entity.Property(e => e.ForumId)
-                    .ValueGeneratedNever()
                     .HasColumnName("ForumID");
 
                 entity.Property(e => e.Created).HasColumnType("datetime");
@@ -233,9 +232,9 @@ namespace IkapatigiCapstone.Data
             modelBuilder.Entity<Post>(entity =>
             {
                 entity.ToTable("Post");
+                entity.HasKey(e => e.PostId);
 
                 entity.Property(e => e.PostId)
-                    .ValueGeneratedNever()
                     .HasColumnName("PostID");
 
                 entity.Property(e => e.Content).HasMaxLength(500);
@@ -263,8 +262,9 @@ namespace IkapatigiCapstone.Data
             {
                 entity.ToTable("PostReply");
 
+                entity.HasKey(e => e.PostReplyId);
+
                 entity.Property(e => e.PostReplyId)
-                    .ValueGeneratedNever()
                     .HasColumnName("PostReplyID");
 
                 entity.Property(e => e.Content).HasMaxLength(150);

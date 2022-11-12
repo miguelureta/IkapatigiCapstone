@@ -14,7 +14,9 @@ namespace IkapatigiCapstone.Models
 
         public int ForumId { get; set; }
         [Display(Name = "Forum Title")]
+        [Required]
         public string? Title { get; set; }
+        [Required]  
         public string? Description { get; set; }
         [Display(Name = "Date Created")]
         public DateTime Created { get; set; }

@@ -21,13 +21,12 @@ namespace IkapatigiCapstone.Controllers
         //private readonly UserManager<User> _userManager;
         private readonly ApplicationDbContext _context;
         private readonly IConfiguration _config;
-        //private readonly EmailController _econtrol;
+        //private readonly IEmailService _emailService;
         //private readonly SignInManager<User> _signInManager;
-        public AccountController(/*UserManager<User> userManager, */ApplicationDbContext context, IConfiguration config/*, EmailController econtrolSignInManager<User> signInManager*/)
+        public AccountController(/*UserManager<User> userManager, */ApplicationDbContext context, IConfiguration config/*, SignInManager<User> signInManager*/)
         {
             _context = context;
             _config = config;
-            //_econtrol = econtrol;
             //_userManager = userManager;
             //_signInManager = signInManager;
         }
@@ -100,6 +99,21 @@ namespace IkapatigiCapstone.Controllers
             hashPassword(request.Password, 
                 out byte[] passwordHash, out byte[] passwordSalt);
             var token = CreateRandomToken();
+
+            //Email section start
+            var email = new MimeMessage();
+            email.From.Add(MailboxAddress.Parse(_config.GetSection("EmailUsername").Value));
+            email.To.Add(MailboxAddress.Parse(request.Email));
+            email.Subject = "Test Email Subject";
+            email.Body = new TextPart(TextFormat.Html) { Text = token };
+
+            using var smtp = new SmtpClient();
+            smtp.Connect(_config.GetSection("EmailHost").Value, 587, SecureSocketOptions.StartTlsWhenAvailable);
+            smtp.Authenticate(_config.GetSection("EmailUsername").Value, _config.GetSection("EmailPassword").Value);
+            smtp.Send(email);
+            smtp.Disconnect(true);
+            //Email section end
+
             var user = new User
             {
                 Email = request.Email,
@@ -115,6 +129,30 @@ namespace IkapatigiCapstone.Controllers
             return RedirectToAction("Login");
             //Changed the page link. It goes to the Login now.
         }
+
+        //[HttpPost]
+        //public IActionResult SendEmail(string body, string temail)
+        //{
+        //    var email = new MimeMessage();
+        //    //Sender for this service
+        //    email.From.Add(MailboxAddress.Parse(_config.GetSection("EmailUsername").Value));
+
+        //    //Recipient of email
+        //    email.To.Add(MailboxAddress.Parse("miguelblanco.ureta@benilde.edu.ph"));
+
+        //    //Subject and content of email
+        //    email.Subject = "Test Email Subject";
+        //    email.Body = new TextPart(TextFormat.Html) { Text = body };
+
+        //    using var smtp = new SmtpClient();
+        //    smtp.Connect(_config.GetSection("EmailHost").Value, 587, SecureSocketOptions.StartTls);
+        //    smtp.Authenticate(_config.GetSection("EmailUsername").Value, _config.GetSection("EmailPassword").Value);
+        //    smtp.Send(email);
+        //    smtp.Disconnect(true);
+
+        //    return RedirectToAction("Index", "Home");
+        //}
+
 
         [HttpPost("Login")]
         public async Task<IActionResult> Login(UserLoginRequest request)
