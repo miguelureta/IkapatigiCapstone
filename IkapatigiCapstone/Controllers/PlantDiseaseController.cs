@@ -69,8 +69,6 @@ namespace IkapatigiCapstone.Controllers
             plantdisease.DiseaseName = record.DiseaseName;
             plantdisease.ImageOfDisease = record.ImageOfDisease;
             plantdisease.TagId = record.TagId;
-            plantdisease.CureId = record.CureId;
-            plantdisease.UserId = record.UserId;
 
 
             _context.PlantDiseases.Update(plantdisease);

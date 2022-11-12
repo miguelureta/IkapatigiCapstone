@@ -12,7 +12,7 @@ namespace IkapatigiCapstone.Models
 
         public int PlantDiseaseId { get; set; }
         public string DiseaseName { get; set; } = null!;
-        public byte[] ImageOfDisease { get; set; } = null!;
+        public byte[]? ImageOfDisease { get; set; } = null!;
         public int? TagId { get; set; }
         public int? CureId { get; set; }
         public int? UserId { get; set; }

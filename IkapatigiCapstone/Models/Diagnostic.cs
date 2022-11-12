@@ -31,7 +31,7 @@ namespace IkapatigiCapstone.Models
         //public string ImageUrl { get; set; }
         [Display(Name = "Display Image")]
         [NotMapped]
-        public IFormFile DisplayImage { get; set; }
+        public IFormFile? DisplayImage { get; set; }
     }
     public partial class DiagnosticDetails
     {

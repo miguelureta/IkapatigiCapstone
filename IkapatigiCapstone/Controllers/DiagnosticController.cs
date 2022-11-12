@@ -64,7 +64,7 @@ namespace IkapatigiCapstone.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateHowTo(Diagnostic record)
+        public IActionResult Create(Diagnostic record)
         {
             var diagnostic = new Diagnostic()
             {
@@ -99,7 +99,6 @@ namespace IkapatigiCapstone.Controllers
 
 
         [HttpPost]
-
         public IActionResult Edit(int? id, Diagnostic record)
         {
             var diagnostic = _context.Diagnostics.Where(i => i.DiagnosticsId == id).SingleOrDefault();

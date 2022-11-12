@@ -20,7 +20,7 @@ namespace IkapatigiCapstone.Models
         public int? LikeCount { get; set; }
 
         public int? DislikeCount { get; set; }
-
+        [Display(Name ="Available For")]
         public Availability? IsPublic { get; set; }
 
         public int? UserID { get; set; }

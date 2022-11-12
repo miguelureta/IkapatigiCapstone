@@ -9,7 +9,7 @@
 <div class="titlecontainer">
     <div class="text-center">
 
-        <h1 class="display-4">How-tos</h1>
+        <h1 class="display-4">How-Tos</h1>
     </div>
 </div>
 <br />
@@ -100,13 +100,13 @@
                     @*<i class="fa-solid fa-arrow-right-to-arc" ></i> UPDATE FontAwesome if you want to use the other icons.*@
                        
                    </a> 
-                   |
+                   
                    <a asp-action="Banned" asp-route-id="@item.HowTosID">
                       <i class="fa-solid fa-ban" style="color:red"></i>
                       
                    </a> 
                   @* <a asp-action="Article" asp-route-id="@item.HowTosID">Details</a>*@
-                   |
+                   
                     <a asp-action="Delete" asp-route-id="@item.HowTosID"
                       onclick='return confirm("Are you sure?");'>
                        <i class="fa fa-trash" style="color:red"></i>
