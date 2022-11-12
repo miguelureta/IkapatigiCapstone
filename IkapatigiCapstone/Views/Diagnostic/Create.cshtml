@@ -24,23 +24,23 @@
                     <span asp-validation-for="PictureCollectionFromId" class="text-danger"></span>
                 </div>*@
                 <div class="form-group">
-                    <label asp-for="CureId" class="control-label"></label>
+                    <label asp-for="CureId" class="control-label">Cure</label>
                     <select asp-for="CureId" class ="form-control" asp-items="ViewBag.CureId"></select>
                 </div>
                 <div class="form-group">
-                    <label asp-for="StatusId" class="control-label"></label>
+                    <label asp-for="StatusId" class="control-label">Status</label>
                     <select asp-for="StatusId" class ="form-control" asp-items="ViewBag.StatusId"></select>
                 </div>
                 <div class="form-group">
-                    <label asp-for="TagId" class="control-label"></label>
+                    <label asp-for="TagId" class="control-label">Tag</label>
                     <select asp-for="TagId" class ="form-control" asp-items="ViewBag.TagId"></select>
                 </div>
                 <div class="form-group">
-                    <label asp-for="PlantDiseaseId" class="control-label"></label>
+                    <label asp-for="PlantDiseaseId" class="control-label">Plant Disease</label>
                     <select asp-for="PlantDiseaseId" class ="form-control" asp-items="ViewBag.PlantDiseaseId"></select>
                 </div>
                 <div class="form-group">
-                    <label asp-for="DisplayImage" class="control-label"></label>
+                    <label asp-for="DisplayImage" class="control-label">Display Image</label>
                     <div class="custom-file">
                         <input asp-for="DisplayImage" class="custom-file-input" id="DisImage"
                         onchange="document.getElementById('DisplayImgPrv').src = window.URL.createObjectURL(this.files[0])">

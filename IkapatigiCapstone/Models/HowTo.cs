@@ -22,7 +22,7 @@ namespace IkapatigiCapstone.Models
         public int? DislikeCount { get; set; }
         [Display(Name ="Available For")]
         public Availability? IsPublic { get; set; }
-
+        [Display(Name ="User")]
         public int? UserID { get; set; }
 
         //public StatusChange? StatusID { get; set; }
@@ -45,8 +45,8 @@ namespace IkapatigiCapstone.Models
     }
     public enum Availability
     {
-        MembersOnly = 1,
-        IsPublic = 2
+        Members = 1,
+        Public = 2
     }
     //public virtual Status? Status { get; set; }
     //public enum StatusChange

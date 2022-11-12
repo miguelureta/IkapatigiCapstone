@@ -61,7 +61,7 @@ namespace IkapatigiCapstone.Controllers
             _context.SaveChanges();
 
             //Holy smokes it works
-            if (howto.IsPublic == Availability.MembersOnly)
+            if (howto.IsPublic == Availability.Members)
             {
                 foreach (var member in memberList)
                 {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace IkapatigiCapstone.Models
 {
@@ -11,10 +12,13 @@ namespace IkapatigiCapstone.Models
         }
 
         public int PlantDiseaseId { get; set; }
+        [Display(Name ="Disease Name")]
         public string DiseaseName { get; set; } = null!;
         public byte[]? ImageOfDisease { get; set; } = null!;
+        [Display(Name = "Tag")]
         public int? TagId { get; set; }
         public int? CureId { get; set; }
+        [Display(Name ="User")]
         public int? UserId { get; set; }
 
         public virtual Tag? Tag { get; set; }

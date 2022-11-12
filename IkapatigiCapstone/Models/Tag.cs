@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace IkapatigiCapstone.Models
 {
@@ -13,6 +14,7 @@ namespace IkapatigiCapstone.Models
 
         public int TagId { get; set; }
         public string? TagName { get; set; }
+        [Display(Name="User")]
         public int? UserId { get; set; }
 
         public virtual User? User { get; set; }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace IkapatigiCapstone.Models
 {
@@ -9,7 +10,7 @@ namespace IkapatigiCapstone.Models
         {
             Diagnostics = new HashSet<Diagnostic>();
         }
-
+        
         public int CureId { get; set; }
         public string CureName { get; set; } = null!;
         public decimal Srp { get; set; }

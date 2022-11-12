@@ -40,7 +40,7 @@
                 @Html.DisplayFor(modelItem => item.TagName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.UserId)
+                @Html.DisplayFor(modelItem => item.User.Username)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.TagId"> 
