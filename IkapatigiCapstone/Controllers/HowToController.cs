@@ -2,16 +2,22 @@
 using IkapatigiCapstone.Data;
 using IkapatigiCapstone.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using MimeKit;
+using MimeKit.Text;
+using MailKit.Net.Smtp;
+using MailKit.Security;
 
 namespace IkapatigiCapstone.Controllers
 {
     public class HowToController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IConfiguration _config;
         //private readonly IWebHostEnvironment _webHostEnvironment;//This is for the GetStatusList()
-        public HowToController(ApplicationDbContext context)
+        public HowToController(ApplicationDbContext context, IConfiguration config)
         {
             _context = context;
+            _config = config;
         }
         /* Uncomment this Controller constructor and comment the above constructor to
          * work with GetStatusList()
@@ -33,7 +39,8 @@ namespace IkapatigiCapstone.Controllers
         { 
             return View();
         }
-
+        
+        //Added function to send MembersOnly HowTo articles to Users with Member Role = 1
         [HttpPost]
         public IActionResult Create(HowTo record)
         {
@@ -48,10 +55,29 @@ namespace IkapatigiCapstone.Controllers
             howto.PictureCollectionFromID = record.PictureCollectionFromID;
             howto.DateCreated = DateTime.Now;
             howto.ArticleBody = record.ArticleBody;
-
-
+            var memberList = _context.Users.Where(u => u.RoleId == 1).ToList();
+            
             _context.HowTos.Add(howto);
             _context.SaveChanges();
+
+            //Holy smokes it works
+            if (howto.IsPublic == Availability.MembersOnly)
+            {
+                foreach (var member in memberList)
+                {
+                    var email = new MimeMessage();
+                    email.From.Add(MailboxAddress.Parse(_config.GetSection("EmailUsername").Value));
+                    email.To.Add(MailboxAddress.Parse(member.Email));
+                    email.Subject = "New Members Only Content";
+                    email.Body = new TextPart(TextFormat.Html) { Text = howto.Title };
+
+                    using var smtp = new SmtpClient();
+                    smtp.Connect(_config.GetSection("EmailHost").Value, 587, SecureSocketOptions.StartTlsWhenAvailable);
+                    smtp.Authenticate(_config.GetSection("EmailUsername").Value, _config.GetSection("EmailPassword").Value);
+                    smtp.Send(email);
+                    smtp.Disconnect(true);
+                }
+            }
 
             return RedirectToAction("Index");
         }
