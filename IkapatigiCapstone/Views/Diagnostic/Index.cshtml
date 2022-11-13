@@ -74,7 +74,7 @@
                    onclick='return confirm("Are you sure?");'>
                     <i class="fa fa-trash" style="color:red"></i>
                 </a>
-                <a asp-action="Details" asp-route-id="@item.DiagnosticsId" method="get">
+                <a asp-action="Details" asp-controller="Diagnostic" asp-route-id="@item.DiagnosticsId" method="get">
                     <i class="fa fa-info-circle" aria-hidden="true" style="color: green"></i>
                 </a>
             </td>

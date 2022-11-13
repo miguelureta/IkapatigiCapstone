@@ -72,6 +72,8 @@ namespace IkapatigiCapstone.Controllers
                     email.Body = new TextPart(TextFormat.Html) { Text = howto.Title };
 
                     using var smtp = new SmtpClient();
+                    //Commented smtp line is for sending emails when deployed in Capstone Repo
+                    //smtp.Connect(_config.GetSection("EmailHost").Value, 25, SecureSocketOptions.StartTlsWhenAvailable);
                     smtp.Connect(_config.GetSection("EmailHost").Value, 587, SecureSocketOptions.StartTlsWhenAvailable);
                     smtp.Authenticate(_config.GetSection("EmailUsername").Value, _config.GetSection("EmailPassword").Value);
                     smtp.Send(email);

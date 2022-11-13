@@ -143,6 +143,7 @@ namespace IkapatigiCapstone.Controllers
                 return RedirectToAction("Index");
             }
             Diagnostic diag = _context.Diagnostics.Find(id);
+            
             if (diag == null)
             {
                 return RedirectToAction("Index");

@@ -39,6 +39,8 @@ namespace IkapatigiCapstone.Data
                                     .AddJsonFile("appsettings.json")
                                     .Build();
                 optionsBuilder.UseSqlServer(configuration.GetConnectionString("MyConnection"));
+                
+                base.OnConfiguring(optionsBuilder);
             }
         }
 
