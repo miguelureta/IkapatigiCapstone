@@ -1,0 +1,57 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model IkapatigiCapstone.Models.PostReplyViewCreateModel
+
+@{
+
+    Layout = "~/Views/Shared/_LayoutMember.cshtml";
+}
+<div class="titlecontainer">
+    <div>
+
+        <h1 class="display-4">@Html.DisplayFor(model=>model._Post.Title)</h1><br />
+        <h3>@Html.DisplayFor(model=>model._Post.Content)</h3>
+
+    </div>
+</div>
+<div class="bgtable">
+    <p>
+        <a asp-action="MemberCreateReply"><i class="fa-solid fa-circle-plus"> Reply</i></a>
+        @*<a asp-controller="Forum" asp-action="CreatePost" id="btnSubmit" name="btnSubmit" value="@Model._Forum.ForumId" >Create New</a>*@
+        <br />
+        <a asp-action="MemberIndex" asp-controller="Forum">Back to List</a>
+        <br />
+    </p>
+    <table id="records" class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Content)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.postReplies)
+            {
+                <a asp-action="CreateReply" asp-controller="Forum">
+                <tr>
+                    <td>
+                            @Html.DisplayFor(modelItem => item.Content)
+                    </td>
+                </tr>
+                </a>
+            }
+        </tbody>
+    </table>
+</div>
+
+@section Scripts{
+    <script src="~/lib/datatables/js/jquery.dataTables.js"></script>
+    <script src="~/lib/datatables/js/dataTables.bootstrap4.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#records').DataTable();
+        });
+    </script>
+}

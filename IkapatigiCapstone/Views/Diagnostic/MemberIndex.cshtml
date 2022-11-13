@@ -1,0 +1,90 @@
+﻿@model IkapatigiCapstone.Models.DiagnosticViewModel
+
+@{
+    ViewData["Title"] = "Diagnostic Record";
+    Layout = "~/Views/Shared/_LayoutMember.cshtml";
+}
+
+<br />
+<div class="titlecontainer">
+    <div class="text-center">
+
+        <h1 class="display-4">Diagnostic</h1>
+    </div>
+</div>
+<br />
+
+<div class="bgtable">
+
+
+ 
+
+    <br />
+    <table id="records" class="table">
+        <thead>
+            <tr>
+                @*<th>
+                @Html.DisplayNameFor(model => model.PictureCollectionFromId)
+                </th>*@
+
+                <th>
+                    @Html.DisplayNameFor(model => model.CureList)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DiseaseList)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.StatusList)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TagsList)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Diagnostic)
+            {
+                <tr>
+                    @*<td>
+                @Html.DisplayFor(modelItem => item.PictureCollectionFromId)
+                </td>*@
+                    <td>
+                        @*@Html.DisplayFor(modelItem => item.CureList.Where(x => x.CureId == item.Diagnostic.CureId))*@
+                        @Html.DisplayFor(modelItem => item.Cure.CureName)
+                    </td>
+                    <td>
+                        @*@Html.DisplayFor(modelItem => item.DiseaseList.Where(x => x.PlantDiseaseId == item.Diagnostic.PlantDiseaseId))*@
+                        @Html.DisplayFor(modelItem => item.PlantDisease.DiseaseName)
+                    </td>
+                    <td>
+                        @*@Html.DisplayFor(modelItem => item.StatusList.Where(x => x.StatusId == item.Diagnostic.StatusId))*@
+                        @Html.DisplayFor(modelItem => item.Status.StatusType)
+                    </td>
+                    <td>
+                        @*@Html.DisplayFor(modelItem => item.TagsList.Where(x => x.TagId == item.Diagnostic.TagId))*@
+                        @Html.DisplayFor(modelItem => item.Tag.TagName)
+                    </td>
+                    <td>
+                        
+
+                      
+                        <a asp-action="MemberDetails" asp-controller="Diagnostic" asp-route-id="@item.DiagnosticsId" method="get">
+                            <i class="fa fa-info-circle" aria-hidden="true" style="color: green"></i>
+                        </a>
+                    </td>
+                </tr>
+
+            }
+        </tbody>
+    </table>
+</div>
+@section Scripts{
+    <script src="~/lib/datatables/js/jquery.dataTables.js"></script>
+    <script src="~/lib/datatables/js/dataTables.bootstrap4.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#records').DataTable();
+        });
+    </script>
+}

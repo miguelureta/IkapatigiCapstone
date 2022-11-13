@@ -1,0 +1,79 @@
+﻿@model IEnumerable<IkapatigiCapstone.Models.Forum>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_LayoutMember.cshtml";
+}
+
+<br />
+<div class="titlecontainer">
+    <div class="text-center">
+
+        <h1 class="display-4">Ikapatigi Forum</h1>
+    </div>
+</div>
+<br />
+<div class="bgtable">
+    
+
+    <br />
+    <table id="records" class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Title)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Description)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Created)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.User.Email)
+                </th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Created)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.User.Email)
+                    </td>
+                    <td>
+                       
+                   
+                        <a asp-action="MemberPostView" asp-route-id="@item.ForumId">
+                            <i class="fa fa-info-circle" aria-hidden="true" style="color: green"></i>
+                        </a>
+                       
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    
+</div>
+
+@section Scripts {
+    <script src="~/lib/datatables/js/jquery.dataTables.js"></script>
+    <script src="~/lib/datatables/js/dataTables.bootstrap4.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#records').DataTable();
+        });
+    </script>
+
+}

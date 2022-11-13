@@ -248,5 +248,50 @@ namespace IkapatigiCapstone.Controllers
 
             return lstPlantDiseases;
         }
+
+
+        public IActionResult MemberIndex()
+        {
+            var dvm = new DiagnosticViewModel();
+            //List<DiagnosticViewModel> list = new List<DiagnosticViewModel>();
+            //var diag = _context.Diagnostics.Include(a => a.CureId).ThenInclude<Tag => Diagnostic.Tag>;
+            //var diag = _context.Diagnostics.ToList();
+            //foreach(var Diagnostic in diag)
+            //{
+            //Diagnostic d = new Diagnostic();
+            //DiagnosticViewModel dvm = new DiagnosticViewModel();
+            //var diagCureItem = _context.Cures.Where(x => x.CureId == d.CureId);
+            //var diagDiseaseItem = _context.PlantDiseases.Where(x => x.PlantDiseaseId == d.PlantDiseaseId);
+            //var diagStatusItem = _context.Statuses.Where(x => x.StatusId == d.StatusId);
+            //var diagTagItem = _context.Tags.Where(x => x.TagId == d.TagId);
+            dvm.CureList = _context.Cures.ToList();
+            dvm.DiseaseList = _context.PlantDiseases.ToList();
+            dvm.StatusList = _context.Statuses.ToList();
+            dvm.TagsList = _context.Tags.ToList();
+            dvm.Diagnostic = _context.Diagnostics.ToList();
+            //dvm.CureList = diagCureItem;
+            //dvm.DiseaseList = diagDiseaseItem;
+            //dvm.StatusList = diagStatusItem;
+            //dvm.TagsList = diagTagItem;
+            //    list.Add(dvm);
+            //}
+            return View(dvm);
+        }
+
+        [HttpGet]
+        public ActionResult MemberDetails(int? id)
+        {
+            if (id == null)
+            {
+                return RedirectToAction("Index");
+            }
+            Diagnostic diag = _context.Diagnostics.Find(id);
+
+            if (diag == null)
+            {
+                return RedirectToAction("Index");
+            }
+            return View(diag);
+        }
     }
 }
