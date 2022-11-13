@@ -240,5 +240,146 @@ namespace IkapatigiCapstone.Controllers
             _context.SaveChanges();
             return RedirectToAction("Index");
         }
+
+
+
+
+
+
+
+
+
+
+
+
+        //THIS IS THE MemberForums
+
+        public ActionResult MemberIndex()
+        {
+            var list = _context.Forums.ToList();
+            return View(list);
+        }
+
+        // GET: ForumController/Details/5
+        [Route("MemberPostView")]
+        public ActionResult MemberPostView(int id)
+        {
+            if (id == null)
+            {
+                return RedirectToAction("MemberIndex");
+            }
+            var pvm = new PostViewModel();
+            pvm.Posts = _context.Posts.Where(p => p.ForumId == id).ToList();
+            pvm._Forum = _context.Forums.Where(f => f.ForumId == id).FirstOrDefault();
+            _hcontext.HttpContext.Session.SetInt32("ForumTarget", id);
+            if (pvm == null)
+            {
+                return RedirectToAction("MemberIndex");
+            }
+            return View("MemberPostView", pvm);
+        }
+
+
+       
+        public IActionResult MemberCreatePost()
+        {
+            //var post = _context.Forums.Where(i => i.ForumId == id).SingleOrDefault();
+            //if (id == null)
+            //{
+            //    return RedirectToAction("Index");
+            //}
+
+
+            //if (post == null)
+            //{
+            //    return RedirectToAction("Index");
+            //}
+            //Post post = new Post();
+            //return PartialView("CreatePost", post);
+            return View("MemberCreatePost");
+        }
+
+        [HttpPost]
+        public ActionResult MemberCreatePost(CreatePostModel post/*, int? id*/)
+        {
+            //var inputPost = _context.Forums.Where(i => i.ForumId == id).SingleOrDefault();
+
+
+            //if(id==null)
+            //{
+            //    return View("Index");
+            //}
+            var inPost = new Post();
+            inPost.Title = post.Title;
+            inPost.Content = post.Content;
+            inPost.Created = DateTime.Now;
+            inPost.ForumId = _hcontext.HttpContext.Session.GetInt32("ForumTarget");
+
+            _context.Posts.Add(inPost);
+            _context.SaveChanges();
+            return RedirectToAction("MemberIndex");
+        }
+
+        public IActionResult MemberViewReplies(int id)
+        {
+            var replyModel = new PostReplyViewCreateModel();
+            replyModel.postReplies = _context.PostReplies.Where(p => p.PostId == id).ToList();
+            replyModel._Post = _context.Posts.Where(i => i.PostId == id).SingleOrDefault();
+            _hcontext.HttpContext.Session.SetInt32("PostTarget", id);
+            return View("MemberViewReplies",replyModel);
+        }
+
+        //public IActionResult CreateReply(PostReplyViewCreateModel rep, int id)
+        //{
+        //    _hcontext.HttpContext.Session.SetInt32("PostTarget", id);
+        //    var prm = new PostReplyViewCreateModel();
+        //    prm.PostID = _hcontext.HttpContext.Session.GetInt32("PostTarget");
+        //    prm.postReplies = _context.PostReplies.Where(p => p.PostId == id).ToList();
+
+        //    return View(prm);
+        //}
+
+
+        //[HttpPost]
+        //public ActionResult CreateReply(CreatePostReplyModel crm)
+        //{
+        //    var reply = new PostReply();
+        //    reply.Content = crm.Content;
+        //    reply.Created = DateTime.Now;
+        //    reply.PostId = _hcontext.HttpContext.Session.GetInt32("PostTarget");
+
+        //    _context.PostReplies.Add(reply);
+        //    _context.SaveChanges();
+        //    return RedirectToAction("CreateReply");
+        //}
+
+        public IActionResult MemberCreateReply(PostReplyViewCreateModel rep)
+        {
+            var prm = new PostReplyViewCreateModel();
+            prm.PostID = _hcontext.HttpContext.Session.GetInt32("PostTarget");
+            prm.postReplies = _context.PostReplies.Where(p => p.PostId == _hcontext.HttpContext.Session.GetInt32("PostTarget")).ToList();
+            return View("MemberCreateReply");
+        }
+
+        [HttpPost]
+        public ActionResult MemberCreateReply(CreatePostReplyModel reply/*, int? id*/)
+        {
+            //var inputPost = _context.Forums.Where(i => i.ForumId == id).SingleOrDefault();
+
+
+            //if(id==null)
+            //{
+            //    return View("Index");
+            //}
+            var inReply = new PostReply();
+            inReply.Content = reply.Content;
+            inReply.Created = DateTime.Now;
+            inReply.PostId = _hcontext.HttpContext.Session.GetInt32("PostTarget");
+
+            _context.PostReplies.Add(inReply);
+            _context.SaveChanges();
+            return RedirectToAction("MemberIndex");
+        }
+
     }
 }

@@ -258,5 +258,26 @@ namespace IkapatigiCapstone.Controllers
         //    return lstStatus;
         //}
 
+
+        public IActionResult MemberIndex()
+        {
+            var list = _context.HowTos.ToList();
+            return View(list);
+        }
+
+        public ActionResult MemberDetails(int? id)
+        {
+            if (id == null)
+            {
+                return RedirectToAction("Index");
+            }
+            HowTo howto = _context.HowTos.Find(id);
+            if (howto == null)
+            {
+                return RedirectToAction("Index");
+            }
+            return View("MemberDetails",howto);
+        }
+
     }
 }
