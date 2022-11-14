@@ -31,6 +31,9 @@
                 <th>
                     @Html.DisplayNameFor(Model => Model.Posts)
                 </th>
+                <th>
+                    Created On
+                </th>
             </tr>
         </thead>
         <tbody>
@@ -39,8 +42,18 @@
                 <tr>
                     <td>
                         <a asp-action="MemberViewReplies" asp-controller="Forum" asp-route-id="@item.PostId">
-                            @Html.DisplayFor(modelItem => item.Content)
+                            <details>
+                                <summary>
+                                    @Html.DisplayFor(modelItem => item.Title)
+                                </summary>
+                                <p>
+                                    @Html.DisplayFor(modelItem => item.Content)
+                                </p>
+                            </details>
                         </a>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Created)
                     </td>
                 </tr>
             }

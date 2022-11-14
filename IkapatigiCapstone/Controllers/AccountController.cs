@@ -119,7 +119,8 @@ namespace IkapatigiCapstone.Controllers
                 Email = request.Email,
                 PasswordHash = passwordHash,
                 PasswordSalt = passwordSalt,
-                VerificationToken = token
+                VerificationToken = token,
+                DateCreated = DateTime.Now
             };
             //_econtrol.SendEmail(token, user.Email);
             _context.Users.Add(user);
@@ -152,7 +153,6 @@ namespace IkapatigiCapstone.Controllers
 
         //    return RedirectToAction("Index", "Home");
         //}
-
 
         [HttpPost("Login")]
         public async Task<IActionResult> Login(UserLoginRequest request)
@@ -266,7 +266,7 @@ namespace IkapatigiCapstone.Controllers
                     //return BadRequest("User does not exist");
                     return View("Login");
                 }
-
+                //Lead to Admin or Moderator
                 return RedirectToAction("Index", "User");
             }
             else
@@ -297,6 +297,37 @@ namespace IkapatigiCapstone.Controllers
             smtp.Disconnect(true);
 
             return RedirectToAction("Index", "Home");
+        }
+
+        public ActionResult adminAccess()
+        {
+            return View();
+        }
+
+        [HttpPost("Access")]
+        public async Task<IActionResult> adminAccess(AdminCreationRequest request)
+        {
+            if (_context.Users.Any(u => u.Username == request.Username))
+            {
+                return BadRequest("User already exists");
+            }
+            hashPassword(request.Password,
+                out byte[] passwordHash, out byte[] passwordSalt);
+            var token = CreateRandomToken();
+
+            var user = new User
+            {
+                Username = request.Username,
+                PasswordHash = passwordHash,
+                PasswordSalt = passwordSalt,
+                DateCreated = DateTime.Now
+            };
+            //_econtrol.SendEmail(token, user.Email);
+            _context.Users.Add(user);
+            await _context.SaveChangesAsync();
+
+            //return RedirectToAction("Index");
+            return RedirectToAction("aLogin");
         }
     }
 }

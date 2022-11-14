@@ -16,6 +16,7 @@ namespace IkapatigiCapstone.Models
         public string? Title { get; set; }
         [DataType(DataType.MultilineText)]
         public string? Content { get; set; }
+        [Display(Name ="Created On")]
         public DateTime Created { get; set; }
         [ForeignKey("User")]
         public int? UserId { get; set; }

@@ -6,7 +6,7 @@ namespace IkapatigiCapstone.Models
     {
         [Display(Name="Forum Posts")]
         public IEnumerable<Post> Posts { get; set; }
-        public Forum _Forum { get; set; }
+        public virtual Forum _Forum { get; set; }
 
     }
 }
