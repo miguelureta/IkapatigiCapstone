@@ -16,6 +16,7 @@ using MimeKit.Text;
 
 namespace IkapatigiCapstone.Controllers
 {
+    [Authorize]
     public class AccountController : Controller
     {
         //private readonly UserManager<User> _userManager;
@@ -65,18 +66,19 @@ namespace IkapatigiCapstone.Controllers
         //}
 
         //First way to register, manual input into database, no hash
+        [AllowAnonymous]
         [Route("Register")]
         public IActionResult Register()
         {
             return View();
         }
-
+        [AllowAnonymous]
         [Route("Login")]
         public IActionResult Login()
         {
             return View();
         }
-        
+
         //public IActionResult Register(User u)
         //{
         //    var user = new User();
@@ -89,12 +91,14 @@ namespace IkapatigiCapstone.Controllers
         //}
 
         //Second way to register and login with hashing but requires datatype adjustments and column additions
+        [AllowAnonymous]
         [HttpPost("Register")]
         public async Task<IActionResult> Register(UserRegisterRequest request)
         {
             if (_context.Users.Any(u => u.Email == request.Email))
             {
-                return BadRequest("User already exists");
+                ViewBag["RegisterError"] = "User already exists";
+                return View("Register");
             }
             hashPassword(request.Password, 
                 out byte[] passwordHash, out byte[] passwordSalt);
@@ -117,6 +121,7 @@ namespace IkapatigiCapstone.Controllers
             var user = new User
             {
                 Email = request.Email,
+                Username = "NewGardener",
                 PasswordHash = passwordHash,
                 PasswordSalt = passwordSalt,
                 VerificationToken = token,
@@ -153,7 +158,7 @@ namespace IkapatigiCapstone.Controllers
 
         //    return RedirectToAction("Index", "Home");
         //}
-
+        [AllowAnonymous]
         [HttpPost("Login")]
         public async Task<IActionResult> Login(UserLoginRequest request)
         {
@@ -238,16 +243,18 @@ namespace IkapatigiCapstone.Controllers
         //{
         //    return RedirectToAction("Index","Home");
         //}
+        [AllowAnonymous]
         private string CreateRandomToken()
         {
             return Convert.ToHexString(RandomNumberGenerator.GetBytes(64));
         }
+        [AllowAnonymous]
         [Route("aLogin")]
         public ActionResult aLogin()
         {
             return View();
         }
-
+        [AllowAnonymous]
         [HttpPost("aLogin")]
         public async Task<IActionResult> aLogin(AdminLoginRequest request)
         {
@@ -266,16 +273,25 @@ namespace IkapatigiCapstone.Controllers
                     //return BadRequest("User does not exist");
                     return View("Login");
                 }
-                //Lead to Admin or Moderator
-                return RedirectToAction("Index", "User");
+                //Lead to Admin 
+                if(user.RoleId == 6)
+                {
+                    return RedirectToAction("Index", "User");
+                }
+                if(user.RoleId==3||user.RoleId==4||user.RoleId==5)
+                {
+                    return RedirectToAction("Index", "Forum");
+                }
+                ViewData["LoginMessage"] = "Invalid account login";
+                return RedirectToAction("aLogin");             
             }
             else
             {
                 ViewData["LoginMessage"] = "Login Error";
-                return View("Login");
+                return View("aLogin");
             }
         }
-
+        [AllowAnonymous]
         [HttpPost]
         public IActionResult SendEmail(string body, string temail)
         {
@@ -298,18 +314,18 @@ namespace IkapatigiCapstone.Controllers
 
             return RedirectToAction("Index", "Home");
         }
-
+        [AllowAnonymous]
         public ActionResult adminAccess()
         {
             return View();
         }
-
-        [HttpPost("Access")]
+        [AllowAnonymous]
+        [HttpPost]
         public async Task<IActionResult> adminAccess(AdminCreationRequest request)
         {
-            if (_context.Users.Any(u => u.Username == request.Username))
+            if (_context.Users.Any(u => u.RoleId == 6))
             {
-                return BadRequest("User already exists");
+                return BadRequest("Admin Already Assigned");
             }
             hashPassword(request.Password,
                 out byte[] passwordHash, out byte[] passwordSalt);
@@ -320,7 +336,8 @@ namespace IkapatigiCapstone.Controllers
                 Username = request.Username,
                 PasswordHash = passwordHash,
                 PasswordSalt = passwordSalt,
-                DateCreated = DateTime.Now
+                DateCreated = DateTime.Now,
+                RoleId = 6
             };
             //_econtrol.SendEmail(token, user.Email);
             _context.Users.Add(user);

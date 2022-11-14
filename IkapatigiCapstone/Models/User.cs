@@ -20,7 +20,7 @@ namespace IkapatigiCapstone.Models
         }
 
         public int UserId { get; set; }
-        public string? Username { get; set; }
+        public string Username { get; set; }
         public byte[] PasswordHash { get; set; } = null!;
         public byte[]? PasswordSalt { get; set; }
         public string? VerificationToken { get; set; }
@@ -32,12 +32,15 @@ namespace IkapatigiCapstone.Models
         public string? DisplayName { get; set; }
         public string? Gender { get; set; }
         [Display(Name = "User Email")]
-        public string Email { get; set; }
+        public string? Email { get; set; }
         public int? AccountNumber { get; set; }
+        [Display(Name ="Date Created")]
         public DateTime? DateCreated { get; set; }
+        [Display(Name ="Date Updated")]
         public DateTime? DateUpdated { get; set; }
         public int? RemainingSubscriptionDays { get; set; }
         public bool? CanceledSubscription { get; set; }
+        [Display(Name ="Role")]
         public int? RoleId { get; set; }
         public int? SubscriptionId { get; set; }
         public int? StatusId { get; set; }

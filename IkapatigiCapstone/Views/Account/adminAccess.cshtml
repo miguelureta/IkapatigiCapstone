@@ -1,5 +1,50 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model IkapatigiCapstone.Models.AdminCreationRequest
+
 @{
+    ViewData["Title"] = "Register";
+    Layout = "~/Views/Shared/_adminLayout.cshtml";
+}
+
+
+
+<hr />
+
+<div class="card text-bg-success mb-3 mx-auto" style="max-width: 18rem;">
+    <br />
+    <h1 class="card-title text-center mb-1 fw-bold fs-1">Register</h1>
+    <br />
+    <div class="card-body">
+    <div class="row">
+       @* <div class="col-md-4">*@
+            <div class="col d-flex justify-content-center">
+            <form asp-action="adminAccess">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Username" class="control-label"></label>
+                    <input asp-for="Username" class="form-control" />
+                    <span asp-validation-for="Username" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Password" class="control-label"></label>
+                    <input asp-for="Password" class="form-control" type="password"/>
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ConfirmPassword" class="control-label">Confirm Password</label>
+                    <input asp-for="ConfirmPassword" class="form-control" />
+                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                </div>
+                <br />
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-light" />
+                </div>
+            </form>
+        </div>
+    </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

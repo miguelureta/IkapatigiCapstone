@@ -16,9 +16,9 @@ namespace IkapatigiCapstone.Models
         [DataType(DataType.MultilineText)]
         [MaxLength(1000)]
         public string Description { get; set; }
-
+        [Display(Name ="Likes")]
         public int? LikeCount { get; set; }
-
+        [Display(Name ="Dislikes")]
         public int? DislikeCount { get; set; }
         [Display(Name ="Available For")]
         public Availability? IsPublic { get; set; }

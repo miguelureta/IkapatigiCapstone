@@ -296,7 +296,7 @@ namespace IkapatigiCapstone.Controllers
             //}
             //Post post = new Post();
             //return PartialView("CreatePost", post);
-            return View("MemberCreatePost");
+            return View();
         }
 
         [HttpPost]

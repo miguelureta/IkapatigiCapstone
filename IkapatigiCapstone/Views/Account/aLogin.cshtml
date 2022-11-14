@@ -2,7 +2,7 @@
 
 @{
     ViewData["Title"] = "Admin Login";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_adminLayout.cshtml";
 }
 
 <hr />
@@ -12,7 +12,6 @@
     <h1 class="card-title text-center mb-1 fw-bold fs-1">Login</h1>
     <br />
     <div class="card-body">
-
         <div class="col d-flex justify-content-center">
             <form asp-controller="Account" asp-action="aLogin" method="post">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -36,16 +35,8 @@
                 <div class="form-group">
                     <input type="submit" value="Login" class="btn btn-light" id="loginbtn" />
                 </div>
-            </form>
-           
+            </form>          
         </div>
-      @*  <button type="button" class="btn btn-primary">
-            <a class="nav-link active" asp-area="" asp-controller="Account" asp-action="Register">Register Here </a>
-
-        </button>
-        *@
-
-        @*<a class="btn btn-info" role="button" asp-area="" asp-controller="Account" asp-action="Register">Link Button</a>*@
     </div>
 </div>
 @section Scripts {

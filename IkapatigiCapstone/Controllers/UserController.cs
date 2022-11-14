@@ -5,6 +5,8 @@ using System.IO;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Dynamic;
+using System.Security.Cryptography;
+using Microsoft.AspNetCore.Authorization;
 
 namespace IkapatigiCapstone.Controllers
 {
@@ -21,18 +23,12 @@ namespace IkapatigiCapstone.Controllers
 
         public IEnumerable<User> GetUserList { get; set; }
         // GET: User
+        [Authorize]
+        [AutoValidateAntiforgeryToken]
         public ActionResult Index()
         {
-            var userl = new UserManagementViewModel();
-            userl.Status = _context.Statuses.ToList().ToString();
-            userl.User = _context.Users.ToList();
-            return View(userl);
-        }
-
-        // GET: User/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
+            var userl = _context.Users.ToList();
+            return View("Index",userl);
         }
 
         // GET: User/Create
@@ -43,61 +39,52 @@ namespace IkapatigiCapstone.Controllers
 
         // POST: User/Create
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public async Task<IActionResult> Create(ModeratorCreationModel model)
         {
-            try
+            if(_context.Users.Any(u=>u.Username==model.Username))
             {
-                return RedirectToAction(nameof(Index));
+                ViewBag["ModError"] = "Moderator Username In Use";
+                return View("Create");
             }
-            catch
-            {
-                return View();
-            }
-        }
+            hashPassword(model.Password,
+                out byte[] passwordHash, out byte[] passwordSalt);
 
-        // GET: User/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: User/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
+            var mod = new User
             {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
+                Username=model.Username,
+                PasswordHash=passwordHash,
+                PasswordSalt=passwordSalt,
+                RoleId=model.RoleId,
+                DateCreated=DateTime.Now
+            };
 
-        // GET: User/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
+            _context.Users.Add(mod);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("Index");
+            
         }
 
         // POST: User/Delete/5
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult Delete(int? id)
         {
-            try
+            var acc = _context.Users.Where(i => i.UserId == id).SingleOrDefault();
+
+            _context.Users.Remove(acc);
+            _context.SaveChanges();
+
+            return RedirectToAction("Index","User");
+        }
+
+        private void hashPassword(string pw, out byte[] passHash, out byte[] passSalt)
+        {
+            using (var hmac = new HMACSHA512())
             {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
+                passSalt = hmac.Key;
+                passHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(pw));
             }
         }
 
-        
     }
 }

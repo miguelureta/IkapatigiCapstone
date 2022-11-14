@@ -1,6 +1,7 @@
-﻿@model IkapatigiCapstone.Models.UserManagementViewModel
+﻿@model IEnumerable<IkapatigiCapstone.Models.User>
 @{
     ViewData["Title"] = "User Management : Status Editing";
+    Layout = "~/Views/Shared/_hAdminLayout.cshtml";
 }
 <br/>
 <div class="titlecontainer">
@@ -10,10 +11,13 @@
     </div>
 </div>
 <br />
-
+    
 <div class="bgtable">
+    <p>
+        <a asp-action="Create"><i class="fa-solid fa-circle-plus">Create Moderator</i></a>
+    </p>
     <br/>
-    <table>
+    <table id="records" class="table">
         <thead>
             <tr>
                 <th>
@@ -23,7 +27,10 @@
                     @Html.DisplayNameFor(model => model.Username)   
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Status)
+                    @Html.DisplayNameFor(model => model.DateCreated)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.RoleId)
                 </th>
                 <th>
 
@@ -31,20 +38,39 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model.User)
+            @foreach (var item in Model)
             {
                 <tr>
                     <td>
-                        @Html.DisplayFor(modelitem => item.Email)
+                        @Html.DisplayFor(modelItem => item.Email)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelitem => item.Username)
+                        @Html.DisplayFor(modelItem => item.Username)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelitem => item.StatusId)
+                        @Html.DisplayFor(modelItem => item.DateCreated)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.RoleId.Value)
+                    </td>
+                    <td>
+                        <a asp-action="Delete" asp-route-id="@item.UserId"
+                            onclick='return confirm("Are you sure?");'>
+                             <i class="fa fa-trash" style="color:red"></i>
+                        </a>
                     </td>
                 </tr>
             }
         </tbody>
     </table>
 </div>
+
+@section Scripts{
+    <script src="~/lib/datatables/js/jquery.dataTables.js"></script>
+    <script src="~/lib/datatables/js/dataTables.bootstrap4.js"></script>
+    <script> 
+        $(document).ready(function () {
+            $('#records').DataTable();
+        });
+    </script>
+}
