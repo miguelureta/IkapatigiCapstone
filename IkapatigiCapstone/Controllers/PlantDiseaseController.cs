@@ -33,7 +33,7 @@ namespace IkapatigiCapstone.Controllers
             var plantdisease = new PlantDisease()
             {
                 DiseaseName = record.DiseaseName,
-                ImageOfDisease = record.ImageOfDisease,
+                //ImageOfDisease = record.ImageOfDisease,
                 TagId = record.TagId,
                 CureId = record.CureId,
                 UserId = record.UserId
