@@ -1,0 +1,78 @@
+﻿@model IkapatigiCapstone.Models.Diagnostic
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+<div class="titlecontainer">
+    <div class="text-center">
+
+        <h1 class="display-4">Details</h1>
+    </div>
+</div>
+<br />
+<div class="bgtable">
+    <div>
+        <h4>Diagnostic</h4>
+        <hr />
+        <table class="table">
+            <thead>
+                <tr>
+                    <td>
+                        @Html.DisplayNameFor(model => model.Cure)
+                    </td>
+                    <td>
+                        @Html.DisplayNameFor(model => model.PlantDisease)
+                    </td>
+                    <td>
+                        @Html.DisplayNameFor(model => model.Tag)
+                    </td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(model => model.Cure.CureName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.PlantDisease.DiseaseName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.Tag.TagName)
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <dl class="row">
+            <dt class="col-sm-2">
+
+            </dt>
+            <dd class="col-sm-2">
+
+            </dd>
+            <dt class="col-sm-2">
+            </dt>
+            <dd class="col-sm-2">
+
+            </dd>
+            <dt class="col-sm-2">
+
+            </dt>
+            <dd class="col-sm-2">
+
+            </dd>
+            <dt class="col-sm-2">
+
+            </dt>
+            <dd class="col-sm-2">
+
+            </dd>
+        </dl>
+    </div>
+
+</div>
+<div>
+    <a asp-action="NonMemberIndex">Back to List</a>
+</div>

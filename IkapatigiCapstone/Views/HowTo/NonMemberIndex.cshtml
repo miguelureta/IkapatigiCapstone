@@ -1,0 +1,105 @@
+﻿@model IEnumerable<IkapatigiCapstone.Models.HowTo>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+<div class="titlecontainer">
+    <div class="text-center">
+
+        <h1 class="display-4">How-Tos</h1>
+    </div>
+</div>
+<br />
+
+<div class="bgtable">
+    <br />
+    <table id="records" class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Title)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Description)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LikeCount)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DislikeCount)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.User.Username)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DateCreated)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DateUpdated)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ArticleBody)
+                </th>
+
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LikeCount)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DislikeCount)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.User.Username)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DateCreated)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DateUpdated)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ArticleBody)
+                    </td>
+
+                    <td>
+
+                        <a asp-action="NonMemberDetails" asp-route-id="@item.HowTosID">
+                            <i class="fa fa-info-circle" aria-hidden="true" style="color: green"></i>
+                            @*<i class="fa-solid fa-arrow-right-to-arc" ></i> UPDATE FontAwesome if you want to use the other icons.*@
+
+                        </a>
+
+
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+
+@section Scripts{
+    <script src="~/lib/datatables/js/jquery.dataTables.js"></script>
+    <script src="~/lib/datatables/js/dataTables.bootstrap4.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#records').DataTable();
+        });
+    </script>
+}
