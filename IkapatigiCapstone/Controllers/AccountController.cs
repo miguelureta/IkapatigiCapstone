@@ -80,6 +80,9 @@ namespace IkapatigiCapstone.Controllers
             return View();
         }
 
+
+       
+
         //public IActionResult Register(User u)
         //{
         //    var user = new User();
@@ -285,7 +288,7 @@ namespace IkapatigiCapstone.Controllers
                 if(user.RoleId==3||user.RoleId==4||user.RoleId==5)
                 {
                     _hcontext.HttpContext.Session.SetString("Session", "modlogged");
-                    return RedirectToAction("Index", "Forum");
+                    return RedirectToAction("ModHome", "Home");
                 }
                 ViewData["LoginMessage"] = "Invalid account login";
                 return RedirectToAction("aLogin");             
