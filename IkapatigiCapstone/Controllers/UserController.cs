@@ -23,7 +23,7 @@ namespace IkapatigiCapstone.Controllers
 
         public IEnumerable<User> GetUserList { get; set; }
         // GET: User
-        [Authorize]
+        //[Authorize]
         [AutoValidateAntiforgeryToken]
         public ActionResult Index()
         {

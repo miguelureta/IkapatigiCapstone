@@ -16,7 +16,7 @@ using MimeKit.Text;
 
 namespace IkapatigiCapstone.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class AccountController : Controller
     {
         //private readonly UserManager<User> _userManager;
@@ -66,13 +66,13 @@ namespace IkapatigiCapstone.Controllers
         //}
 
         //First way to register, manual input into database, no hash
-        [AllowAnonymous]
+        //[AllowAnonymous]
         [Route("Register")]
         public IActionResult Register()
         {
             return View();
         }
-        [AllowAnonymous]
+        //[AllowAnonymous]
         [Route("Login")]
         public IActionResult Login()
         {
@@ -91,7 +91,7 @@ namespace IkapatigiCapstone.Controllers
         //}
 
         //Second way to register and login with hashing but requires datatype adjustments and column additions
-        [AllowAnonymous]
+        //[AllowAnonymous]
         [HttpPost("Register")]
         public async Task<IActionResult> Register(UserRegisterRequest request)
         {
@@ -158,7 +158,7 @@ namespace IkapatigiCapstone.Controllers
 
         //    return RedirectToAction("Index", "Home");
         //}
-        [AllowAnonymous]
+        //[AllowAnonymous]
         [HttpPost("Login")]
         public async Task<IActionResult> Login(UserLoginRequest request)
         {
@@ -243,7 +243,7 @@ namespace IkapatigiCapstone.Controllers
         //{
         //    return RedirectToAction("Index","Home");
         //}
-        [AllowAnonymous]
+        //[AllowAnonymous]
         private string CreateRandomToken()
         {
             return Convert.ToHexString(RandomNumberGenerator.GetBytes(64));
@@ -254,7 +254,7 @@ namespace IkapatigiCapstone.Controllers
         {
             return View();
         }
-        [AllowAnonymous]
+        //[AllowAnonymous]
         [HttpPost("aLogin")]
         public async Task<IActionResult> aLogin(AdminLoginRequest request)
         {
@@ -291,7 +291,7 @@ namespace IkapatigiCapstone.Controllers
                 return View("aLogin");
             }
         }
-        [AllowAnonymous]
+        //[AllowAnonymous]
         [HttpPost]
         public IActionResult SendEmail(string body, string temail)
         {
@@ -314,12 +314,12 @@ namespace IkapatigiCapstone.Controllers
 
             return RedirectToAction("Index", "Home");
         }
-        [AllowAnonymous]
+        //[AllowAnonymous]
         public ActionResult adminAccess()
         {
             return View();
         }
-        [AllowAnonymous]
+        //[AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> adminAccess(AdminCreationRequest request)
         {
