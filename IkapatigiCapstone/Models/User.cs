@@ -20,7 +20,7 @@ namespace IkapatigiCapstone.Models
         }
 
         public int UserId { get; set; }
-        public string Username { get; set; }
+        public string? Username { get; set; }
         public byte[] PasswordHash { get; set; } = null!;
         public byte[]? PasswordSalt { get; set; }
         public string? VerificationToken { get; set; }

@@ -22,12 +22,14 @@ namespace IkapatigiCapstone.Controllers
         //private readonly UserManager<User> _userManager;
         private readonly ApplicationDbContext _context;
         private readonly IConfiguration _config;
+        private readonly IHttpContextAccessor _hcontext;
         //private readonly IEmailService _emailService;
         //private readonly SignInManager<User> _signInManager;
-        public AccountController(/*UserManager<User> userManager, */ApplicationDbContext context, IConfiguration config/*, SignInManager<User> signInManager*/)
+        public AccountController(/*UserManager<User> userManager, */ApplicationDbContext context, IConfiguration config/*, SignInManager<User> signInManager*/, IHttpContextAccessor hcontext)
         {
             _context = context;
             _config = config;
+            _hcontext = hcontext;
             //_userManager = userManager;
             //_signInManager = signInManager;
         }
@@ -252,6 +254,7 @@ namespace IkapatigiCapstone.Controllers
         [Route("aLogin")]
         public ActionResult aLogin()
         {
+            _hcontext.HttpContext.Session.SetString("Session", "notlogged");
             return View();
         }
         //[AllowAnonymous]
@@ -265,21 +268,23 @@ namespace IkapatigiCapstone.Controllers
                 {
                     ViewData["LoginMessage"] = "User does not exist";
 
-                    return View("Login");
+                    return View("aLogin");
                 }
                 if (!verifyhashPassword(request.Password, user.PasswordHash, user.PasswordSalt))
                 {
                     ViewData["LoginMessage"] = "Invalid Login";
                     //return BadRequest("User does not exist");
-                    return View("Login");
+                    return View("aLogin");
                 }
                 //Lead to Admin 
                 if(user.RoleId == 6)
                 {
+                    _hcontext.HttpContext.Session.SetString("Session", "adminlogged");
                     return RedirectToAction("Index", "User");
                 }
                 if(user.RoleId==3||user.RoleId==4||user.RoleId==5)
                 {
+                    _hcontext.HttpContext.Session.SetString("Session", "modlogged");
                     return RedirectToAction("Index", "Forum");
                 }
                 ViewData["LoginMessage"] = "Invalid account login";

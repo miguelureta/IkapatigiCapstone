@@ -216,9 +216,6 @@ namespace IkapatigiCapstone.Controllers
                 //ViewBag.StatusId = GetStatusList(id);
                 return BadRequest("Screen for retrieving banned list");
             }
-            
-
-            return View(howto);
         }
 
         //[HttpPost]

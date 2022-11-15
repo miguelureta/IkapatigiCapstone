@@ -13,12 +13,13 @@ namespace IkapatigiCapstone.Controllers
     public class UserController : Controller
     {
         private readonly ApplicationDbContext _context;
-        private readonly IWebHostEnvironment webHostEnvironment;
-
-        public UserController(ApplicationDbContext context, IWebHostEnvironment webHost)
+        private readonly IWebHostEnvironment _webHostEnvironment;
+        private readonly IHttpContextAccessor _hcontext;
+        public UserController(ApplicationDbContext context, IWebHostEnvironment webHost, IHttpContextAccessor hcontext)
         {
             _context = context;
-            this.webHostEnvironment = webHost;
+            _webHostEnvironment = webHost;
+            _hcontext = hcontext;
         }
 
         public IEnumerable<User> GetUserList { get; set; }
@@ -27,6 +28,11 @@ namespace IkapatigiCapstone.Controllers
         [AutoValidateAntiforgeryToken]
         public ActionResult Index()
         {
+            string? sesh = _hcontext.HttpContext.Session.GetString("Session");
+            if(sesh==null||!sesh.Equals("adminlogged"))
+            {
+                return BadRequest("Invalid View");
+            }
             var userl = _context.Users.ToList();
             return View("Index",userl);
         }

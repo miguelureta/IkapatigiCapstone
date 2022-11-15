@@ -151,7 +151,7 @@ namespace IkapatigiCapstone.Data
 
                 entity.Property(e => e.Created).HasColumnType("datetime");
 
-                entity.Property(e => e.Description).HasMaxLength(150);
+                entity.Property(e => e.Description).HasMaxLength(500);
 
                 entity.Property(e => e.ImageUrl)
                     .HasMaxLength(100)

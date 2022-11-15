@@ -25,8 +25,13 @@ namespace IkapatigiCapstone.Controllers
         // GET: ForumController
         public ActionResult Index()
         {
-            var list = _context.Forums.ToList();
-            return View(list);
+            string sesh = "modlogged";
+            if(_hcontext.HttpContext.Session.GetString("Session").Equals(sesh))
+            {
+                var list = _context.Forums.ToList();
+                return View(list);
+            }
+            return RedirectToAction("aLogin", "Account");
         }
 
         // GET: ForumController/Details/5
@@ -63,7 +68,7 @@ namespace IkapatigiCapstone.Controllers
             
             forum.Title = _forum.Title;
             forum.Description = _forum.Description;
-            forum.ImageUrl = _forum.ImageUrl;
+            //forum.ImageUrl = _forum.ImageUrl;
             forum.Created = DateTime.Now;
             
             _context.Forums.Add(forum);
@@ -75,7 +80,7 @@ namespace IkapatigiCapstone.Controllers
 
         // GET: ForumController/Edit/5
         [HttpGet]
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int? id)
         {
             if (id == null)
             {
@@ -262,7 +267,7 @@ namespace IkapatigiCapstone.Controllers
 
         // GET: ForumController/Details/5
         [Route("MemberPostView")]
-        public ActionResult MemberPostView(int id)
+        public ActionResult MemberPostView(int? id)
         {
             if (id == null)
             {
@@ -271,7 +276,7 @@ namespace IkapatigiCapstone.Controllers
             var pvm = new PostViewModel();
             pvm.Posts = _context.Posts.Where(p => p.ForumId == id).ToList();
             pvm._Forum = _context.Forums.Where(f => f.ForumId == id).FirstOrDefault();
-            _hcontext.HttpContext.Session.SetInt32("ForumTarget", id);
+            _hcontext.HttpContext.Session.SetInt32("ForumTarget", (int)id);
             if (pvm == null)
             {
                 return RedirectToAction("MemberIndex");
