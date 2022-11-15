@@ -1,0 +1,107 @@
+﻿@{
+
+    ViewData["Title"] = "Terms & Conditions";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+  
+}
+
+<br />
+<div class="titlecontainer">
+    <div class="text-center">
+        <h1>@ViewData["Title"]</h1>
+    </div>
+</div>
+<br />
+
+<div class="bgtable">
+
+
+    <p>
+        Data Privacy Law of 2012 (RA 101173): Adherence to Data Privacy Law of 2012 (RA 101173) the information provided by the student is strictly for academic research use only. Details are only accessible to the 3 researchers.
+
+        The researchers respect the individual’s right to privacy. They are committed to protect the confidentiality of your personal information and are bound to comply with the Data Privacy Act of 2012 (RA 10173).
+
+        The researchers will not disclose the information stated herein without your permission. Information submitted herein will be used to analyze the feasibility of our study and problem definition of gardeners which is the basis for reports and data analytics and may be shared to the panel (except for the respondents' names).
+
+        By using this online evaluation form, you are consenting to our collection and use of information in accordance with this Privacy Notice.
+
+        This site has reasonable administrative, physical, and technical security measures in place to help protect against the loss, misuse, and alteration of the information in our possession. However, no method of transmission over the Internet or method of electronic storage is 100% secure.
+
+        <br />
+        <br />
+        <br />
+
+        The group is not responsible for any injuries or events that happen through mishandling of cures mentioned within this app.
+    </p>
+
+
+      
+@*
+         <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+             <label class="form-check-label" for="flexCheckDefault">
+                     I agree to the terms and conditions.
+               </label>
+  
+
+
+*@
+
+
+      
+
+     <input type="checkbox" id="isChecked" /> I agree to the terms and conditions.
+
+     <br/>
+      
+
+      <div id="txt" style="display:none;"> 
+           <div class="btn btn-success" >
+                      <a class="nav-link active" asp-area="" asp-controller="Account" asp-action="Register">
+                         Register
+                     </a>
+        </div>
+     
+      </div>
+     
+
+</div>             
+
+
+          
+ 
+ 
+       
+
+
+
+
+
+
+
+@section Scripts{
+        <script src="~/lib/datatables/js/jquery.js"></script>
+        <script> 
+            $(document).ready(function () {
+                       $('#isChecked').change(function () {
+                           if(this.checked) {
+                               $('#txt').show();
+                           } else {
+                               $('#txt').hide();
+                           }
+                       });
+
+                });
+
+
+
+        </script>
+                       
+                      
+}
+
+     
+               
+                    
+
+
+

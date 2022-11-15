@@ -72,7 +72,20 @@ namespace IkapatigiCapstone.Controllers
         [Route("Register")]
         public IActionResult Register()
         {
-            return View();
+            string a = "allowed";
+                
+            
+            if ( a _hcontext.HttpContext.Session.GetString("Session");)
+            {
+                return View();
+            }
+            return RedirectToAction("Index","Home");
+
+    
+
+            
+
+           
         }
         //[AllowAnonymous]
         [Route("Login")]
@@ -350,6 +363,17 @@ namespace IkapatigiCapstone.Controllers
 
             //return RedirectToAction("Index");
             return RedirectToAction("aLogin");
+        }
+
+
+
+        public ActionResult termsAndConditions()
+        {
+           
+            return View();
+
+           
+            
         }
     }
 }
