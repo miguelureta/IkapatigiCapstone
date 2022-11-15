@@ -12,11 +12,12 @@ namespace IkapatigiCapstone.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly IWebHostEnvironment webHostEnvironment;
-
-        public DiagnosticController(ApplicationDbContext context, IWebHostEnvironment webHost)
+        private readonly IHttpContextAccessor _hcontext;
+        public DiagnosticController(ApplicationDbContext context, IWebHostEnvironment webHost, IHttpContextAccessor hcontext)
         {
             _context = context;
             this.webHostEnvironment = webHost;
+            _hcontext = hcontext;
         }
         public IEnumerable<Cure> GetCure { get; set; }
         public IEnumerable<Status> GetStatus { get; set; }
@@ -83,6 +84,11 @@ namespace IkapatigiCapstone.Controllers
 
         public IActionResult Edit(int? id)
         {
+            string? sesh = _hcontext.HttpContext.Session.GetString("Session");
+            if (sesh == null || !sesh.Equals("modlogged"))
+            {
+                return BadRequest("Invalid View");
+            }
             if (id == null)
             {
                 return RedirectToAction("Index");
@@ -93,7 +99,10 @@ namespace IkapatigiCapstone.Controllers
             {
                 return RedirectToAction("Index");
             }
-
+            ViewBag.CureId = GetCureList();
+            ViewBag.TagId = GetTagList();
+            ViewBag.StatusId = GetStatusList();
+            ViewBag.PlantDiseaseId = GetPlantDiseasesList();
             return View(diagnostic);
         }
 
@@ -142,7 +151,12 @@ namespace IkapatigiCapstone.Controllers
             {
                 return RedirectToAction("Index");
             }
-            Diagnostic diag = _context.Diagnostics.Find(id);
+            Diagnostic diagtarget = _context.Diagnostics.Find(id);
+            DiagnosticDetailModel diag = new DiagnosticDetailModel();
+            diag.cure = _context.Cures.Where(c => c.CureId == diagtarget.CureId).SingleOrDefault();
+            diag.disease = _context.PlantDiseases.Where(d => d.PlantDiseaseId == diagtarget.PlantDiseaseId).SingleOrDefault();
+            diag.status = _context.Statuses.Where(s => s.StatusId == diagtarget.StatusId).SingleOrDefault();
+            diag.tag = _context.Tags.Where(t => t.TagId == diagtarget.TagId).SingleOrDefault();
             
             if (diag == null)
             {

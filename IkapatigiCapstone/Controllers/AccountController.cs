@@ -13,7 +13,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MimeKit;
 using MimeKit.Text;
-
 namespace IkapatigiCapstone.Controllers
 {
     //[Authorize]
@@ -72,20 +71,7 @@ namespace IkapatigiCapstone.Controllers
         [Route("Register")]
         public IActionResult Register()
         {
-            //string a = "allowed";
-                
-            
-            //if ( a _hcontext.HttpContext.Session.GetString("Session");)
-            //{
-            //    return View();
-            //}
-            //return RedirectToAction("Index","Home");
-
             return View();
-
-
-
-
         }
         //[AllowAnonymous]
         [Route("Login")]
@@ -140,7 +126,8 @@ namespace IkapatigiCapstone.Controllers
                 PasswordHash = passwordHash,
                 PasswordSalt = passwordSalt,
                 VerificationToken = token,
-                DateCreated = DateTime.Now
+                DateCreated = DateTime.Now,
+                RoleId = 1
             };
             //_econtrol.SendEmail(token, user.Email);
             _context.Users.Add(user);
