@@ -26,13 +26,13 @@
                 @*<th>
                 @Html.DisplayNameFor(model => model.PictureCollectionFromId)
                 </th>*@
-
-                <th>
-                    @Html.DisplayNameFor(model => model.CureList)
-                </th>
                 <th>
                     @Html.DisplayNameFor(model => model.DiseaseList)
                 </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CureList)
+                </th>
+                
                 <th>
                     @Html.DisplayNameFor(model => model.StatusList)
                 </th>
@@ -50,13 +50,14 @@
                 @Html.DisplayFor(modelItem => item.PictureCollectionFromId)
                 </td>*@
                     <td>
-                        @*@Html.DisplayFor(modelItem => item.CureList.Where(x => x.CureId == item.Diagnostic.CureId))*@
-                        @Html.DisplayFor(modelItem => item.Cure.CureName)
-                    </td>
-                    <td>
                         @*@Html.DisplayFor(modelItem => item.DiseaseList.Where(x => x.PlantDiseaseId == item.Diagnostic.PlantDiseaseId))*@
                         @Html.DisplayFor(modelItem => item.PlantDisease.DiseaseName)
                     </td>
+                    <td>
+                        @*@Html.DisplayFor(modelItem => item.CureList.Where(x => x.CureId == item.Diagnostic.CureId))*@
+                        @Html.DisplayFor(modelItem => item.Cure.CureName)
+                    </td>
+                   
                     <td>
                         @*@Html.DisplayFor(modelItem => item.StatusList.Where(x => x.StatusId == item.Diagnostic.StatusId))*@
                         @Html.DisplayFor(modelItem => item.Status.StatusType)
