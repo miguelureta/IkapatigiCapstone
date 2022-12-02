@@ -25,8 +25,7 @@ namespace IkapatigiCapstone.Controllers
         // GET: ForumController
         public ActionResult Index()
         {
-            string sesh = "forumsmodlogged";
-            if (_hcontext.HttpContext.Session.GetString("Session").Equals(sesh))
+            if (_hcontext.HttpContext.Session.GetString("Session").Equals("forumsmodlogged") || _hcontext.HttpContext.Session.GetString("Session").Equals("adminlogged"))
             {
                 var list = _context.Forums.ToList();
                 return View(list);
