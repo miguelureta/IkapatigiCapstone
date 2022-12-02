@@ -14,11 +14,13 @@ namespace IkapatigiCapstone.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly IConfiguration _config;
+        private readonly IHttpContextAccessor _hcontext;
         //private readonly IWebHostEnvironment _webHostEnvironment;//This is for the GetStatusList()
-        public HowToController(ApplicationDbContext context, IConfiguration config)
+        public HowToController(ApplicationDbContext context, IConfiguration config, IHttpContextAccessor hcontext)
         {
             _context = context;
             _config = config;
+            _hcontext = hcontext;
         }
         /* Uncomment this Controller constructor and comment the above constructor to
          * work with GetStatusList()
@@ -32,8 +34,15 @@ namespace IkapatigiCapstone.Controllers
 
         public IActionResult Index()
         {
-            var list = _context.HowTos.ToList();
-            return View(list);
+            if (_hcontext.HttpContext.Session.GetString("Session").Equals("howtosmodlogged") || _hcontext.HttpContext.Session.GetString("Session").Equals("adminlogged"))
+            {
+                var list = _context.HowTos.ToList();
+                return View(list);
+            }
+            else
+            {
+                return Content("Access Denied. This page is not available for your role.");
+            }
         }
 
         public IActionResult Create() 

@@ -25,13 +25,17 @@ namespace IkapatigiCapstone.Controllers
         // GET: ForumController
         public ActionResult Index()
         {
-            string sesh = "modlogged";
-            if(_hcontext.HttpContext.Session.GetString("Session").Equals(sesh))
+            string sesh = "forumsmodlogged";
+            if (_hcontext.HttpContext.Session.GetString("Session").Equals(sesh))
             {
                 var list = _context.Forums.ToList();
                 return View(list);
             }
-            return RedirectToAction("aLogin", "Account");
+            else
+            {
+                return Content("Access Denied. This page is not available for your role.");
+            }
+            //return RedirectToAction("aLogin", "Account");
         }
 
         // GET: ForumController/Details/5
