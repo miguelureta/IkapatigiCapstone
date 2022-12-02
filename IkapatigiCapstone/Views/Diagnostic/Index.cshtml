@@ -1,4 +1,4 @@
-﻿@model IkapatigiCapstone.Models.DiagnosticViewModel
+﻿@model IkapatigiCapstone.Models.DiagnosticImageViewModel
 
 @{
     ViewData["Title"] = "Diagnostic Record";
@@ -37,6 +37,9 @@
             </th>
          
             <th>
+                @Html.DisplayNameFor(model => model.Images)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.StatusList)
             </th>
             <th>
@@ -61,6 +64,9 @@
                 @Html.DisplayFor(modelItem => item.Cure.CureName)
             </td>
            
+            <td>
+                @Html.DisplayFor(modelItem => item.PlantDisease.Images)
+            </td>
             <td>
                 @*@Html.DisplayFor(modelItem => item.StatusList.Where(x => x.StatusId == item.Diagnostic.StatusId))*@
                 @Html.DisplayFor(modelItem => item.Status.StatusType)

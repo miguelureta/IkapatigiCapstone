@@ -23,22 +23,42 @@
                 </div>
                 <div class="form-group">
                     <label asp-for="Password" class="control-label"></label>
-                    <input asp-for="Password" class="form-control" type="password"/>
+                    <input asp-for="Password" class="form-control" type="password" id="passIn"/>
                     <span asp-validation-for="Password" class="text-danger"></span>
+                    <br />
+                    Show <input type="checkbox" name="showBox" onclick="showPass(this)" />
+                    <script>
+                        function showPass(e)
+                        {
+                            txtBox = $('#passIn')
+                            if(e.checked){
+                                txtBox.attr("Type","Text");
+                            }
+                            else
+                            {
+                                txtBox.attr("Type","Password");
+                            }
+                        }
+                    </script>
                 </div>
                 <div class="alert-danger">
                     @if(ViewData["LoginMessage"]!=null)
                     {
                         @ViewData["LoginMessage"]
                     }
+                    @if(ViewData["LoginUpdate"]!=null)
+                    {
+                        @ViewData["LoginUpdate"]
+                    }
                 </div>
                 <br />
                 <div class="form-group">
                     <input type="submit" value="Login" class="btn btn-light" id="loginbtn" />
-                </div>
+                </div><hr/>
+                <a asp-area="" asp-controller="Account" asp-action="ForgotPassword">Forgot Password</a>
             </form>
-           
         </div>
+        
       @*  <button type="button" class="btn btn-primary">
             <a class="nav-link active" asp-area="" asp-controller="Account" asp-action="Register">Register Here </a>
 
@@ -50,4 +70,5 @@
 </div>
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    
 }

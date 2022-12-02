@@ -44,5 +44,7 @@ namespace IkapatigiCapstone.Models
         public virtual Status Status { get; set; }
         [Display(Name = "Tag")]
         public virtual Tag Tag { get; set; }
+        //[Display(Name = "Disease Image")]
+        //public virtual Image Image { get; set; }
     }
 }

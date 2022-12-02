@@ -178,7 +178,7 @@ namespace IkapatigiCapstone.Controllers
                 }
                 if (!verifyhashPassword(request.Password,user.PasswordHash,user.PasswordSalt))
                 {
-                    ViewData["LoginMessage"] = "Invalid Login";
+                    ViewData["LoginMessage"] = "The username or password is incorrect";
                     //return BadRequest("User does not exist");
                     return View("Login");
                 }
@@ -288,6 +288,7 @@ namespace IkapatigiCapstone.Controllers
                 if(user.RoleId==3||user.RoleId==4||user.RoleId==5)
                 {
                     _hcontext.HttpContext.Session.SetString("Session", "modlogged");
+                    _hcontext.HttpContext.Session.SetInt32("logUserID", user.UserId);
                     return RedirectToAction("ModHome", "Home");
                 }
                 ViewData["LoginMessage"] = "Invalid account login";
@@ -301,17 +302,17 @@ namespace IkapatigiCapstone.Controllers
         }
         //[AllowAnonymous]
         [HttpPost]
-        public IActionResult SendEmail(string body, string temail)
+        public IActionResult SendEmail(string body, string temail, string subj)
         {
             var email = new MimeMessage();
             //Sender for this service
             email.From.Add(MailboxAddress.Parse(_config.GetSection("EmailUsername").Value));
 
             //Recipient of email
-            email.To.Add(MailboxAddress.Parse("miguelblanco.ureta@benilde.edu.ph"));
+            email.To.Add(MailboxAddress.Parse(temail));
 
             //Subject and content of email
-            email.Subject = "Test Email Subject";
+            email.Subject = subj;
             email.Body = new TextPart(TextFormat.Html) { Text = body };
 
             using var smtp = new SmtpClient();
@@ -320,7 +321,7 @@ namespace IkapatigiCapstone.Controllers
             smtp.Send(email);
             smtp.Disconnect(true);
 
-            return RedirectToAction("Index", "Home");
+            return View("Login");
         }
         //[AllowAnonymous]
         public ActionResult adminAccess()
@@ -355,15 +356,83 @@ namespace IkapatigiCapstone.Controllers
             return RedirectToAction("aLogin");
         }
 
-
-
         public ActionResult termsAndConditions()
         {
-           
             return View();
+        }
 
-           
-            
+        public IActionResult ForgotPassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ForgotPassword(ForgotPasswordRequestModel request)
+        {
+            var forgotUser = await _context.Users.FirstOrDefaultAsync(u => u.Email == request.Email);
+            if(forgotUser==null)
+            {
+                ViewData["ErrorMessage"] = "User does not exist";
+                return View("ForgotPassword");
+            }
+            else
+            {
+                //SendEmail("Reset Password Token: " + token, email, "Reset Password Request");
+                var nemail = new MimeMessage();
+                var token = CreateRandomToken();
+                nemail.From.Add(MailboxAddress.Parse(_config.GetSection("EmailUsername").Value));
+                nemail.To.Add(MailboxAddress.Parse(request.Email));
+                nemail.Subject = "Test Email Subject";
+                nemail.Body = new TextPart(TextFormat.Html) { Text = token };
+
+                using var smtp = new SmtpClient();
+                smtp.Connect(_config.GetSection("EmailHost").Value, 587, SecureSocketOptions.StartTlsWhenAvailable);
+                smtp.Authenticate(_config.GetSection("EmailUsername").Value, _config.GetSection("EmailPassword").Value);
+                smtp.Send(nemail);
+                smtp.Disconnect(true);
+
+                //Assigning generated token to user with email
+                User tUser = _context.Users.Where(u => u.Email == request.Email).SingleOrDefault();
+                tUser.VerificationToken = token.ToString();
+                tUser.ResetTokenExpires = DateTime.Now.AddHours(1);
+                _context.Users.Update(tUser);
+                _context.SaveChanges();
+                _hcontext.HttpContext.Session.SetString("ResetToken", token);
+                return View("ResetPassword");
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ResetPassword(ResetPasswordRequest request)
+        {
+            request.Token = _hcontext.HttpContext.Session.GetString("ResetToken");
+            var forgotUser = await _context.Users.FirstOrDefaultAsync(u => u.VerificationToken == request.Token);
+            if (forgotUser == null)
+            {
+                ViewData["ErrorMessage"] = "User does not exist";
+                return View("ResetPassword");
+            }
+            else if(forgotUser.ResetTokenExpires<DateTime.Now)
+            {
+                ViewData["ErrorMessage"] = "Reset Request Expired";
+                return View("ResetPassword");
+            }
+            else if(_hcontext.HttpContext.Session.GetString("ResetToken")!=forgotUser.VerificationToken)
+            {
+                ViewData["ErrorMessage"] = "Reset Token Error";
+                return View("ResetPassword");
+            }
+            else
+            {
+                hashPassword(request.Password, out byte[] passHash, out byte[] passSalt);
+                forgotUser.PasswordHash = passHash;
+                forgotUser.PasswordSalt = passSalt;
+                forgotUser.ResetTokenExpires = null;
+                forgotUser.VerificationToken = null;
+                ViewData["LoginUpdate"] = "Password Updated";
+                await _context.SaveChangesAsync();
+            }
+            return View("Login");
         }
     }
 }

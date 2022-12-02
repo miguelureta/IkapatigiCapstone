@@ -17,6 +17,7 @@ namespace IkapatigiCapstone.Models
             PostReplies = new HashSet<PostReply>();
             Posts = new HashSet<Post>();
             Tags = new HashSet<Tag>();
+            Images = new HashSet<Image>();
         }
 
         public int UserId { get; set; }
@@ -54,5 +55,6 @@ namespace IkapatigiCapstone.Models
         public virtual ICollection<PostReply> PostReplies { get; set; }
         public virtual ICollection<Post> Posts { get; set; }
         public virtual ICollection<Tag> Tags { get; set; }
+        public virtual ICollection<Image> Images { get; set; }
     }
 }

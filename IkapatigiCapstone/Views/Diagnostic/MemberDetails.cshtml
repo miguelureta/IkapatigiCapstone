@@ -1,4 +1,4 @@
-﻿@model IkapatigiCapstone.Models.Diagnostic
+﻿@model IkapatigiCapstone.Models.DiagnosticDetailModel
 
 @{
     ViewData["Title"] = "Details";
@@ -21,53 +21,48 @@
             <thead>
                 <tr>
                     <td>
-                        @Html.DisplayNameFor(model => model.Cure)
+                        
                     </td>
                     <td>
-                        @Html.DisplayNameFor(model => model.PlantDisease)
+                        
                     </td>
                     <td>
-                        @Html.DisplayNameFor(model => model.Tag)
+                        
                     </td>
                 </tr>
             </thead>
             <tbody>
                 <tr>
                     <td>
-                        @Html.DisplayFor(model => model.Cure.CureName)
+                        
                     </td>
                     <td>
-                        @Html.DisplayFor(model => model.PlantDisease.DiseaseName)
+                        
                     </td>
                     <td>
-                        @Html.DisplayFor(model => model.Tag.TagName)
+                        
                     </td>
                 </tr>
             </tbody>
         </table>
         <dl class="row">
             <dt class="col-sm-2">
-
+                @Html.DisplayNameFor(model => model.cure)
             </dt>
             <dd class="col-sm-2">
-
+                @Html.DisplayFor(model => model.cure.CureName)
             </dd>
             <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.disease)
             </dt>
             <dd class="col-sm-2">
-
+                @Html.DisplayFor(model => model.disease.DiseaseName)
             </dd>
             <dt class="col-sm-2">
-
+                @Html.DisplayNameFor(model => model.tag)
             </dt>
             <dd class="col-sm-2">
-
-            </dd>
-            <dt class="col-sm-2">
-
-            </dt>
-            <dd class="col-sm-2">
-
+                @Html.DisplayFor(model => model.tag.TagName)
             </dd>
         </dl>
     </div>

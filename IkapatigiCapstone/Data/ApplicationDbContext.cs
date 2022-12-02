@@ -29,6 +29,7 @@ namespace IkapatigiCapstone.Data
         public virtual DbSet<Status> Statuses { get; set; } = null!;
         public virtual DbSet<Tag> Tags { get; set; } = null!;
         public virtual DbSet<User> Users { get; set; } = null!;
+        public virtual DbSet<Image> Image { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -229,6 +230,7 @@ namespace IkapatigiCapstone.Data
                     .WithMany(p => p.PlantDiseases)
                     .HasForeignKey(d => d.UserId)
                     .HasConstraintName("FK_PlantDiseases_Users");
+
             });
 
             modelBuilder.Entity<Post>(entity =>
@@ -375,6 +377,26 @@ namespace IkapatigiCapstone.Data
                     .HasConstraintName("FK_Users_Roles1");
             });
 
+            modelBuilder.Entity<Image>(entity =>
+            {
+                entity.Property(e => e.ImageID).HasColumnName("ImageID");
+             
+                entity.HasKey("ImageID");
+
+                entity.Property(e => e.ImageName).HasColumnName("ImageUrl")
+                    .HasMaxLength(200)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.PlantDiseaseID).HasColumnName("PlantDiseaseID");
+
+                entity.Property(e => e.UserID).HasColumnName("UserID");
+
+                entity.HasOne(d => d.Users)
+                    .WithMany(p => p.Images)
+                    .HasForeignKey(d => d.UserID)
+                    .HasConstraintName("FK_Image_Users");
+
+            });
             OnModelCreatingPartial(modelBuilder);
         }
 

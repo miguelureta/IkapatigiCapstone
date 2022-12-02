@@ -2,7 +2,7 @@
 
 namespace IkapatigiCapstone.Models
 {
-    public class DiagnosticViewModel
+    public class DiagnosticImageViewModel
     {
         [Display(Name="Cure")]
         public IEnumerable<Cure> CureList { get; set; }
@@ -13,8 +13,8 @@ namespace IkapatigiCapstone.Models
         [Display(Name = "Status")]
         public IEnumerable<Status> StatusList { get; set; }
         public IEnumerable<Diagnostic> Diagnostic { get; set; }
-        //[Display(Name ="Image")]
-        //public IEnumerable<Image> Images { get; set; }
+        [Display(Name = "Image")]
+        public IEnumerable<Image> Images { get; set; }
 
     }
 }
