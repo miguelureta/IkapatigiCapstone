@@ -64,16 +64,30 @@ namespace IkapatigiCapstone.Controllers
         [HttpPost]
         public ActionResult Create(Forum _forum/*, User _user*/)
         {
-            var forum = new Forum();
+            try
+            {
+                var forum = new Forum();
+
+                forum.Title = _forum.Title;
+                forum.Description = _forum.Description;
+                //forum.ImageUrl = _forum.ImageUrl;
+                forum.Created = DateTime.Now;
+
+                _context.Forums.Add(forum);
+                _context.SaveChanges();
+                return RedirectToAction(nameof(Index));
+
+            }
+            catch (Exception ex)
+            {
+                return Content("Unable to save changes. Please check that you don't have any empty boxes. ");
+
+
+            }
+           
             
-            forum.Title = _forum.Title;
-            forum.Description = _forum.Description;
-            //forum.ImageUrl = _forum.ImageUrl;
-            forum.Created = DateTime.Now;
+
             
-            _context.Forums.Add(forum);
-            _context.SaveChanges();
-            return RedirectToAction(nameof(Index));
             
             
         }
@@ -101,13 +115,23 @@ namespace IkapatigiCapstone.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int? id, Forum post)
         {
-            var newp = _context.Forums.Where(f => f.ForumId == id).SingleOrDefault();
-            newp.Title = post.Title;
-            newp.Description = post.Description;
-            newp.ImageUrl = post.ImageUrl;
-            _context.Forums.Update(newp);
-            _context.SaveChanges();
-            return RedirectToAction("Index");
+            try
+            {
+                var newp = _context.Forums.Where(f => f.ForumId == id).SingleOrDefault();
+                newp.Title = post.Title;
+                newp.Description = post.Description;
+                newp.ImageUrl = post.ImageUrl;
+                _context.Forums.Update(newp);
+                _context.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                return Content("Unable to save changes. Please check that you don't have any empty boxes. ");
+
+
+            }
+           
             //try
             //{
             //    _context.Forums.Update(newp);
@@ -168,21 +192,31 @@ namespace IkapatigiCapstone.Controllers
         public ActionResult CreatePost(CreatePostModel post/*, int? id*/)
         {
             //var inputPost = _context.Forums.Where(i => i.ForumId == id).SingleOrDefault();
-            
-          
+
+
             //if(id==null)
             //{
             //    return View("Index");
             //}
-            var inPost = new Post();
-            inPost.Title = post.Title;
-            inPost.Content = post.Content;
-            inPost.Created = DateTime.Now;
-            inPost.ForumId = _hcontext.HttpContext.Session.GetInt32("ForumTarget");
+            try {
+                var inPost = new Post();
+                inPost.Title = post.Title;
+                inPost.Content = post.Content;
+                inPost.Created = DateTime.Now;
+                inPost.ForumId = _hcontext.HttpContext.Session.GetInt32("ForumTarget");
 
-            _context.Posts.Add(inPost);
-            _context.SaveChanges();
-            return RedirectToAction("Index");
+                _context.Posts.Add(inPost);
+                _context.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                return Content("Unable to save changes. Please check that you don't have any empty boxes. ");
+
+
+            }
+
+           
         }
 
         public IActionResult ViewReplies(int id)
@@ -236,14 +270,25 @@ namespace IkapatigiCapstone.Controllers
             //{
             //    return View("Index");
             //}
-            var inReply = new PostReply();
-            inReply.Content = reply.Content;
-            inReply.Created = DateTime.Now;
-            inReply.PostId = _hcontext.HttpContext.Session.GetInt32("PostTarget");
 
-            _context.PostReplies.Add(inReply);
-            _context.SaveChanges();
-            return RedirectToAction("Index");
+            try
+            {
+                var inReply = new PostReply();
+                inReply.Content = reply.Content;
+                inReply.Created = DateTime.Now;
+                inReply.PostId = _hcontext.HttpContext.Session.GetInt32("PostTarget");
+
+                _context.PostReplies.Add(inReply);
+                _context.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                return Content("Unable to save changes. Please check that you don't have any empty boxes. ");
+
+
+            }
+         
         }
 
 

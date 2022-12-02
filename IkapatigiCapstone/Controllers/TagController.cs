@@ -28,16 +28,26 @@ namespace IkapatigiCapstone.Controllers
         [HttpPost]
         public IActionResult Create(Tag record)
         {
-            var tag = new Tag()
+            try
             {
-                TagName = record.TagName,
-                UserId = record.UserId
-            };
+                var tag = new Tag()
+                {
+                    TagName = record.TagName,
+                    UserId = record.UserId
+                };
 
-            _context.Tags.Add(tag);  
-            _context.SaveChanges();
+                _context.Tags.Add(tag);
+                _context.SaveChanges();
 
-            return RedirectToAction("Index");
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                return Content("Unable to save changes. Please check that you don't have any empty boxes. ");
+
+
+            }
+     
         }
 
         public IActionResult Edit(int? id)
@@ -59,15 +69,25 @@ namespace IkapatigiCapstone.Controllers
         [HttpPost]
         public IActionResult Edit(int? id, Tag record)
         {
-            var tag = _context.Tags.Where(i => i.TagId == id).SingleOrDefault();
-            tag.TagName = record.TagName;
-            tag.UserId = record.UserId;
+            try
+            {
+                var tag = _context.Tags.Where(i => i.TagId == id).SingleOrDefault();
+                tag.TagName = record.TagName;
+                tag.UserId = record.UserId;
 
 
-            _context.Tags.Update(tag);
-            _context.SaveChanges();
+                _context.Tags.Update(tag);
+                _context.SaveChanges();
 
-            return RedirectToAction("Index");
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                return Content("Unable to save changes. Please check that you don't have any empty boxes. ");
+
+
+            }
+        
 
         }
 

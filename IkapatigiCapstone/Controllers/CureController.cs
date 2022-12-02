@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using IkapatigiCapstone.Models;
 using IkapatigiCapstone.Data;
+using Org.BouncyCastle.Crypto.Tls;
 
 namespace IkapatigiCapstone.Controllers
 {
@@ -27,18 +28,36 @@ namespace IkapatigiCapstone.Controllers
         [HttpPost]
         public IActionResult Create(Cure record)
         {
-            var cure = new Cure()
+            //if (record.CureName.Equals(" ") && record.Srp.Equals(" ") )
+            //{
+            //    return RedirectToAction("Index");
+
+
+            //}
+
+            try {
+
+                var cure = new Cure()
+                {
+                    CureName = record.CureName,
+                    Srp = record.Srp,
+                    UserId = record.UserId
+
+                };
+
+                _context.Cures.Add(cure);
+                _context.SaveChanges();
+
+                return RedirectToAction("Index");
+
+            }
+            catch (Exception ex)
             {
-                CureName = record.CureName,
-                Srp = record.Srp,
-                UserId = record.UserId
-    
-             };
+                return Content("Unable to save changes. Please check that you don't have any empty boxes. ");
 
-            _context.Cures.Add(cure);
-            _context.SaveChanges();
 
-            return RedirectToAction("Index");
+            }
+           
         }
 
         public IActionResult Edit(int? id)
@@ -46,6 +65,7 @@ namespace IkapatigiCapstone.Controllers
             if (id == null)
             {
                 return RedirectToAction("Index");
+                
             }
 
             var cure = _context.Cures.Where(i => i.CureId == id).SingleOrDefault();
@@ -60,16 +80,27 @@ namespace IkapatigiCapstone.Controllers
         [HttpPost]
         public IActionResult Edit(int? id, Cure record)
         {
-            var cure = _context.Cures.Where(i => i.CureId == id).SingleOrDefault();
-            cure.CureName = record.CureName;
-            cure.Srp = record.Srp;
-            cure.UserId = record.UserId;
+            try
+            {
+                var cure = _context.Cures.Where(i => i.CureId == id).SingleOrDefault();
+                cure.CureName = record.CureName;
+                cure.Srp = record.Srp;
+                cure.UserId = record.UserId;
 
 
-            _context.Cures.Update(cure);
-            _context.SaveChanges();
+                _context.Cures.Update(cure);
+                _context.SaveChanges();
 
-            return RedirectToAction("Index");
+                return RedirectToAction("Index");
+
+            }
+            catch (Exception ex)
+            {
+                return Content("Unable to save changes. Please check that you don't have any empty boxes. ");
+
+
+            }
+           
 
         }
 
