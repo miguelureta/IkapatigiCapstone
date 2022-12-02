@@ -7,16 +7,24 @@ namespace IkapatigiCapstone.Controllers
     public class TagController : Controller
     {
         private readonly ApplicationDbContext _context;
-
-        public TagController(ApplicationDbContext context)
+        private readonly IHttpContextAccessor _hcontext;
+        public TagController(ApplicationDbContext context, IHttpContextAccessor hcontext)
         {
             _context = context;
+            _hcontext = hcontext;
         }
 
         public IActionResult Index()
         {
-            var list = _context.Tags.ToList();
-            return View(list);
+            if (_hcontext.HttpContext.Session.GetString("Session").Equals("diagmodlogged") || _hcontext.HttpContext.Session.GetString("Session").Equals("adminlogged"))
+            {
+                var list = _context.Tags.ToList();
+                return View(list);
+            }
+            else
+            {
+                return Content("Access Denied. This page is not available for your role.");
+            }
         }
 
 

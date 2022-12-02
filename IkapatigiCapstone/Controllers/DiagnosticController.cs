@@ -37,15 +37,24 @@ namespace IkapatigiCapstone.Controllers
             //dvm.Images = _context.Image.ToList();
 
             //New Diagnostic Index View, experimental
-            var divm = new DiagnosticImageViewModel();
-            divm.CureList = _context.Cures.ToList();
-            divm.DiseaseList = _context.PlantDiseases.ToList();
-            divm.StatusList = _context.Statuses.ToList();
-            divm.TagsList = _context.Tags.ToList();
-            divm.Diagnostic = _context.Diagnostics.ToList();
-            divm.Images = _context.Image.ToList();
 
-            return View(divm);
+
+            if (_hcontext.HttpContext.Session.GetString("Session").Equals("diagmodlogged") || _hcontext.HttpContext.Session.GetString("Session").Equals("adminlogged"))
+            {
+                var divm = new DiagnosticImageViewModel();
+                divm.CureList = _context.Cures.ToList();
+                divm.DiseaseList = _context.PlantDiseases.ToList();
+                divm.StatusList = _context.Statuses.ToList();
+                divm.TagsList = _context.Tags.ToList();
+                divm.Diagnostic = _context.Diagnostics.ToList();
+                divm.Images = _context.Image.ToList();
+
+                return View(divm);
+            }
+            else
+            {
+                return Content("Access Denied. This page is not available for your role.");
+            }
         }
 
         [HttpGet]

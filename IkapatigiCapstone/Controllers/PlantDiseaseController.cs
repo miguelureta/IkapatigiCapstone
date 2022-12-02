@@ -22,11 +22,18 @@ namespace IkapatigiCapstone.Controllers
 
         public IActionResult Index()
         {
-            var list = _context.PlantDiseases.ToList();
-            //var list = new PlantDiseaseImageView();
-            //list = _context.PlantDiseases.ToList();
-            //list.Images = _context.Image.ToList();
-            return View(list);
+            if (_hcontext.HttpContext.Session.GetString("Session").Equals("diagmodlogged") || _hcontext.HttpContext.Session.GetString("Session").Equals("adminlogged"))
+            {
+                var list = _context.PlantDiseases.ToList();
+                //var list = new PlantDiseaseImageView();
+                //list = _context.PlantDiseases.ToList();
+                //list.Images = _context.Image.ToList();
+                return View(list);
+            }
+            else
+            {
+                return Content("Access Denied. This page is not available for your role.");
+            }
         }
 
         [HttpGet]
