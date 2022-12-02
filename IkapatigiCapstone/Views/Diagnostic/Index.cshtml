@@ -4,26 +4,25 @@
     ViewData["Title"] = "Diagnostic Record";
     Layout = "~/Views/Shared/_adminLayout.cshtml";
 }
-}
+
 
 <br/>
-<div class="titlecontainer">
-    <div class="text-center">
 
+<div class="titlecontainer">
+    @*"table-title>*@
+    <div class="text-center">
         <h1 class="display-4">Diagnostic</h1>
     </div>
 </div>
 <br />
 
 <div class="bgtable">
-
-
     <p>
         <a asp-action="Create"><i class="fa-solid fa-circle-plus"> Create New</i></a>
     </p>
 
     <br/>
-<table id="records" class="table">
+<table id="records" class="table" >
     <thead>
         <tr>
             @*<th>
@@ -48,7 +47,7 @@
             <th></th>
         </tr>
     </thead>
-    <tbody>
+    <tbody class="table-hover">
         @foreach (var item in Model.Diagnostic){
             <tr>
             @*<td>
@@ -76,17 +75,24 @@
                 @Html.DisplayFor(modelItem => item.Tag.TagName)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.DiagnosticsId">
-                    <i class="fa fa-pencil" style="color:blue"></i>
-                </a> 
-         
-                 <a asp-action="Delete" asp-route-id="@item.DiagnosticsId"
-                   onclick='return confirm("Are you sure?");'>
-                    <i class="fa fa-trash" style="color:red"></i>
-                </a>
-                <a asp-action="Details" asp-controller="Diagnostic" asp-route-id="@item.DiagnosticsId" method="get">
-                    <i class="fa fa-info-circle" aria-hidden="true" style="color: green"></i>
-                </a>
+                <div class="btn-group">
+                    <a asp-action="Edit" asp-route-id="@item.DiagnosticsId">
+                        <span class="btn btn-sm btn-outline-primary">
+                            <i class="fa fa-pencil" style="color:blue"></i>
+                        </span>
+                    </a> 
+                    <a asp-action="Delete" asp-route-id="@item.DiagnosticsId"
+                       onclick='return confirm("Are you sure?");'>
+                        <span class="btn btn-sm btn-outline-danger">
+                            <i class="fa fa-trash" style="color:red"></i>
+                        </span>
+                    </a>
+                    <a asp-action="Details" asp-controller="Diagnostic" asp-route-id="@item.DiagnosticsId" method="get">
+                        <span class="btn btn-sm btn-outline-success">
+                            <i class="fa fa-info-circle" aria-hidden="true" style="color: green"></i>
+                        </span>
+                    </a>
+                </div>
             </td>
         </tr>
         
