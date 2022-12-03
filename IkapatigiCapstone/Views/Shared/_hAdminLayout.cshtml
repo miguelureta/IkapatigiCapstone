@@ -33,35 +33,35 @@
                         <li class="nav-item">
                             <a class="nav-link active" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        <li class="nav-item">
+                        @*<li class="nav-item">
                             <a class="nav-link active" asp-area="" asp-controller="User" asp-action="Index">About Us</a>
-                        </li>
+                        </li>*@
 
 
-                       @* Make a new method and view page just for the admin....Because the admin can't do some things the others can. Below are the links that aren't fixed ye*@t.
+                        @* Make a new method and view page just for the admin....Because the admin can't do some things the others can. Below are the links that aren't fixed yet.*@
                         
-                        <li class="nav-item">
+                        @*<li class="nav-item">
                             <a class="nav-link active" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>*@
+                        <li class="nav-item">
+                            <a class="nav-link active" asp-area="" asp-controller="Diagnostic" asp-action="Index"> <i class="fa fa-stethoscope"></i> Diagnostic        </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" asp-area="" asp-controller="Diagnostic" asp-action="Index">Diagnostic</a>
+                            <a class="nav-link active" asp-area="" asp-controller="Forum" asp-action="Index"><i class="fa fa-comments"></i> Forum        </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" asp-area="" asp-controller="Forum" asp-action="Index">Forum</a>
+                            <a class="nav-link active" asp-area="" asp-controller="HowTo" asp-action="Index"><i class="fas fa-leaf"></i> How-To's        </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" asp-area="" asp-controller="HowTo" asp-action="Index">How-Tos</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" asp-area="" asp-controller="Cure" asp-action="Index">Cures</a>
+                            <a class="nav-link active" asp-area="" asp-controller="Cure" asp-action="Index"><i class="fa fa-plus-square"></i> Cures        </a>
                         </li>
 
 
                         <li class="nav-item">
-                            <a class="nav-link active" asp-area="" asp-controller="PlantDisease" asp-action="Index">Plant Diseases</a>
+                            <a class="nav-link active" asp-area="" asp-controller="PlantDisease" asp-action="Index"><i class="fa-brands fa-pagelines"></i> Plant Diseases        </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" asp-area="" asp-controller="Tag" asp-action="Index">Tags</a>
+                            <a class="nav-link active" asp-area="" asp-controller="Tag" asp-action="Index"><i class="fa fa-tags"></i> Tags</a>
                         </li>
 
                    

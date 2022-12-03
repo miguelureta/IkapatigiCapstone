@@ -225,6 +225,10 @@ namespace IkapatigiCapstone.Controllers
             //}
             
             
+            
+            
+            //inPost.ForumId = _hcontext.HttpContext.Session.GetInt32("ForumTarget");
+            
             //var inputPost = _context.Forums.Where(i => i.ForumId == id).SingleOrDefault();
 
 

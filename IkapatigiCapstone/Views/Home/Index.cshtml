@@ -4,7 +4,7 @@
 }
 
 <br />
-<div class="titlecontainer">
+<div class="titlecontainer-home">
     <div class="text-center">
         <h1 class="display-4">Home</h1>
     </div>
@@ -12,14 +12,14 @@
 <br />
 
 <div class="homeoptions">
+
     <div class="containerleftdiagnose">
         <div class="textcontainerleftdiagnose">
-            <h1>Diagnose</h1>
+            <a class="nav-link active" asp-area="" asp-controller="Diagnostic" asp-action="NonMemberIndex"><h1>Diagnose</h1></a>
             <br />
             <p>An advanced search engine to find </p>
             <p>what sickness your plant is suffering from.</p>
         </div>
-
         <div class="diagnoseicon">
             <img src="~/BackgroundImages/diagnosepc.png" />
         </div>
@@ -27,7 +27,7 @@
 
     <div class="containerrighthowto">
         <div class="textcontainerrighthowto">
-            <h1>How To's</h1>
+            <a class="nav-link active" asp-area="" asp-controller="HowTo" asp-action="NonMemberIndex"><h1>How To's</h1></a>
             <br />
             <p>A comprehensive guide to caring for plants for those</p>
             <p> just starting out and more.</p>
@@ -43,7 +43,7 @@
 
     <div class="containerbottomaboutus">
         <div class="textcontainerbottomaboutus">
-            <h1>About Us</h1>
+            <a class="nav-link active" asp-area="" asp-controller="Home" asp-action="AboutUs"><h1>About Us</h1></a>
             <br />
             <p>Meet the team, our brand and contact us if need be.</p>
         </div>
