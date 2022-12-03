@@ -2,6 +2,9 @@
 using Microsoft.AspNetCore.Mvc;
 using IkapatigiCapstone.Models;
 using IkapatigiCapstone.Data;
+
+
+
 namespace IkapatigiCapstone.Controllers
 {
     public class ForumController : Controller
@@ -26,14 +29,16 @@ namespace IkapatigiCapstone.Controllers
         // GET: ForumController
         public ActionResult Index()
         {
-            string sesh = "modlogged";
-            string sesh2 = "adminlogged";
-            if(_hcontext.HttpContext.Session.GetString("Session").Equals(sesh) || _hcontext.HttpContext.Session.GetString("Session").Equals(sesh2))
+            if (_hcontext.HttpContext.Session.GetString("Session").Equals("forumsmodlogged") || _hcontext.HttpContext.Session.GetString("Session").Equals("adminlogged"))
             {
                 var list = _context.Forums.ToList();
                 return View(list);
             }
-            return RedirectToAction("aLogin", "Account");
+            else
+            {
+                return Content("Access Denied. This page is not available for your role.");
+            }
+            //return RedirectToAction("aLogin", "Account");
         }
 
         // GET: ForumController/Details/5

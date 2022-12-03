@@ -22,7 +22,11 @@
     </p>
 
     <br />
-<table id="records" class="table">
+
+    @using (Html.BeginForm("GroupDelete", "HowTo", FormMethod.Post))
+    {
+
+        <table id="records" class="table">
     <thead>
         <tr>
             <th>
@@ -55,10 +59,15 @@
             <th>
                 @Html.DisplayNameFor(model => model.Status)
             </th>
+            <th>
+                <input type="checkbox" name="allcheck" id="selectAll" /> Select All
+            </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
+
+       @* @Html.EditorForModel()*@
 @foreach (var item in Model) {
         <tr>
             <td>
@@ -91,40 +100,45 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Status.StatusId)
             </td>
-                <td>
-                   <a asp-action="Edit" asp-route-id="@item.HowTosID">
-                       <span class="btn btn-sm btn-outline-primary">
-                            <i class="fa fa-pencil" style="color:blue"></i>
-                        </span>
-                   </a> 
-                   <a asp-action="Details" asp-route-id="@item.HowTosID">
-                            <span class="btn btn-sm btn-outline-success">
-                      <i class="fa fa-info-circle" aria-hidden="true" style="color: green"></i>
-                      </span>
-                    @*<i class="fa-solid fa-arrow-right-to-arc" ></i> UPDATE FontAwesome if you want to use the other icons.*@
-                       
-                   </a> 
+            <td>
+                <input type="checkbox" name="id" id="id" value="@item.HowTosID" />
+            </td>
+          
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.HowTosID">
+                    <i class="fa fa-pencil" style="color:blue"></i>
+                </a>
+                <a asp-action="Details" asp-route-id="@item.HowTosID">
+                    <i class="fa fa-info-circle" aria-hidden="true" style="color: green"></i>
+                        
+
+               </a>
+
+                <a asp-action="Banned" asp-route-id="@item.HowTosID">
+                    <i class="fa-solid fa-ban" style="color:red"></i>
+
+                </a>
+                    <a asp-action="Article" asp-route-id="@item.HowTosID">Details</a>
+
+                <a asp-action="Delete" asp-route-id="@item.HowTosID"
+               onclick='return confirm("Are you sure?");'>
+                    <i class="fa fa-trash" style="color:red"></i>
+                </a>
+
+
                    
-                   <a asp-action="Banned" asp-route-id="@item.HowTosID">
-                      <span class="btn btn-sm btn-outline-warning">
-                        <i class="fa-solid fa-ban" style="color:red"></i>
-                      </span>
-                      
-                   </a> 
-                  @* <a asp-action="Article" asp-route-id="@item.HowTosID">Details</a>*@
-                   
-                    <a asp-action="Delete" asp-route-id="@item.HowTosID"
-                      onclick='return confirm("Are you sure?");'>
-                       <span class="btn btn-sm btn-outline-danger">
-                        <i class="fa fa-trash" style="color:red"></i>
-                       </span>
-                   </a>
             </td>
         </tr>
+            
 }
     </tbody>
 </table>
+
+ <input type="submit" value="Delete" class="btn btn btn-danger" />
+}
+
 </div>
+
 
 
 
@@ -144,6 +158,19 @@
                 openSuccessModal(msg);
             }
         });
+    </script>*@
+    @*<script>
+            $(function () {
+
+                $("#selectAll").click(function () {
+                    $("input[type=checkbox]").prop('checked', $(this).prop('checked'));
+                });
+                $("input[type=checkbox]").click(function () {
+                    if (!$(this).prop("checked")) {
+                        $("#selectAll").prop("checked", false);
+                    }
+                });
+            })
     </script>*@
     
     <script src="~/lib/datatables/js/jquery.dataTables.js"></script>

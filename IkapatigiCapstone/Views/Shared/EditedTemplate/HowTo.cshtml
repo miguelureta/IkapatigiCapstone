@@ -1,0 +1,47 @@
+﻿@model IkapatigiCapstone.Models.HowTo;
+@{
+}
+
+
+
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => Model.Title)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => Model.Description)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => Model.LikeCount)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => Model.DislikeCount)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => Model.IsPublic)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => Model.User.Email)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => Model.DateCreated)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => Model.DateUpdated)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => Model.ArticleBody)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => Model.Status.StatusId)
+    </td>
+    @*   <td>
+    <input type="hidden" asp-for="@item.Emps.Value" />
+    <input asp-for="@item.Emps.Selected" />
+    <input type="hidden" asp-for="@item.HowTosID" />
+    </td>*@
+    <td>
+        <input type="checkbox" name="id" id="id" value="@Model.HowTosID" />
+    </td>
+
+</tr>

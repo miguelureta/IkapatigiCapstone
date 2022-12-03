@@ -8,16 +8,28 @@ namespace IkapatigiCapstone.Controllers
     public class CureController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IHttpContextAccessor _hcontext;
 
-        public CureController(ApplicationDbContext context)
+        public CureController(ApplicationDbContext context, IHttpContextAccessor hcontext)
         {
             _context = context;
+            _hcontext = hcontext;
         }
 
         public IActionResult Index()
         {
-            var list = _context.Cures.ToList();
-            return View(list);
+           
+
+            if (_hcontext.HttpContext.Session.GetString("Session").Equals("diagmodlogged") || _hcontext.HttpContext.Session.GetString("Session").Equals("adminlogged"))
+            {
+                var list = _context.Cures.ToList();
+                return View(list);
+            }
+            else
+            {
+               return Content("Access Denied. This page is not available for your role.");
+            }
+           
         }
 
         public IActionResult Create()

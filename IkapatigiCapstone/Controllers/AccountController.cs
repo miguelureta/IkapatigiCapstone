@@ -285,12 +285,25 @@ namespace IkapatigiCapstone.Controllers
                     _hcontext.HttpContext.Session.SetString("Session", "adminlogged");
                     return RedirectToAction("Index", "User");
                 }
-                if(user.RoleId==3||user.RoleId==4||user.RoleId==5)
+                if(user.RoleId==3)
                 {
-                    _hcontext.HttpContext.Session.SetString("Session", "modlogged");
+                    _hcontext.HttpContext.Session.SetString("Session", "diagmodlogged");
                     _hcontext.HttpContext.Session.SetInt32("logUserID", user.UserId);
                     return RedirectToAction("ModHome", "Home");
                 }
+                if (user.RoleId == 4 )
+                {
+                    _hcontext.HttpContext.Session.SetString("Session", "howtosmodlogged");
+                    _hcontext.HttpContext.Session.SetInt32("logUserID", user.UserId);
+                    return RedirectToAction("ModHome", "Home");
+                }
+                if (user.RoleId == 5)
+                {
+                    _hcontext.HttpContext.Session.SetString("Session", "forumsmodlogged");
+                    _hcontext.HttpContext.Session.SetInt32("logUserID", user.UserId);
+                    return RedirectToAction("ModHome", "Home");
+                }
+
                 ViewData["LoginMessage"] = "Invalid account login";
                 return RedirectToAction("aLogin");             
             }
