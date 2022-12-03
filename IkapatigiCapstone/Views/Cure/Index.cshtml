@@ -4,7 +4,6 @@
     ViewData["Title"] = "Index";
      Layout = "~/Views/Shared/_adminLayout.cshtml";
 }
-}
 
 <br />
 <div class="titlecontainer">
@@ -17,53 +16,58 @@
 
 <div class="bgtable">
 
-
     <p>
         <a asp-action="Create"><i class="fa-solid fa-circle-plus"> Create New</i></a>
     </p>
 
     <br />
-<table id="records" class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.CureName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Srp)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UserId)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.CureName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Srp)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UserId)
-            </td>
-             <td>
-               <a asp-action="Edit" asp-route-id="@item.CureId">
-                    <i class="fa fa-pencil" style="color:blue"></i>
-                </a> 
+
+    <table id="records" class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.CureName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Srp)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.UserId)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+    @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CureName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Srp)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserId)
+                </td>
+                 <td>
+                    <a></a>
+                   <a asp-action="Edit" asp-route-id="@item.CureId">
+                        <span class="btn btn-sm btn-outline-primary">
+                            <i class="fa fa-pencil" style="color:blue"></i>
+                        </span>
+                    </a> 
          
-                 <a asp-action="Delete" asp-route-id="@item.CureId"
-                   onclick='return confirm("Are you sure?");'>
-                    <i class="fa fa-trash" style="color:red"></i>
-                </a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+                     <a asp-action="Delete" asp-route-id="@item.CureId"
+                       onclick='return confirm("Are you sure?");'>
+                        <span class="btn btn-sm btn-outline-danger">
+                            <i class="fa fa-trash" style="color:red"></i>
+                        </span>
+                    </a>
+                </td>
+            </tr>
+    }
+        </tbody>
+    </table>
 </div>
 @section Scripts{
     <script src="~/lib/datatables/js/jquery.dataTables.js"></script>

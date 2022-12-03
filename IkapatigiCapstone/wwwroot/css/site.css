@@ -70,24 +70,22 @@ body::-webkit-scrollbar-thumb:hover {
 
 /*trying template for datatable*/
 .bgtable {
-    background-color: #ffffffc4;
+    background-color: #ffffffe8;
     border-radius: 3px;
     border-collapse: collapse;
     height: max-content;
     margin: auto;
     max-width: max-content; /*600px;*/
     padding: 10px;
-    width: 100%;
+    width: 1300px;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
     animation: float 5s infinite;
 }
 
-div.table-title {
-    display: block;
-    margin: auto;
-    max-width: 600px;
+.row {
+    width: 1300px;
+    margin: 10px;
     padding: 5px;
-    width: 100%;
 }
 
 .table-title h1 {
@@ -186,7 +184,12 @@ td {
     font-size: 18px;
     text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.1);
     border-right: 1px solid #C1C3D1;
-
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    animation: float 5s infinite;
+    height: max-content;
+    margin: auto;
+    width: 1300px;
+    max-width: max-content;
 }
 
 td:last-child {
@@ -307,7 +310,7 @@ margin-bottom: 10px;
 
 
 /*After this line are the codes for the box About Us.*/
-    .containerbottomaboutus {
+.containerbottomaboutus {
     background-color: white; /*f3ebd3;*/
     width: 1300px;
     position: absolute;

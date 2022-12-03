@@ -56,7 +56,9 @@
                     <td>
                         <a asp-action="Delete" asp-route-id="@item.UserId"
                             onclick='return confirm("Are you sure?");'>
-                             <i class="fa fa-trash" style="color:red"></i>
+                            <span class="btn btn-sm btn-outline-danger">
+                                <i class="fa fa-trash" style="color:red"></i>
+                            </span>
                         </a>
                     </td>
                 </tr>

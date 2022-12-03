@@ -18,7 +18,6 @@
 
 <div class="bgtable">
 
-
     <p>
         <a asp-action="Create"><i class="fa-solid fa-circle-plus"> Create New</i></a>
     </p>
@@ -71,12 +70,16 @@
             </td>*@
             <td>
                 <a asp-action="Edit" asp-route-id="@item.PlantDiseaseId">
-                    <i class="fa fa-pencil" style="color:blue"></i>
+                    <span class="btn btn-sm btn-outline-primary">
+                        <i class="fa fa-pencil" style="color:blue"></i>
+                    </span>
                 </a> 
          
                  <a asp-action="Delete" asp-route-id="@item.PlantDiseaseId"
                    onclick='return confirm("Are you sure?");'>
-                    <i class="fa fa-trash" style="color:red"></i>
+                    <span class="btn btn-sm btn-outline-danger">
+                        <i class="fa fa-trash" style="color:red"></i>
+                    </span>
                 </a>
             </td>
         </tr>

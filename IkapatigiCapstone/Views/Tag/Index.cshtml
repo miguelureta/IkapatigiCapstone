@@ -44,13 +44,17 @@
                 @Html.DisplayFor(modelItem => item.User.Username)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.TagId"> 
-                    <i class="fa fa-pencil" style="color:blue"></i>
+                <a asp-action="Edit" asp-route-id="@item.TagId">
+                    <span class="btn btn-sm btn-outline-primary">
+                        <i class="fa fa-pencil" style="color:blue"></i>
+                    </span>
                 </a> 
          
                 <a asp-action="Delete" asp-route-id="@item.TagId"
                    onclick='return confirm("Are you sure?");'>
-                    <i class="fa fa-trash" style="color:red"></i>
+                    <span class="btn btn-sm btn-outline-danger">
+                        <i class="fa fa-trash" style="color:red"></i>
+                    </span>
                 </a>
             </td>
         </tr>

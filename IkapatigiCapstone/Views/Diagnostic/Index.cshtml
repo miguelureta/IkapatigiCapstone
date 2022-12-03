@@ -22,83 +22,83 @@
     </p>
 
     <br/>
-<table id="records" class="table" >
-    <thead>
-        <tr>
-            @*<th>
-                @Html.DisplayNameFor(model => model.PictureCollectionFromId)
-            </th>*@
-            <th>
-                @Html.DisplayNameFor(model => model.DiseaseList)   
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CureList)
-            </th>
-         
-            <th>
-                @Html.DisplayNameFor(model => model.Images)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.StatusList)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TagsList)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody class="table-hover">
-        @foreach (var item in Model.Diagnostic){
+    <table id="records" class="table" >
+        <thead>
             <tr>
-            @*<td>
-                @Html.DisplayFor(modelItem => item.PictureCollectionFromId)
-            </td>*@
-            <td>
-                @*@Html.DisplayFor(modelItem => item.DiseaseList.Where(x => x.PlantDiseaseId == item.Diagnostic.PlantDiseaseId))*@
-                @Html.DisplayFor(modelItem => item.PlantDisease.DiseaseName)
-            </td>
+                @*<th>
+                    @Html.DisplayNameFor(model => model.PictureCollectionFromId)
+                </th>*@
+                <th>
+                    @Html.DisplayNameFor(model => model.DiseaseList)   
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CureList)
+                </th>
+         
+                <th>
+                    @Html.DisplayNameFor(model => model.Images)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.StatusList)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TagsList)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody class="table-hover">
+            @foreach (var item in Model.Diagnostic){
+                <tr>
+                @*<td>
+                    @Html.DisplayFor(modelItem => item.PictureCollectionFromId)
+                </td>*@
+                <td>
+                    @*@Html.DisplayFor(modelItem => item.DiseaseList.Where(x => x.PlantDiseaseId == item.Diagnostic.PlantDiseaseId))*@
+                    @Html.DisplayFor(modelItem => item.PlantDisease.DiseaseName)
+                </td>
 
-            <td>
-                @*@Html.DisplayFor(modelItem => item.CureList.Where(x => x.CureId == item.Diagnostic.CureId))*@
-                @Html.DisplayFor(modelItem => item.Cure.CureName)
-            </td>
+                <td>
+                    @*@Html.DisplayFor(modelItem => item.CureList.Where(x => x.CureId == item.Diagnostic.CureId))*@
+                    @Html.DisplayFor(modelItem => item.Cure.CureName)
+                </td>
            
-            <td>
-                @Html.DisplayFor(modelItem => item.PlantDisease.Images)
-            </td>
-            <td>
-                @*@Html.DisplayFor(modelItem => item.StatusList.Where(x => x.StatusId == item.Diagnostic.StatusId))*@
-                @Html.DisplayFor(modelItem => item.Status.StatusType)
-            </td>
-            <td>
-                @*@Html.DisplayFor(modelItem => item.TagsList.Where(x => x.TagId == item.Diagnostic.TagId))*@
-                @Html.DisplayFor(modelItem => item.Tag.TagName)
-            </td>
-            <td>
-                <div class="btn-group">
-                    <a asp-action="Edit" asp-route-id="@item.DiagnosticsId">
-                        <span class="btn btn-sm btn-outline-primary">
-                            <i class="fa fa-pencil" style="color:blue"></i>
-                        </span>
-                    </a> 
-                    <a asp-action="Delete" asp-route-id="@item.DiagnosticsId"
-                       onclick='return confirm("Are you sure?");'>
-                        <span class="btn btn-sm btn-outline-danger">
-                            <i class="fa fa-trash" style="color:red"></i>
-                        </span>
-                    </a>
-                    <a asp-action="Details" asp-controller="Diagnostic" asp-route-id="@item.DiagnosticsId" method="get">
-                        <span class="btn btn-sm btn-outline-success">
-                            <i class="fa fa-info-circle" aria-hidden="true" style="color: green"></i>
-                        </span>
-                    </a>
-                </div>
-            </td>
-        </tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PlantDisease.Images)
+                </td>
+                <td>
+                    @*@Html.DisplayFor(modelItem => item.StatusList.Where(x => x.StatusId == item.Diagnostic.StatusId))*@
+                    @Html.DisplayFor(modelItem => item.Status.StatusType)
+                </td>
+                <td>
+                    @*@Html.DisplayFor(modelItem => item.TagsList.Where(x => x.TagId == item.Diagnostic.TagId))*@
+                    @Html.DisplayFor(modelItem => item.Tag.TagName)
+                </td>
+                <td>
+                    <div class="btn-group">
+                        <a asp-action="Edit" asp-route-id="@item.DiagnosticsId">
+                            <span class="btn btn-sm btn-outline-primary">
+                                <i class="fa fa-pencil" style="color:blue"></i>
+                            </span>
+                        </a> 
+                        <a asp-action="Delete" asp-route-id="@item.DiagnosticsId"
+                           onclick='return confirm("Are you sure?");'>
+                            <span class="btn btn-sm btn-outline-danger">
+                                <i class="fa fa-trash" style="color:red"></i>
+                            </span>
+                        </a>
+                        <a asp-action="Details" asp-controller="Diagnostic" asp-route-id="@item.DiagnosticsId" method="get">
+                            <span class="btn btn-sm btn-outline-success">
+                                <i class="fa fa-info-circle" aria-hidden="true" style="color: green"></i>
+                            </span>
+                        </a>
+                    </div>
+                </td>
+            </tr>
         
-}
-    </tbody>
-</table>
+    }
+        </tbody>
+    </table>
 </div>
 @section Scripts{
     <script src="~/lib/datatables/js/jquery.dataTables.js"></script>

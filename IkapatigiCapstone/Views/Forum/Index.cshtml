@@ -57,13 +57,19 @@
                         </td>
                         <td>
                             <a asp-action="Edit" asp-route-id="@item.ForumId">
+                            <span class="btn btn-sm btn-outline-primary">
                                 <i class="fa fa-pencil" style="color:blue"></i>
+                            </span>
                             </a> 
                             <a asp-action="Details" asp-route-id="@item.ForumId">
+                            <span class="btn btn-sm btn-outline-success">
                                 <i class="fa fa-info-circle" aria-hidden="true" style="color: green"></i>
+                            </span>
                             </a>
                             <a asp-controller="Forum" asp-action="Delete" asp-route-id="@item.ForumId" value="@item.ForumId" method="post"onclick='return confirm("Are you sure?");'>
+                            <span class="btn btn-sm btn-outline-danger">
                                 <i class="fa fa-trash" style="color:red"></i>
+                             </span>
                             </a>
                         </td>
                     </tr>
