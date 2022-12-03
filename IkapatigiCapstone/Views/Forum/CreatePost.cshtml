@@ -14,7 +14,7 @@
 <div class="bgtable">
     <div class="row">
         <div class="col-md-4">
-            <form asp-action="CreatePost">
+            <form @*enctype="multipart/form-data"*@ asp-action="CreatePost">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <input type="hidden" asp-for="ForumId"/>
                     <div class="form-group">
@@ -27,6 +27,18 @@
                     <input asp-for="Content" class="form-control" />
                     <span asp-validation-for="Content" class="text-danger"></span>
                 </div>
+                @*<div class="form-group">
+                    <label asp-for="PdImage" class="control-label"></label>
+                    <div class="custom-file">
+                        <input asp-for="PdImage" class="custom-file-input" id="dImage"
+                        onchange="document.getElementById('dImagePrv').src = window.URL.createObjectURL(this.files[0])" accept=".png, .jpeg, .jpg"/>
+                        <label class="custom-file-label" for="dImage">Add an Image</label>
+                    </div>
+                    <span asp-validation-for="PdImage" class="text-danger"></span>
+                    <label id="@Model-size" class="control-label">Size</label>
+                    <img id="dImagePrv" src="" alt="Post Image" width="150" 
+                        height="150" style="border:1px; margin-top:20px; margin-left:120px;" />
+                </div>*@
                 <br/>
                 <div class="form-group">
                     <input type="submit" value="Create" class="btn btn-primary" />
@@ -75,4 +87,19 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script type="text/javascript" on-content-loaded="true">
+        var imgFile = document.getElementByClassName("custom-file-input");
+        for (let i = 0; i < imgFile.length; i++) {
+            imgFile[i].addEventListener("change", function() {
+                var filename = $(this).val().split("\\").pop();
+                $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+
+                var attach_id = this.id;
+                var fsize = $('#' + attach_id)[0].files[0].size;
+                const file = Math.round((fsize / 1024));
+
+                document.getElementById('@Model-size').innerText = 'File size ' + file = 'KB';
+            });
+        }
+    </script>
 }

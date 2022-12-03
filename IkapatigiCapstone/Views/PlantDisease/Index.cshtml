@@ -52,7 +52,9 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.DiseaseName)
+                <a asp-action="ViewImage" asp-controller="Diagnostic" asp-route-id="@item.PlantDiseaseId">
+                    @Html.DisplayFor(modelItem =>item.DiseaseName)
+                </a>
             </td>
             @*<td>
                 @Html.DisplayFor(modelItem => item.ImageOfDisease)

@@ -6,7 +6,7 @@ namespace IkapatigiCapstone.Models
     {
         [MaxLength(99, ErrorMessage = "Title can only be 100 characters long")]
         public string Title { get; set; }
-        [MaxLength(499, ErrorMessage = "Title can only be 500 characters long")]
+        [MaxLength(499, ErrorMessage = "Content can only be 500 characters long")]
         public string Content { get; set; }
         [ForeignKey("Forum")]
         public int? ForumId { get; set; }

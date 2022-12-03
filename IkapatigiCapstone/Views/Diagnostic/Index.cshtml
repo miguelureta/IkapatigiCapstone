@@ -1,4 +1,4 @@
-﻿@model IkapatigiCapstone.Models.DiagnosticImageViewModel
+﻿@model IkapatigiCapstone.Models.DiagnosticViewModel
 
 @{
     ViewData["Title"] = "Diagnostic Record";
@@ -35,10 +35,10 @@
             <th>
                 @Html.DisplayNameFor(model => model.CureList)
             </th>
-         
+         @*
             <th>
                 @Html.DisplayNameFor(model => model.Images)
-            </th>
+            </th>*@
             <th>
                 @Html.DisplayNameFor(model => model.StatusList)
             </th>
@@ -56,17 +56,19 @@
             </td>*@
             <td>
                 @*@Html.DisplayFor(modelItem => item.DiseaseList.Where(x => x.PlantDiseaseId == item.Diagnostic.PlantDiseaseId))*@
-                @Html.DisplayFor(modelItem => item.PlantDisease.DiseaseName)
+                <a asp-action="ViewImage" asp-controller="PlantDisease" asp-route-id="@item.PlantDisease.PlantDiseaseId">
+                    @Html.DisplayFor(modelItem =>item.PlantDisease.DiseaseName)
+                </a>
             </td>
 
             <td>
                 @*@Html.DisplayFor(modelItem => item.CureList.Where(x => x.CureId == item.Diagnostic.CureId))*@
                 @Html.DisplayFor(modelItem => item.Cure.CureName)
             </td>
-           
+           @*
             <td>
                 @Html.DisplayFor(modelItem => item.PlantDisease.Images)
-            </td>
+            </td>*@
             <td>
                 @*@Html.DisplayFor(modelItem => item.StatusList.Where(x => x.StatusId == item.Diagnostic.StatusId))*@
                 @Html.DisplayFor(modelItem => item.Status.StatusType)
