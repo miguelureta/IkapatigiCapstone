@@ -99,11 +99,6 @@ namespace IkapatigiCapstone.Controllers
 
             }
            
-            
-
-            
-            
-            
         }
 
         // GET: ForumController/Edit/5
@@ -203,10 +198,9 @@ namespace IkapatigiCapstone.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreatePost(/*CreatePostModel post*/ CreatePostImageModel post)
+        public IActionResult CreatePost(/*CreatePostModel post*/ CreatePostImageModel post)
         {
             
-
             //Old CreatePost method
             //var inPost = new Post();
             //inPost.Title = post.Title;
@@ -216,13 +210,6 @@ namespace IkapatigiCapstone.Controllers
             //inPost.ForumId = _hcontext.HttpContext.Session.GetInt32("ForumTarget");
 
             //New CreatePost method with Image
-            var inPost = new Post();
-            inPost.Title = post.Title;
-            inPost.Content = post.Content;
-            inPost.Created = DateTime.Now;
-            _context.Posts.Add(inPost);
-            _context.SaveChanges();
-
             
             //if (post.PdImage!=null)
             //{
@@ -249,7 +236,6 @@ namespace IkapatigiCapstone.Controllers
             //}
             
             
-            inPost.ForumId = _hcontext.HttpContext.Session.GetInt32("ForumTarget");
             //var inputPost = _context.Forums.Where(i => i.ForumId == id).SingleOrDefault();
 
 
@@ -271,11 +257,7 @@ namespace IkapatigiCapstone.Controllers
             catch (Exception ex)
             {
                 return Content("Unable to save changes. Please check that you don't have any empty boxes. ");
-
-
             }
-
-           
         }
 
         public IActionResult ViewReplies(int id)
