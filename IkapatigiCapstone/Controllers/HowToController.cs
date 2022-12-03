@@ -45,9 +45,19 @@ namespace IkapatigiCapstone.Controllers
             }
         }
 
-        public IActionResult Create() 
-        { 
-            return View();
+        public IActionResult Create()
+        {
+            if (_hcontext.HttpContext.Session.GetString("Session").Equals("howtosmodlogged"))
+            {
+                return View();
+
+
+                        }
+            else
+            {
+                return Content("Access Denied. This page is not available for your role.");
+            }
+
         }
         
         //Added function to send MembersOnly HowTo articles to Users with Member Role = 1
@@ -92,55 +102,59 @@ namespace IkapatigiCapstone.Controllers
             //    }
             //}
 
+           
+                try
+                {
+                    var howto = new HowTo();
+                    howto.Title = record.Title;
+                    howto.Description = record.Description;
+                    howto.LikeCount = record.LikeCount;
+                    howto.DislikeCount = record.DislikeCount;
+                    howto.IsPublic = record.IsPublic;
+                    howto.UserID = record.UserID;
+                    howto.StatusID = record.StatusID;
+                    howto.PictureCollectionFromID = record.PictureCollectionFromID;
+                    howto.DateCreated = DateTime.Now;
+                    howto.ArticleBody = record.ArticleBody;
+                    var memberList = _context.Users.Where(u => u.RoleId == 1).ToList();
+
+                    _context.HowTos.Add(howto);
+                    _context.SaveChanges();
+
+                    //Holy smokes it works
+                    //if (howto.IsPublic == Availability.Members)
+                    //{
+                    //    foreach (var member in memberList)
+                    //    {
+                    //        var email = new MimeMessage();
+                    //        email.From.Add(MailboxAddress.Parse(_config.GetSection("EmailUsername").Value));
+                    //        email.To.Add(MailboxAddress.Parse(member.Email));
+                    //        email.Subject = "New Members Only Content";
+                    //        email.Body = new TextPart(TextFormat.Html) { Text = howto.Title };
+
+                    //        using var smtp = new SmtpClient();
+                    //        //Commented smtp line is for sending emails when deployed in Capstone Repo
+                    //        //smtp.Connect(_config.GetSection("EmailHost").Value, 25, SecureSocketOptions.StartTlsWhenAvailable);
+                    //        smtp.Connect(_config.GetSection("EmailHost").Value, 587, SecureSocketOptions.StartTlsWhenAvailable);
+                    //        smtp.Authenticate(_config.GetSection("EmailUsername").Value, _config.GetSection("EmailPassword").Value);
+                    //        smtp.Send(email);
+                    //        smtp.Disconnect(true);
+                    //    }
+                    //}
+
+                    return RedirectToAction("Index");
+                }
+                catch (Exception ex)
+                {
+                    return Content("Unable to save changes. Please check that you don't have any empty boxes. ");
 
 
-            try
-            {
-                var howto = new HowTo();
-                howto.Title = record.Title;
-                howto.Description = record.Description;
-                howto.LikeCount = record.LikeCount;
-                howto.DislikeCount = record.DislikeCount;
-                howto.IsPublic = record.IsPublic;
-                howto.UserID = record.UserID;
-                howto.StatusID = record.StatusID;
-                howto.PictureCollectionFromID = record.PictureCollectionFromID;
-                howto.DateCreated = DateTime.Now;
-                howto.ArticleBody = record.ArticleBody;
-                var memberList = _context.Users.Where(u => u.RoleId == 1).ToList();
+                }
 
-                _context.HowTos.Add(howto);
-                _context.SaveChanges();
 
-                //Holy smokes it works
-                //if (howto.IsPublic == Availability.Members)
-                //{
-                //    foreach (var member in memberList)
-                //    {
-                //        var email = new MimeMessage();
-                //        email.From.Add(MailboxAddress.Parse(_config.GetSection("EmailUsername").Value));
-                //        email.To.Add(MailboxAddress.Parse(member.Email));
-                //        email.Subject = "New Members Only Content";
-                //        email.Body = new TextPart(TextFormat.Html) { Text = howto.Title };
 
-                //        using var smtp = new SmtpClient();
-                //        //Commented smtp line is for sending emails when deployed in Capstone Repo
-                //        //smtp.Connect(_config.GetSection("EmailHost").Value, 25, SecureSocketOptions.StartTlsWhenAvailable);
-                //        smtp.Connect(_config.GetSection("EmailHost").Value, 587, SecureSocketOptions.StartTlsWhenAvailable);
-                //        smtp.Authenticate(_config.GetSection("EmailUsername").Value, _config.GetSection("EmailPassword").Value);
-                //        smtp.Send(email);
-                //        smtp.Disconnect(true);
-                //    }
-                //}
 
-                return RedirectToAction("Index");
-            }
-            catch(Exception ex)
-            {
-                return Content("Unable to save changes. Please check that you don't have any empty boxes. ");
-
-               
-            }
+         
 
             //TempData["SuccessMessage"] = "New How To named: " + record.Title + "Created Successfully";
 
@@ -149,18 +163,26 @@ namespace IkapatigiCapstone.Controllers
 
         public IActionResult Edit(int? id)
         {
-            if (id == null)
+            if (_hcontext.HttpContext.Session.GetString("Session").Equals("howtosmodlogged"))
             {
-                return RedirectToAction("Index");
-            }
+                if (id == null)
+                {
+                    return RedirectToAction("Index");
+                }
 
-            var howto = _context.HowTos.Where(i => i.HowTosID == id).SingleOrDefault();
-            if (howto == null)
+                var howto = _context.HowTos.Where(i => i.HowTosID == id).SingleOrDefault();
+                if (howto == null)
+                {
+                    return RedirectToAction("Index");
+                }
+
+                return View(howto);
+
+            }
+            else
             {
-                return RedirectToAction("Index");
+                return Content("Access Denied. This page is not available for your role.");
             }
-
-            return View(howto);
         }
 
 
@@ -227,22 +249,30 @@ namespace IkapatigiCapstone.Controllers
 
         public IActionResult Delete(int? id)
         {
-            if (id == null)
+            if (_hcontext.HttpContext.Session.GetString("Session").Equals("howtosmodlogged"))
             {
-                return RedirectToAction("Index");
-            }
+                if (id == null)
+                {
+                    return RedirectToAction("Index");
+                }
 
-            var howto = _context.HowTos.Where(i => i.HowTosID == id).SingleOrDefault();
-            if (howto == null)
-            {
-                return RedirectToAction("Index");
-            }
+                var howto = _context.HowTos.Where(i => i.HowTosID == id).SingleOrDefault();
+                if (howto == null)
+                {
+                    return RedirectToAction("Index");
+                }
 
-            _context.HowTos.Remove(howto);
-            _context.SaveChanges();
+                _context.HowTos.Remove(howto);
+                _context.SaveChanges();
 
           
-            return RedirectToAction("Index");
+                return RedirectToAction("Index");
+
+            }
+            else
+            {
+                return Content("Access Denied. This page is not available for your role.");
+            }
         }
 
 
