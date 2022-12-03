@@ -180,5 +180,19 @@ namespace IkapatigiCapstone.Controllers
 
             return lstTags;
         }
+
+        public ActionResult ViewImage(int? id)
+        {
+            if (id == null)
+            {
+                return RedirectToAction("Index");
+            }
+            PlantDisease dTarget = _context.PlantDiseases.Find(id);
+            var diseaseImg = new PlantDiseaseImageView();
+            diseaseImg.DiseaseName = _context.PlantDiseases.Where(d => d.PlantDiseaseId == id).SingleOrDefault().DiseaseName;
+            diseaseImg.ImageUrl = _context.Image.Where(i => i.PlantDiseaseID == id).SingleOrDefault().ImageName;
+            return View(diseaseImg);
+        }
+
     }
 }

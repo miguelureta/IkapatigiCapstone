@@ -1,0 +1,29 @@
+﻿@model IkapatigiCapstone.Models.PlantDiseaseImageView
+@{
+    ViewData["Title"] = "Image of "+ Model.DiseaseName;
+    Layout = "~/Views/Shared/_adminLayout.cshtml";
+}
+<br />
+<div class="titlecontainer">
+    <div class="text-center">
+        <h1 class="display-4">Plant Disease: @Html.DisplayFor(model => model.DiseaseName)</h1>
+    </div>
+</div>
+<br />
+<div class="bgtable">
+    <div>
+    <a asp-action="Index" asp-controller="Diagnostic">Back to List</a>
+    </div>
+    <div>
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.ImageUrl)
+            </dt>
+            <dd class="col-sm-2">
+                <img src="~/images/@Model.ImageUrl" />
+            </dd>
+        </dl>
+    </div>
+</div>
+@{
+}

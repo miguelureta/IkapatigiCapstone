@@ -11,9 +11,9 @@ namespace IkapatigiCapstone.Models
             PlantDiseases = new HashSet<PlantDisease>(); 
         }
         public int ImageID { get; set; }
-        public string ImageName { get; set; }
-        public int PlantDiseaseID { get; set; }
-        public int UserID { get; set; }
+        public string? ImageName { get; set; }
+        public int? PlantDiseaseID { get; set; }
+        public int? UserID { get; set; }
 
         public virtual ICollection<PlantDisease> PlantDiseases { get; set; }
         public virtual User? Users { get; set; }

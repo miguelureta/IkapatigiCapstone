@@ -172,7 +172,7 @@ namespace IkapatigiCapstone.Controllers
             {
                 if (user == null)
                 {
-                    ViewData["LoginMessage"] = "User does not exist";
+                    ViewData["LoginMessage"] = "The username or password is incorrect";
                     
                     return View("Login");
                 }
@@ -182,7 +182,7 @@ namespace IkapatigiCapstone.Controllers
                     //return BadRequest("User does not exist");
                     return View("Login");
                 }
-
+                _hcontext.HttpContext.Session.SetInt32("logMemberID", user.UserId);
                 return RedirectToAction("MemberHome", "Home");
             }
             else

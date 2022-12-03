@@ -8,11 +8,12 @@ namespace IkapatigiCapstone.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly IHttpContextAccessor _hcontext;
-
-        public ForumController(ApplicationDbContext context, IHttpContextAccessor icontext)
+        private readonly IWebHostEnvironment _webhost;
+        public ForumController(ApplicationDbContext context, IHttpContextAccessor icontext, IWebHostEnvironment webhost)
         {
             _context = context;
             _hcontext = icontext;
+            _webhost = webhost;
         }
         //public void OnGet()
         //{
@@ -26,7 +27,8 @@ namespace IkapatigiCapstone.Controllers
         public ActionResult Index()
         {
             string sesh = "modlogged";
-            if(_hcontext.HttpContext.Session.GetString("Session").Equals(sesh))
+            string sesh2 = "adminlogged";
+            if(_hcontext.HttpContext.Session.GetString("Session").Equals(sesh) || _hcontext.HttpContext.Session.GetString("Session").Equals(sesh2))
             {
                 var list = _context.Forums.ToList();
                 return View(list);
@@ -38,13 +40,14 @@ namespace IkapatigiCapstone.Controllers
         [Route("Details")]
         public ActionResult Details(int id)
         {   
-            if (id == null)
-            {
-                return RedirectToAction("Index");
-            }
+            //if (id == null)
+            //{
+            //    return RedirectToAction("Index");
+            //}
             var pvm = new PostViewModel();
             pvm.Posts = _context.Posts.Where(p => p.ForumId == id).ToList();
             pvm._Forum = _context.Forums.Where(f => f.ForumId == id).FirstOrDefault();
+            
             _hcontext.HttpContext.Session.SetInt32("ForumTarget", id);
             if (pvm == null)
             {
@@ -53,6 +56,17 @@ namespace IkapatigiCapstone.Controllers
             return View("PostView",pvm);
         }
 
+        //public IActionResult ViewImage(int? id)
+        //{
+        //    if (id == null || _context.PostImages.Where(i => i.PostID == id).FirstOrDefault() == null)
+        //    {
+        //        return RedirectToAction("Index");
+        //    }
+        //    //PostImage dTarget = _context.PostImages.Find(id);
+        //    var postImg = new PostViewImageModel();
+        //    postImg.ImageUrl = _context.PostImages.Where(i => i.PostID == id).SingleOrDefault().ImageName;
+        //    return View(postImg);
+        //}
         // GET: ForumController/Create
         public ActionResult Create()
         {
@@ -189,8 +203,53 @@ namespace IkapatigiCapstone.Controllers
         }
 
         [HttpPost]
-        public ActionResult CreatePost(CreatePostModel post/*, int? id*/)
+        public async Task<IActionResult> CreatePost(/*CreatePostModel post*/ CreatePostImageModel post)
         {
+            
+
+            //Old CreatePost method
+            //var inPost = new Post();
+            //inPost.Title = post.Title;
+            //inPost.Content = post.Content;
+            //inPost.Created = DateTime.Now;
+
+            //inPost.ForumId = _hcontext.HttpContext.Session.GetInt32("ForumTarget");
+
+            //New CreatePost method with Image
+            var inPost = new Post();
+            inPost.Title = post.Title;
+            inPost.Content = post.Content;
+            inPost.Created = DateTime.Now;
+            _context.Posts.Add(inPost);
+            _context.SaveChanges();
+
+            
+            //if (post.PdImage!=null)
+            //{
+            //    string filePath = null;
+            //    string fileName = null;
+            //    string uploadFolder = Path.Combine(_webhost.WebRootPath, "images");
+            //    fileName = Guid.NewGuid().ToString() + "_" + post.PdImage.FileName;
+            //    filePath = Path.Combine(uploadFolder, fileName);
+            //    using (var fileStream = new FileStream(filePath, FileMode.Create))
+            //    {
+            //        await post.PdImage.CopyToAsync(fileStream);
+            //        fileStream.CopyTo(fileStream);
+
+            //        fileStream.Close();
+            //    }
+            //    var postImage = new PostImage()
+            //    {
+            //        PostID = inPost.PostId,
+            //        ImageName = fileName,
+            //        UserID = _hcontext.HttpContext.Session.GetInt32("logMemberID")
+            //    };
+            //    _context.PostImages.Add(postImage);
+            //    _context.SaveChanges();
+            //}
+            
+            
+            inPost.ForumId = _hcontext.HttpContext.Session.GetInt32("ForumTarget");
             //var inputPost = _context.Forums.Where(i => i.ForumId == id).SingleOrDefault();
 
 
@@ -290,15 +349,6 @@ namespace IkapatigiCapstone.Controllers
             }
          
         }
-
-
-
-
-
-
-
-
-
 
 
 

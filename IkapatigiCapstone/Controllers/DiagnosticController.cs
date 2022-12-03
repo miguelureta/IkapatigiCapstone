@@ -28,24 +28,23 @@ namespace IkapatigiCapstone.Controllers
         public IActionResult Index()
         {
             //Old Diagnostic Index View, uncomment if Index broken and 
-            //var dvm = new DiagnosticViewModel();
-            //dvm.CureList = _context.Cures.ToList();
-            //dvm.DiseaseList = _context.PlantDiseases.ToList();
-            //dvm.StatusList = _context.Statuses.ToList();
-            //dvm.TagsList = _context.Tags.ToList();
-            //dvm.Diagnostic = _context.Diagnostics.ToList();
-            //dvm.Images = _context.Image.ToList();
+            var dvm = new DiagnosticViewModel();
+            dvm.CureList = _context.Cures.ToList();
+            dvm.DiseaseList = _context.PlantDiseases.ToList();
+            dvm.StatusList = _context.Statuses.ToList();
+            dvm.TagsList = _context.Tags.ToList();
+            dvm.Diagnostic = _context.Diagnostics.ToList();
 
             //New Diagnostic Index View, experimental
-            var divm = new DiagnosticImageViewModel();
-            divm.CureList = _context.Cures.ToList();
-            divm.DiseaseList = _context.PlantDiseases.ToList();
-            divm.StatusList = _context.Statuses.ToList();
-            divm.TagsList = _context.Tags.ToList();
-            divm.Diagnostic = _context.Diagnostics.ToList();
-            divm.Images = _context.Image.ToList();
+            //var divm = new DiagnosticImageViewModel();
+            //divm.CureList = _context.Cures.ToList();
+            //divm.DiseaseList = _context.PlantDiseases.ToList();
+            //divm.StatusList = _context.Statuses.ToList();
+            //divm.TagsList = _context.Tags.ToList();
+            //divm.Diagnostic = _context.Diagnostics.ToList();
+            //divm.Images = _context.Image.ToList();
 
-            return View(divm);
+            return View(dvm);
         }
 
         [HttpGet]
@@ -308,12 +307,6 @@ namespace IkapatigiCapstone.Controllers
             return View(diag);
         }
 
-
-
-
-
-
-
         public IActionResult NonMemberIndex()
         {
             var dvm = new DiagnosticViewModel();
@@ -361,6 +354,19 @@ namespace IkapatigiCapstone.Controllers
                 return RedirectToAction("NonMemberIndex");
             }
             return View(diag);
+        }
+
+        public ActionResult ViewImage(int? id)
+        {
+            if(id == null)
+            {
+                return RedirectToAction("NonMemberIndex");
+            }
+            //PlantDisease dTarget = _context.PlantDiseases.Find(id);
+            var diseaseImg = new PlantDiseaseImageView();
+            diseaseImg.DiseaseName = _context.PlantDiseases.Where(d => d.PlantDiseaseId ==id).SingleOrDefault().DiseaseName;
+            diseaseImg.ImageUrl = _context.Image.Where(i => i.PlantDiseaseID == id).SingleOrDefault().ImageName;
+            return View(diseaseImg);
         }
     }
 }
