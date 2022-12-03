@@ -121,6 +121,23 @@
 
 
 @section Scripts{
+
+  @*  <script type="text/javascript">
+
+        function openSuccessModal(strMessage) {
+            var myDiv = document.getElementById("MyModalSuccessAlertBody");
+            myDiv.innerHTML = strMessage;
+            $('#myModalSuccess').modal('show');
+        };
+
+        $(document).ready(function () {
+            var msg = "@TempData["SuccessMessage"]";
+            if (msg){
+                openSuccessModal(msg);
+            }
+        });
+    </script>*@
+    
     <script src="~/lib/datatables/js/jquery.dataTables.js"></script>
     <script src="~/lib/datatables/js/dataTables.bootstrap4.js"></script>
     <script> 
@@ -128,4 +145,6 @@
             $('#records').DataTable();
         });
     </script>
+
+  
 }

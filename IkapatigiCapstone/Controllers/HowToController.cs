@@ -6,6 +6,7 @@ using MimeKit;
 using MimeKit.Text;
 using MailKit.Net.Smtp;
 using MailKit.Security;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace IkapatigiCapstone.Controllers
 {
@@ -44,44 +45,96 @@ namespace IkapatigiCapstone.Controllers
         [HttpPost]
         public IActionResult Create(HowTo record)
         {
-            var howto = new HowTo();
-            howto.Title = record.Title; 
-            howto.Description = record.Description;
-            howto.LikeCount = record.LikeCount;
-            howto.DislikeCount = record.DislikeCount;
-            howto.IsPublic = record.IsPublic;
-            howto.UserID = record.UserID;
-            howto.StatusID = record.StatusID;
-            howto.PictureCollectionFromID = record.PictureCollectionFromID;
-            howto.DateCreated = DateTime.Now;
-            howto.ArticleBody = record.ArticleBody;
-            var memberList = _context.Users.Where(u => u.RoleId == 1).ToList();
-            
-            _context.HowTos.Add(howto);
-            _context.SaveChanges();
+            //var howto = new HowTo();
+            //howto.Title = record.Title;
+            //howto.Description = record.Description;
+            //howto.LikeCount = record.LikeCount;
+            //howto.DislikeCount = record.DislikeCount;
+            //howto.IsPublic = record.IsPublic;
+            //howto.UserID = record.UserID;
+            //howto.StatusID = record.StatusID;
+            //howto.PictureCollectionFromID = record.PictureCollectionFromID;
+            //howto.DateCreated = DateTime.Now;
+            //howto.ArticleBody = record.ArticleBody;
+            //var memberList = _context.Users.Where(u => u.RoleId == 1).ToList();
+
+            //_context.HowTos.Add(howto);
+            //_context.SaveChanges();
+            //return RedirectToAction("Index");
 
             //Holy smokes it works
-            if (howto.IsPublic == Availability.Members)
-            {
-                foreach (var member in memberList)
-                {
-                    var email = new MimeMessage();
-                    email.From.Add(MailboxAddress.Parse(_config.GetSection("EmailUsername").Value));
-                    email.To.Add(MailboxAddress.Parse(member.Email));
-                    email.Subject = "New Members Only Content";
-                    email.Body = new TextPart(TextFormat.Html) { Text = howto.Title };
+            //if (howto.IsPublic == Availability.Members)
+            //{
+            //    foreach (var member in memberList)
+            //    {
+            //        var email = new MimeMessage();
+            //        email.From.Add(MailboxAddress.Parse(_config.GetSection("EmailUsername").Value));
+            //        email.To.Add(MailboxAddress.Parse(member.Email));
+            //        email.Subject = "New Members Only Content";
+            //        email.Body = new TextPart(TextFormat.Html) { Text = howto.Title };
 
-                    using var smtp = new SmtpClient();
-                    //Commented smtp line is for sending emails when deployed in Capstone Repo
-                    //smtp.Connect(_config.GetSection("EmailHost").Value, 25, SecureSocketOptions.StartTlsWhenAvailable);
-                    smtp.Connect(_config.GetSection("EmailHost").Value, 587, SecureSocketOptions.StartTlsWhenAvailable);
-                    smtp.Authenticate(_config.GetSection("EmailUsername").Value, _config.GetSection("EmailPassword").Value);
-                    smtp.Send(email);
-                    smtp.Disconnect(true);
-                }
+            //        using var smtp = new SmtpClient();
+            //        //Commented smtp line is for sending emails when deployed in Capstone Repo
+            //        //smtp.Connect(_config.GetSection("EmailHost").Value, 25, SecureSocketOptions.StartTlsWhenAvailable);
+            //        smtp.Connect(_config.GetSection("EmailHost").Value, 587, SecureSocketOptions.StartTlsWhenAvailable);
+            //        smtp.Authenticate(_config.GetSection("EmailUsername").Value, _config.GetSection("EmailPassword").Value);
+            //        smtp.Send(email);
+            //        smtp.Disconnect(true);
+            //    }
+            //}
+
+
+
+            try
+            {
+                var howto = new HowTo();
+                howto.Title = record.Title;
+                howto.Description = record.Description;
+                howto.LikeCount = record.LikeCount;
+                howto.DislikeCount = record.DislikeCount;
+                howto.IsPublic = record.IsPublic;
+                howto.UserID = record.UserID;
+                howto.StatusID = record.StatusID;
+                howto.PictureCollectionFromID = record.PictureCollectionFromID;
+                howto.DateCreated = DateTime.Now;
+                howto.ArticleBody = record.ArticleBody;
+                var memberList = _context.Users.Where(u => u.RoleId == 1).ToList();
+
+                _context.HowTos.Add(howto);
+                _context.SaveChanges();
+
+                //Holy smokes it works
+                //if (howto.IsPublic == Availability.Members)
+                //{
+                //    foreach (var member in memberList)
+                //    {
+                //        var email = new MimeMessage();
+                //        email.From.Add(MailboxAddress.Parse(_config.GetSection("EmailUsername").Value));
+                //        email.To.Add(MailboxAddress.Parse(member.Email));
+                //        email.Subject = "New Members Only Content";
+                //        email.Body = new TextPart(TextFormat.Html) { Text = howto.Title };
+
+                //        using var smtp = new SmtpClient();
+                //        //Commented smtp line is for sending emails when deployed in Capstone Repo
+                //        //smtp.Connect(_config.GetSection("EmailHost").Value, 25, SecureSocketOptions.StartTlsWhenAvailable);
+                //        smtp.Connect(_config.GetSection("EmailHost").Value, 587, SecureSocketOptions.StartTlsWhenAvailable);
+                //        smtp.Authenticate(_config.GetSection("EmailUsername").Value, _config.GetSection("EmailPassword").Value);
+                //        smtp.Send(email);
+                //        smtp.Disconnect(true);
+                //    }
+                //}
+
+                return RedirectToAction("Index");
+            }
+            catch(Exception ex)
+            {
+                return Content("Unable to save changes. Please check that you don't have any empty boxes. ");
+
+               
             }
 
-            return RedirectToAction("Index");
+            //TempData["SuccessMessage"] = "New How To named: " + record.Title + "Created Successfully";
+
         }
 
 
@@ -105,23 +158,60 @@ namespace IkapatigiCapstone.Controllers
         [HttpPost]
         public IActionResult Edit(int? id, HowTo record)
         {
-            var howto = _context.HowTos.Where(i => i.HowTosID == id).SingleOrDefault();
-            howto.Title = record.Title;
-            howto.Description = record.Description;
-            howto.LikeCount = record.LikeCount;
-            howto.DislikeCount = record.DislikeCount;
-            howto.IsPublic = record.IsPublic;
-            howto.UserID = record.UserID;
-            howto.StatusID = record.StatusID;
-            howto.PictureCollectionFromID = record.PictureCollectionFromID;
-            howto.DateUpdated = DateTime.Now;
-            howto.ArticleBody = record.ArticleBody;
+            try
+            {
+                var howto = _context.HowTos.Where(i => i.HowTosID == id).SingleOrDefault();
+                howto.Title = record.Title;
+                howto.Description = record.Description;
+                howto.LikeCount = record.LikeCount;
+                howto.DislikeCount = record.DislikeCount;
+                howto.IsPublic = record.IsPublic;
+                howto.UserID = record.UserID;
+                howto.StatusID = record.StatusID;
+                howto.PictureCollectionFromID = record.PictureCollectionFromID;
+                howto.DateUpdated = DateTime.Now;
+                howto.ArticleBody = record.ArticleBody;
 
 
-            _context.HowTos.Update(howto);
-            _context.SaveChanges();
+                _context.HowTos.Update(howto);
+                _context.SaveChanges();
 
-            return RedirectToAction("Index");
+                return RedirectToAction("Index");
+
+            }
+
+            catch (Exception ex)
+            {
+                return Content("Unable to save changes. Please check that you don't have any empty boxes. ");
+
+
+            }
+
+            //try
+            //{
+            //    var howto = _context.HowTos.Where(i => i.HowTosID == id).SingleOrDefault();
+            //    howto.Title = record.Title;
+            //    howto.Description = record.Description;
+            //    howto.LikeCount = record.LikeCount;
+            //    howto.DislikeCount = record.DislikeCount;
+            //    howto.IsPublic = record.IsPublic;
+            //    howto.UserID = record.UserID;
+            //    howto.StatusID = record.StatusID;
+            //    howto.PictureCollectionFromID = record.PictureCollectionFromID;
+            //    howto.DateUpdated = DateTime.Now;
+            //    howto.ArticleBody = record.ArticleBody;
+
+
+            //    _context.HowTos.Update(howto);
+            //    _context.SaveChanges();
+
+            //    return RedirectToAction("Index");
+            //}
+            //catch
+            //{
+            //    ModelState.AddModelError("", "Unable to edit. Please check that there are no empty boxes.");
+            //}
+
 
 
         }
@@ -142,6 +232,7 @@ namespace IkapatigiCapstone.Controllers
             _context.HowTos.Remove(howto);
             _context.SaveChanges();
 
+          
             return RedirectToAction("Index");
         }
 

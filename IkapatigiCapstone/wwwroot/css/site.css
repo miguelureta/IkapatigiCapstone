@@ -8,7 +8,6 @@
     color: white;
 }
 
-
 #ForumDropdown {
     color: white;
 }*/
@@ -19,13 +18,39 @@ html, body {
     /*height: 100%;*/
 }
 
-
 body {
     background-image: url('../backgroundimages/bg1.png');
     background-repeat: no-repeat;
     background-size: cover;
+
+/*trying template*/
+    scrollbar-width: thin;
+    scrollbar-color: var(--thumbBG) var(--scrollbarBG);
 }
 
+/*trying template*/
+
+body::-webkit-scrollbar {
+    width: 10px;
+}
+
+body::-webkit-scrollbar-track {
+    /*background: var(--scrollbarBG);*/
+    border-radius: 5px;
+    box-shadow: inset 0 0 10px;
+}
+
+body::-webkit-scrollbar-thumb {
+    /*background-color: var(--thumbBG);*/
+    background-color:  #067934;
+    border-radius: 5px;
+    /*border: 3px solid var(--scrollbarBG);*/
+}
+
+body::-webkit-scrollbar-thumb:hover {
+    background-color: #0abf53;
+    
+}
 
 
 /*.bg-container {
@@ -38,10 +63,160 @@ body {
     padding-top:0;
 }*/
 
+
+/*.bgtable {
+    background-color: #f4fff3; #f3ebd3;
+}*/
+
+/*trying template for datatable*/
 .bgtable {
-    background-color: #f3ebd3;
+    background-color: #ffffffc4;
+    border-radius: 3px;
+    border-collapse: collapse;
+    height: max-content;
+    margin: auto;
+    max-width: max-content; /*600px;*/
     padding: 10px;
+    width: 100%;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    animation: float 5s infinite;
 }
+
+div.table-title {
+    display: block;
+    margin: auto;
+    max-width: 600px;
+    padding: 5px;
+    width: 100%;
+}
+
+.table-title h1 {
+    color: #22262e /*#fafafa*/;
+    font-size: 30px;
+    font-weight: 400;
+    font-style: normal;
+    font-family: "Roboto", helvetica, arial, sans-serif;
+    text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.1);
+    text-transform: uppercase;
+}
+
+/*** Table Styles **/
+th {
+    color: #D5DDE5;
+}
+
+thead {
+    color: #D5DDE5; /*#1b1e24;*/
+    background: #636363; /*#f3ebd3;*/
+    border-bottom: 4px solid #9ea7af;
+    border-right: 1px solid #343a45;
+    font-size: 22px;
+    font-weight: 400;
+    padding: 24px;
+    text-align: left;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+    vertical-align: middle;
+}
+
+th:first-child {
+  border-top-left-radius:3px;
+}
+ 
+th:last-child {
+  border-top-right-radius:3px;
+  border-right:none;
+}
+
+tr {
+    border-top: 1px solid #C1C3D1;
+    border-bottom: 1px solid #C1C3D1;
+    color: #363948;
+    font-size: 16px;
+    font-weight: normal;
+    text-shadow: 0 1px 1px rgba(256, 256, 256, 0.1);
+}
+
+tr:hover td {
+    /*background: #eed68d;
+    color: #22262e;
+    border-top: 1px solid #eed68d;*/
+    background: #f3ebd3; /*#4E5066;*/
+    color: #000000;
+    border-top: 1px solid #a39d8b;
+    border-bottom: 1px solid #a39d8b;
+}
+
+tr:first-child {
+    border-top:none;
+}
+
+tr:last-child {
+    border-bottom:none;
+}
+tr:nth-child(odd) td {
+    background: #eeeeeeef;
+}
+
+tr:nth-child(even) td {
+    background: #ffffff;
+}
+
+tr:nth-child(odd):hover td {
+    background: #f3ebd3;
+}
+tr:nth-child(even):hover td {
+    background: #f3ebd3;
+}
+
+
+tr:last-child td:first-child {
+    border-bottom-left-radius: 3px;
+}
+
+tr:last-child td:last-child {
+    border-bottom-right-radius: 3px;
+}
+
+td {
+    background: #FFFFFF;
+    padding: 90px;
+    text-align: left;
+    vertical-align: middle;
+    font-weight: 400;
+    font-size: 18px;
+    text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.1);
+    border-right: 1px solid #C1C3D1;
+
+}
+
+td:last-child {
+    border-right: 0px;
+}
+
+th.text-left {
+    text-align: left;
+}
+
+th.text-center {
+    text-align: center;
+}
+
+th.text-right {
+    text-align: right;
+}
+
+td.text-left {
+    text-align: left;
+}
+
+td.text-center {
+    text-align: center;
+}
+
+td.text-right {
+    text-align: right;
+}
+
 
 /*After this line are the codes for the logo.
 .Logo {
@@ -52,17 +227,31 @@ body {
 }
 
 HOME PAGE is after this line.*/
-
-
+    /*trying out*/
+h1 {
+font-size: 16px;
+font-weight: bold;
+margin-top: 10px;
+margin-bottom: 10px;
+}
 
 /*After this line are the codes for the title box background.*/
 .titlecontainer {
-    background-color: #f3ebd3;
+    background-color: #ffffffff; /*#f3ebd3;*/
+    padding: 10px;
+    font-weight: bolder;
+    color: #22262e /*#fafafa*/;
+    font-size: 30px;
+    font-style: normal;
+    /*    font-family: "Roboto", helvetica, arial, sans-serif;
+*/
+    text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.1);
+    text-transform: capitalize;
 }
 
 /*After this line are the codes for the box Diagnose.*/
 .containerleftdiagnose {
-    background-color: #f3ebd3;
+    background-color: #ffffff/*#f3ebd3;*/;
     float: left;
     padding: 10px;
     display: flex;
@@ -84,7 +273,7 @@ HOME PAGE is after this line.*/
 
 /*After this line are the codes for the box How To's.*/
 .containerrighthowto {
-    background-color: #f3ebd3;
+    background-color: white; /*#f3ebd3;*/
     float: right;
     padding: 10px;
     display: flex;
@@ -104,9 +293,22 @@ HOME PAGE is after this line.*/
     background-repeat: no-repeat;
 }
 
-/*After this line are the codes for the box About Us.*/
-.containerbottomaboutus {
+/*Slider for Home Options
+.containerforhomeslider {
     background-color: #f3ebd3;
+    width: 1300px;
+    position: absolute;
+    padding: 10px;
+    /*bottom: 10vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}*/
+
+
+/*After this line are the codes for the box About Us.*/
+    .containerbottomaboutus {
+    background-color: white; /*f3ebd3;*/
     width: 1300px;
     position: absolute;
     padding: 10px;
@@ -146,18 +348,17 @@ HOME PAGE is after this line.*/
     /*height: 100vh;
     width: 145vh;*/
     display: flex;
-    background-color: /*#839A50;*/ #f3ebd3;
+    background-color: /*#839A50;*/ white /*#f3ebd3*/;
 }
 
 /*Jeanelle's Box*/
 
 .innerTableAboutUs#1 {
-    background-color: #f3ebd3;
+    background-color: white /*#f3ebd3*/;
     padding: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
- 
 }
 
 .JeanelleText {
@@ -181,7 +382,7 @@ HOME PAGE is after this line.*/
 /*Gabbi's Box*/
 
 .innerTableAboutUs#2 {
-    background-color: #f3ebd3;
+    background-color: white /*#f3ebd3*/;
     float: right;
     padding: 10px;
     display: flex;
@@ -208,7 +409,7 @@ HOME PAGE is after this line.*/
 /*Mico's Boz*/
 
 .innerTableAboutUs#3 {
-    background-color: #f3ebd3;
+    background-color: white /*#f3ebd3*/;
     float: right;
     padding: 10px;
     display: flex;
@@ -236,9 +437,342 @@ HOME PAGE is after this line.*/
 
 .bglogin {
     background-color: #f3ebd3;
-  
     padding: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
 }
+
+/*Trying template for homepage*/
+/*:root {
+    --darkbackground: #171717;
+    --lightbackground: #fff;
+    --black: #000;
+    --white: #fff;
+    --green: #0abf53;
+    --footer-color: #0e0e0e;
+    --bg-light: #0c0b0b;
+    --bg-color: #171717;
+    --font-light: #b7b7b7;
+    --scrollbarBG: #171717;
+    --thumbBG: #0abf53;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: system-ui;
+}
+
+.container {
+    width: 1200px;
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+.clearfix {
+    clear: both;
+}
+
+a {
+    text-decoration: none;
+}
+
+.col-div-3 {
+    width: 25%;
+    float: left;
+    position: relative;
+}
+
+.col-div-4 {
+    width: 33%;
+    float: left;
+    position: relative;
+}
+
+.col-div-5 {
+    width: 40%;
+    float: left;
+    position: relative;
+}
+
+.col-div-6 {
+    width: 50%;
+    float: left;
+    position: relative;
+}
+
+.col-div-7 {
+    width: 60%;
+    float: left;
+    position: relative;
+}
+
+.col-div-8 {
+    width: 67%;
+    float: left;
+    position: relative;
+}
+
+.top-header {
+    padding: 15px;
+    background: var(--bg-color);
+}
+
+.sticky {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 9999999;
+}
+
+.hicon {
+    color: var(--white);
+    font-size: 20px;
+    height: 20px;
+    width: 20px;
+    margin-left: 30px;
+    cursor: pointer;
+}
+
+.p1 {
+    color: var(--white);
+    display: inline-block;
+}
+
+.anch1 {
+    color: var(--white);
+    text-decoration: none;
+}
+
+.social {
+    text-align: right;
+}
+
+.bottom-header {
+    background: var(--green);
+    padding: 15px;
+}
+
+.logo {
+    color: var(--white);
+    line-height: 60px;
+}
+
+.menu {
+    float: right;
+}
+
+    .menu ul li {
+        list-style: none;
+        float: left;
+        padding: 20px;
+    }
+
+        .menu ul li a {
+            color: var(--white);
+            text-transform: uppercase;
+            font-weight: 500;
+        }
+
+.banner-1 {
+    background: url(../images/1.jpg);
+    height: 500px;
+    background-size: 100%;
+    position: relative;
+}
+
+.back-layer {
+    background: #00000082;
+    position: absolute;
+    height: 100%;
+    z-index: 999;
+    width: 100%;
+}
+
+.ban-box {
+    background: var(--bg-color);
+    padding: 30px 40px;
+    width: 450px;
+    color: var(--white);
+    z-index: 9999;
+    position: absolute;
+    bottom: 50px;
+    border-radius: 60px 0;
+}
+
+    .ban-box h1 {
+        font-size: 35px;
+        margin-bottom: 20px;
+    }
+
+    .ban-box p {
+        line-height: 22px;
+        letter-spacing: 1px;
+        font-size: 14px;
+    }
+
+.learn-more {
+    padding: 12px 30px;
+    background: var(--green);
+    color: var(--white);
+    font-size: 16px;
+    border: none;
+    text-transform: uppercase;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.section-one {
+    height: 680px;
+    background: var(--bg-color);
+}
+
+.p-img-1 {
+    margin: 0 auto;
+}
+
+.p-img-2 {
+    position: absolute;
+    top: 12%;
+    left: 40%;
+    border: 10px solid var(--bg-color);
+}
+
+.h2w {
+    font-size: 40px;
+    color: var(--white);
+    font-weight: 400;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+    .h2w span {
+        color: var(--green);
+        font-weight: 700;
+    }
+
+.para-1 {
+    line-height: 22px;
+    letter-spacing: 1px;
+    font-size: 14px;
+    color: var(--font-light);
+    margin-bottom: 20px;
+}
+
+.section-two {
+    background: var(--bg-light);
+}
+
+.p-head {
+    text-align: center;
+    padding-top: 50px;
+    color: var(--font-light);
+}
+
+.head-3 {
+    text-align: center;
+    color: var(--white);
+    font-size: 40px;
+    margin-bottom: 20px;
+}
+
+    .head-3 span {
+        color: var(--green);
+    }
+
+.box-2 {
+    width: 40%;
+    padding: 30px;
+    background: var(--bg-color);
+    margin: 25px;
+    float: left;
+}
+
+.box-left {
+    width: 20%;
+    float: left;
+    text-align: center;
+}
+
+.box-right {
+    width: 80%;
+    float: left;
+}
+
+.sicon {
+    color: var(--green);
+    font-size: 50px;
+    text-align: center;
+}
+
+.head-4 {
+    color: var(--white);
+    font-size: 25px;
+}
+
+.box-right p {
+    font-size: 14px;
+    line-height: 25px;
+    color: var(--font-light);
+    margin-top: 20px;
+}
+
+.box-right a {
+    color: white;
+    font-size: 16px;
+}
+
+.section-three {
+    background: var(--bg-color);
+}
+
+.box-3 {
+    background: var(--bg-light);
+    width: 350px;
+    margin: 0 auto;
+    margin-bottom: 50px;
+}
+
+.img-s1 {
+    width: 100%;
+}
+
+.content {
+    padding: 25px;
+}
+
+    .content p {
+        font-size: 14px;
+        line-height: 25px;
+        color: var(--font-light);
+        margin-top: 20px;
+    }
+
+.section-four {
+    background: url(../images/1.jpg);
+    height: 500px;
+    background-attachment: fixed;
+    position: relative;
+}
+
+.content-1 {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+    text-align: center;
+    z-index: 9999;
+}
+
+    .content-1 h1 {
+        font-size: 50px;
+        color: var(--white);
+    }
+
+    .content-1 p {
+        font-size: 14px;
+        line-height: 25px;
+        color: var(--font-light);
+        margin-top: 20px;
+    }*/
