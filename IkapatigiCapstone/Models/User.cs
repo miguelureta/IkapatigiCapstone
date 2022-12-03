@@ -57,6 +57,6 @@ namespace IkapatigiCapstone.Models
         public virtual ICollection<Tag> Tags { get; set; }
         public virtual ICollection<Image> Images { get; set; }
         //Commented this out
-        //public virtual ICollection<PostImage> PostImages { get; set; }
+        public virtual ICollection<PostImage> PostImages { get; set; }
     }
 }

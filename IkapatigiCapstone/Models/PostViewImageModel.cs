@@ -4,7 +4,8 @@ namespace IkapatigiCapstone.Models
 {
     public class PostViewImageModel
     {
-        [Display(Name = "Post Image")]
-        public string? ImageUrl { get; set; }
+        [Display(Name ="Image")]
+        public IEnumerable<string> Images { get; set; }
+        public virtual PostImage _PostImage { get; set; }
     }
 }

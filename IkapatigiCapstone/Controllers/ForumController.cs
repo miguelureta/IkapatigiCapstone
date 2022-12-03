@@ -56,17 +56,6 @@ namespace IkapatigiCapstone.Controllers
             return View("PostView",pvm);
         }
 
-        //public IActionResult ViewImage(int? id)
-        //{
-        //    if (id == null || _context.PostImages.Where(i => i.PostID == id).FirstOrDefault() == null)
-        //    {
-        //        return RedirectToAction("Index");
-        //    }
-        //    //PostImage dTarget = _context.PostImages.Find(id);
-        //    var postImg = new PostViewImageModel();
-        //    postImg.ImageUrl = _context.PostImages.Where(i => i.PostID == id).SingleOrDefault().ImageName;
-        //    return View(postImg);
-        //}
         // GET: ForumController/Create
         public ActionResult Create()
         {
@@ -362,22 +351,8 @@ namespace IkapatigiCapstone.Controllers
         }
 
 
-       
         public IActionResult MemberCreatePost()
         {
-            //var post = _context.Forums.Where(i => i.ForumId == id).SingleOrDefault();
-            //if (id == null)
-            //{
-            //    return RedirectToAction("Index");
-            //}
-
-
-            //if (post == null)
-            //{
-            //    return RedirectToAction("Index");
-            //}
-            //Post post = new Post();
-            //return PartialView("CreatePost", post);
             return View();
         }
 
@@ -411,17 +386,38 @@ namespace IkapatigiCapstone.Controllers
             return View("MemberViewReplies",replyModel);
         }
 
-        //public IActionResult CreateReply(PostReplyViewCreateModel rep, int id)
-        //{
-        //    _hcontext.HttpContext.Session.SetInt32("PostTarget", id);
-        //    var prm = new PostReplyViewCreateModel();
-        //    prm.PostID = _hcontext.HttpContext.Session.GetInt32("PostTarget");
-        //    prm.postReplies = _context.PostReplies.Where(p => p.PostId == id).ToList();
+        public IActionResult MemberCreateImage()
+        {
+            return View();
+        }
 
-        //    return View(prm);
-        //}
+        [HttpPost]
+        public async Task<IActionResult> MemberCreateImage(PostReplyViewImageCreateModel img)
+        {
+            string filePath = null;
+            string fileName = null;
 
+            string uploadFolder = Path.Combine(_webhost.WebRootPath, "images");
+            fileName = Guid.NewGuid().ToString() + "_" + img.postImage.FileName;
+            filePath = Path.Combine(uploadFolder, fileName);
+            using (var fileStream = new FileStream(filePath, FileMode.Create))
+            {
+                await img.postImage.CopyToAsync(fileStream);
+                fileStream.CopyTo(fileStream);
 
+                fileStream.Close();
+            }
+            var newImg = new PostImage
+            {
+                ImageName = fileName,
+                UserID = _hcontext.HttpContext.Session.GetInt32("logMemberID")
+            };
+            _context.PostImages.Add(newImg);
+            _context.SaveChanges();
+
+            return RedirectToAction("MemberIndex");
+
+        }
         //[HttpPost]
         //public ActionResult CreateReply(CreatePostReplyModel crm)
         //{
@@ -463,5 +459,11 @@ namespace IkapatigiCapstone.Controllers
             return RedirectToAction("MemberIndex");
         }
 
+        public ActionResult ViewImage(int id)
+        {
+            var postImg = _context.PostImages.ToList();
+
+            return View(postImg);
+        }
     }
 }

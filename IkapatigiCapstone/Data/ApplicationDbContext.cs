@@ -30,7 +30,7 @@ namespace IkapatigiCapstone.Data
         public virtual DbSet<Tag> Tags { get; set; } = null!;
         public virtual DbSet<User> Users { get; set; } = null!;
         public virtual DbSet<Image> Image { get; set; } = null!;
-        //public virtual DbSet<PostImage> PostImages { get; set; } = null!;
+        public virtual DbSet<PostImage> PostImages { get; set; } = null!;
         
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -399,26 +399,27 @@ namespace IkapatigiCapstone.Data
 
             });
 
-            //modelBuilder.Entity<PostImage>(entity =>
-            //{
-            //    entity.Property(e => e.PostImageID).HasColumnName("PostImageID");
+            modelBuilder.Entity<PostImage>(entity =>
+            {
+                entity.ToTable("PostImage");
+                entity.Property(e => e.PostImageID).HasColumnName("PostImageID");
 
-            //    entity.HasKey("PostImageID");
+                entity.HasKey("PostImageID");
 
-            //    entity.Property(e => e.ImageName).HasColumnName("ImageUrl")
-            //        .HasMaxLength(200)
-            //        .IsUnicode(false);
+                entity.Property(e => e.ImageName).HasColumnName("ImageUrl")
+                    .HasMaxLength(200)
+                    .IsUnicode(false);
+                //Changed PostId from PostID
+                entity.Property(e => e.PostId).HasColumnName("PostID");
 
-            //    entity.Property(e => e.PostID).HasColumnName("PostID");
+                entity.Property(e => e.UserID).HasColumnName("UserID");
 
-            //    entity.Property(e => e.UserID).HasColumnName("UserID");
+                entity.HasOne(d => d.Users)
+                    .WithMany(p => p.PostImages)
+                    .HasForeignKey(d => d.UserID)
+                    .HasConstraintName("FK_PostImage_Users");
 
-            //    entity.HasOne(d => d.Users)
-            //        .WithMany(p => p.PostImages)
-            //        .HasForeignKey(d => d.UserID)
-            //        .HasConstraintName("FK_PostImage_Users");
-
-            //});
+            });
 
             OnModelCreatingPartial(modelBuilder);
         }

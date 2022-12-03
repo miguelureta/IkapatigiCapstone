@@ -1,0 +1,62 @@
+﻿@model IkapatigiCapstone.Models.PostReplyViewImageCreateModel
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_LayoutMember.cshtml";
+}
+<br />
+<div class="titlecontainer">
+    <div class="text-center">
+
+        <h1 class="display-4">Share a Plant Image</h1>
+    </div>
+</div>
+<br />
+<hr />
+
+<div class="bgtable">
+    <div class="row">
+        <div class="col-md-4">
+            <form enctype="multipart/form-data" asp-action="MemberCreateImage"> 
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="postImage" class="control-label"></label>
+                    <div class="custom-file">
+                        <input asp-for="postImage" class="custom-file-input" id="dImage"
+                        onchange="document.getElementById('dImagePrv').src = window.URL.createObjectURL(this.files[0])" accept=".png, .jpeg, .jpg"/>
+                        <label class="custom-file-label" for="dImage">Upload the Plant Image</label>
+                    </div>
+                    <span asp-validation-for="postImage" class="text-danger"></span>
+                    <label id="@Model-size" class="control-label">Size</label>
+                    <img id="dImagePrv" src="" alt="Disease Image" width="150" 
+                        height="150" style="border:1px; margin-top:20px; margin-left:120px;" />
+
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+            </form>
+
+        </div>
+    </div>
+
+</div>
+
+@section Scripts{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script type="text/javascript" on-content-loaded="true">
+        var imgFile = document.getElementByClassName("custom-file-input");
+        for (let i = 0; i < imgFile.length; i++) {
+            imgFile[i].addEventListener("change", function() {
+                var filename = $(this).val().split("\\").pop();
+                $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+
+                var attach_id = this.id;
+                var fsize = $('#' + attach_id)[0].files[0].size;
+                const file = Math.round((fsize / 1024));
+
+                document.getElementById('@Model-size').innerText = 'File size ' + file = 'KB';
+            });
+        }
+    </script>
+}

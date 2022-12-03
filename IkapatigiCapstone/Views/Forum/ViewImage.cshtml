@@ -1,4 +1,4 @@
-﻿@model IkapatigiCapstone.Models.PostViewImageModel
+﻿@model IEnumerable<IkapatigiCapstone.Models.PostImage>
 @{
     ViewData["Title"] = "Post Image";
     Layout = "~/Views/Shared/_adminLayout.cshtml";
@@ -12,18 +12,29 @@
 <br />
 <div class="bgtable">
     <div>
-    <a asp-action="Index" asp-controller="Forum">Back to List</a>
+        <a asp-action="MemberIndex" asp-controller="Forum">Back to List</a>
     </div>
-    <div>
-        <dl class="row">
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.ImageUrl)
-            </dt>
-            <dd class="col-sm-2">
-                <img src="~/images/@Model.ImageUrl" />
-            </dd>
-        </dl>
-    </div>
+    <br/>
+    <table id="records" class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.ImageName)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var item in Model)
+            {
+                <tr>
+                    <td>
+                        <img src="~/images/@item.ImageName" width="150" height="150">
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    
 </div>
 @{
 }
