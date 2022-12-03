@@ -2,6 +2,9 @@
 using Microsoft.AspNetCore.Mvc;
 using IkapatigiCapstone.Models;
 using IkapatigiCapstone.Data;
+
+
+
 namespace IkapatigiCapstone.Controllers
 {
     public class ForumController : Controller

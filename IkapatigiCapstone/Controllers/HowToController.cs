@@ -276,6 +276,42 @@ namespace IkapatigiCapstone.Controllers
         }
 
 
+        //Delete for checkbox
+        [HttpPost]
+        public ActionResult GroupDelete(IEnumerable<int> id)
+        {
+            if (_hcontext.HttpContext.Session.GetString("Session").Equals("howtosmodlogged"))
+            {
+       
+
+                var howto = _context.HowTos.Where(i => id.Contains(i.HowTosID)).ToList();
+                foreach(HowTo h in howto)
+                {
+                    _context.HowTos.Remove(h);
+                    _context.SaveChanges();
+                }
+                return RedirectToAction("Index");
+
+            }
+            else
+            {
+                return Content("Access Denied. This page is not available for your role.");
+            }
+        }
+
+        //public IActionResult CheckboxDeleteHowTo(List<HowTo> howto)
+        //{
+        //    List<HowTo> howto = new List<HowTo>();
+        //    foreach (var item in howto)
+        //    {
+        //        if (item.Emps.Selected)
+        //        {
+        //            var howto = _context.HowTos.Where(i => i.HowTosID == id).SingleOrDefault();
+        //            howto.Add(selected)
+        //        }
+        //    }
+        //}
+
         //This is Add Details in the Index page.
 
         public ActionResult Details(int? id)
