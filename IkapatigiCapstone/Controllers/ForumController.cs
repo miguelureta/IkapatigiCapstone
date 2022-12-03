@@ -216,12 +216,14 @@ namespace IkapatigiCapstone.Controllers
             //inPost.ForumId = _hcontext.HttpContext.Session.GetInt32("ForumTarget");
 
             //New CreatePost method with Image
-            var inPost = new Post();
-            inPost.Title = post.Title;
-            inPost.Content = post.Content;
-            inPost.Created = DateTime.Now;
-            _context.Posts.Add(inPost);
-            _context.SaveChanges();
+
+
+            //var inPost = new Post();
+            //inPost.Title = post.Title;
+            //inPost.Content = post.Content;
+            //inPost.Created = DateTime.Now;
+            //_context.Posts.Add(inPost);
+            //_context.SaveChanges();
 
             
             //if (post.PdImage!=null)
@@ -249,7 +251,10 @@ namespace IkapatigiCapstone.Controllers
             //}
             
             
-            inPost.ForumId = _hcontext.HttpContext.Session.GetInt32("ForumTarget");
+            
+            
+            //inPost.ForumId = _hcontext.HttpContext.Session.GetInt32("ForumTarget");
+            
             //var inputPost = _context.Forums.Where(i => i.ForumId == id).SingleOrDefault();
 
 

@@ -14,7 +14,7 @@
 <div class="bgtable">
     <div class="row">
         <div class="col-md-4">
-            <form @*enctype="multipart/form-data"*@ asp-action="CreatePost">
+            <form asp-action="CreatePost"> 
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <input type="hidden" asp-for="ForumId"/>
                     <div class="form-group">
