@@ -47,6 +47,16 @@ namespace IkapatigiCapstone.Controllers
                 _context.Tags.Add(tag);
                 _context.SaveChanges();
 
+                var audIn = new Audit()
+                {
+                    RoleId = 3,
+                    Reason = "Created " + tag.TagName,
+                    DateTime = DateTime.Now,
+                    UserId = _hcontext.HttpContext.Session.GetInt32("logUserID")
+                };
+                _context.Audits.Add(audIn);
+                _context.SaveChanges();
+
                 return RedirectToAction("Index");
             }
             catch (Exception ex)
@@ -87,6 +97,17 @@ namespace IkapatigiCapstone.Controllers
                 _context.Tags.Update(tag);
                 _context.SaveChanges();
 
+                var audIn = new Audit()
+                {
+                    RoleId = 3,
+                    Reason = "Edited "+tag.TagName,
+                    DateTime = DateTime.Now,
+                    UserId = _hcontext.HttpContext.Session.GetInt32("logUserID")
+                };
+                _context.Audits.Add(audIn);
+                _context.SaveChanges();
+
+
                 return RedirectToAction("Index");
             }
             catch (Exception ex)
@@ -112,8 +133,19 @@ namespace IkapatigiCapstone.Controllers
                 return RedirectToAction("Index");
             }
 
+            var audIn = new Audit()
+            {
+                RoleId = 3,
+                Reason = "Deleted "+tag.TagName,
+                DateTime = DateTime.Now,
+                UserId = _hcontext.HttpContext.Session.GetInt32("logUserID")
+            };
+            _context.Audits.Add(audIn);
+            _context.SaveChanges();
+
             _context.Tags.Remove(tag);
             _context.SaveChanges();
+
 
             return RedirectToAction("Index");
         }

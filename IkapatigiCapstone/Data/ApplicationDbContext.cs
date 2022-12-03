@@ -31,7 +31,7 @@ namespace IkapatigiCapstone.Data
         public virtual DbSet<User> Users { get; set; } = null!;
         public virtual DbSet<Image> Image { get; set; } = null!;
         public virtual DbSet<PostImage> PostImages { get; set; } = null!;
-        
+        public virtual DbSet<Audit> Audits { get; set; } = null!;
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
@@ -221,6 +221,8 @@ namespace IkapatigiCapstone.Data
                 entity.Property(e => e.TagId).HasColumnName("TagID");
 
                 entity.Property(e => e.UserId).HasColumnName("UserID");
+
+                entity.Property(e => e.NumberofClicks).HasColumnName("NumberOfClicks");
 
                 entity.HasOne(d => d.Tag)
                     .WithMany(p => p.PlantDiseases)
@@ -419,6 +421,27 @@ namespace IkapatigiCapstone.Data
                     .HasForeignKey(d => d.UserID)
                     .HasConstraintName("FK_PostImage_Users");
 
+            });
+
+            modelBuilder.Entity<Audit>(entity =>
+            {
+                entity.ToTable("Audit");
+                entity.Property(e => e.Id).HasColumnName("AuditId");
+
+                entity.HasKey("Id");
+
+                entity.Property(e => e.Reason)
+                    .HasColumnName("Reason")
+                    .HasMaxLength(200)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.DateTime)
+                    .HasColumnType("DateTime")
+                    .HasColumnName("DateExecuted");
+
+                entity.Property(e => e.UserId).HasColumnName("UserId");
+
+                entity.Property(e => e.RoleId).HasColumnName("RoleId");
             });
 
             OnModelCreatingPartial(modelBuilder);

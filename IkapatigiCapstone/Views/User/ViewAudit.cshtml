@@ -1,0 +1,68 @@
+﻿@model IEnumerable<IkapatigiCapstone.Models.Audit>
+@{
+    ViewData["Title"] = "Audit Management : Audit Viewing";
+    Layout = "~/Views/Shared/_hAdminLayout.cshtml";
+}
+<br/>
+<div class="titlecontainer">
+    <div class="text-center">
+
+        <h1 class="display-4">Audit Log</h1>
+    </div>
+</div>
+<br />
+
+<div class="bgtable">
+    <a asp-action="Index"><i class="fa-solid fa-circle-plus">User List</i></a>
+    <br/>
+    <table id="records" class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.RoleId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Reason)   
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DateTime)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.UserId)
+                </th>
+                <th>
+
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.RoleId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Reason)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DateTime)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UserId)
+                    </td>
+                    
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+@section Scripts{
+    <script src="~/lib/datatables/js/jquery.dataTables.js"></script>
+    <script src="~/lib/datatables/js/dataTables.bootstrap4.js"></script>
+    <script> 
+        $(document).ready(function () {
+            $('#records').DataTable();
+        });
+    </script>
+}

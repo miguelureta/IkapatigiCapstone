@@ -29,26 +29,26 @@ namespace IkapatigiCapstone.Controllers
         {
             //Old Diagnostic Index View, uncomment if Index broken and 
             var dvm = new DiagnosticViewModel();
-            dvm.CureList = _context.Cures.ToList();
-            dvm.DiseaseList = _context.PlantDiseases.ToList();
-            dvm.StatusList = _context.Statuses.ToList();
-            dvm.TagsList = _context.Tags.ToList();
-            dvm.Diagnostic = _context.Diagnostics.ToList();
+            //dvm.CureList = _context.Cures.ToList();
+            //dvm.DiseaseList = _context.PlantDiseases.ToList();
+            //dvm.StatusList = _context.Statuses.ToList();
+            //dvm.TagsList = _context.Tags.ToList();
+            //dvm.Diagnostic = _context.Diagnostics.ToList();
 
             //New Diagnostic Index View, experimental
 
 
             if (_hcontext.HttpContext.Session.GetString("Session").Equals("diagmodlogged") || _hcontext.HttpContext.Session.GetString("Session").Equals("adminlogged"))
             {
-                var divm = new DiagnosticImageViewModel();
-                divm.CureList = _context.Cures.ToList();
-                divm.DiseaseList = _context.PlantDiseases.ToList();
-                divm.StatusList = _context.Statuses.ToList();
-                divm.TagsList = _context.Tags.ToList();
-                divm.Diagnostic = _context.Diagnostics.ToList();
-                divm.Images = _context.Image.ToList();
+                //var divm = new DiagnosticImageViewModel();
+                dvm.CureList = _context.Cures.ToList();
+                dvm.DiseaseList = _context.PlantDiseases.ToList();
+                dvm.StatusList = _context.Statuses.ToList();
+                dvm.TagsList = _context.Tags.ToList();
+                dvm.Diagnostic = _context.Diagnostics.ToList();
+                //divm.Images = _context.Image.ToList();
 
-                return View(divm);
+                return View(dvm);
             }
             else
             {
@@ -80,6 +80,15 @@ namespace IkapatigiCapstone.Controllers
             };
 
             _context.Diagnostics.Add(diagnostic);
+            _context.SaveChanges();
+
+            var audIn = new Audit()
+            {
+                RoleId = 3,
+                UserId = (int)_hcontext.HttpContext.Session.GetInt32("logUserID"),
+                DateTime = DateTime.Now,
+            };
+            _context.Audits.Add(audIn);
             _context.SaveChanges();
 
             return RedirectToAction("Index");
@@ -119,7 +128,6 @@ namespace IkapatigiCapstone.Controllers
             diagnostic.StatusId = record.StatusId;
             diagnostic.TagId = record.TagId;
             diagnostic.PlantDiseaseId = record.PlantDiseaseId;
-
 
             _context.Diagnostics.Update(diagnostic);
             _context.SaveChanges();
@@ -302,13 +310,19 @@ namespace IkapatigiCapstone.Controllers
             {
                 return RedirectToAction("MemberIndex");
             }
+            //Number of Clicks Updater
+            var pd = _context.PlantDiseases.Where(p => p.PlantDiseaseId == id).SingleOrDefault();
+            pd.NumberofClicks = pd.NumberofClicks + 1;
+            _context.PlantDiseases.Update(pd);
+            _context.SaveChanges();
+
             Diagnostic diagtarget = _context.Diagnostics.Find(id);
             DiagnosticDetailModel diag = new DiagnosticDetailModel();
             diag.cure = _context.Cures.Where(c => c.CureId == diagtarget.CureId).SingleOrDefault();
             diag.disease = _context.PlantDiseases.Where(d => d.PlantDiseaseId == diagtarget.PlantDiseaseId).SingleOrDefault();
             diag.status = _context.Statuses.Where(s => s.StatusId == diagtarget.StatusId).SingleOrDefault();
             diag.tag = _context.Tags.Where(t => t.TagId == diagtarget.TagId).SingleOrDefault();
-
+            
             if (diag == null)
             {
                 return RedirectToAction("MemberIndex");
@@ -351,6 +365,11 @@ namespace IkapatigiCapstone.Controllers
             {
                 return RedirectToAction("NonMemberIndex");
             }
+            var pd = _context.PlantDiseases.Where(p => p.PlantDiseaseId == id).SingleOrDefault();
+            pd.NumberofClicks = pd.NumberofClicks + 1;
+            _context.PlantDiseases.Update(pd);
+            _context.SaveChanges();
+
             Diagnostic diagtarget = _context.Diagnostics.Find(id);
             DiagnosticDetailModel diag = new DiagnosticDetailModel();
             diag.cure = _context.Cures.Where(c => c.CureId == diagtarget.CureId).SingleOrDefault();
@@ -367,11 +386,12 @@ namespace IkapatigiCapstone.Controllers
 
         public ActionResult ViewImage(int? id)
         {
-            if(id == null)
-            {
-                return RedirectToAction("NonMemberIndex");
-            }
             //PlantDisease dTarget = _context.PlantDiseases.Find(id);
+            var pd = _context.PlantDiseases.Where(p => p.PlantDiseaseId == id).SingleOrDefault();
+            pd.NumberofClicks++;
+            _context.PlantDiseases.Update(pd);
+            _context.SaveChanges();
+
             var diseaseImg = new PlantDiseaseImageView();
             diseaseImg.DiseaseName = _context.PlantDiseases.Where(d => d.PlantDiseaseId ==id).SingleOrDefault().DiseaseName;
             diseaseImg.ImageUrl = _context.Image.Where(i => i.PlantDiseaseID == id).SingleOrDefault().ImageName;

@@ -54,10 +54,19 @@ namespace IkapatigiCapstone.Controllers
                     CureName = record.CureName,
                     Srp = record.Srp,
                     UserId = record.UserId
-
                 };
 
                 _context.Cures.Add(cure);
+                _context.SaveChanges();
+
+                var audIn = new Audit()
+                {
+                    RoleId = 3,
+                    Reason = "Created " + cure.CureName,
+                    DateTime = DateTime.Now,
+                    UserId = _hcontext.HttpContext.Session.GetInt32("logUserID")
+                };
+                _context.Audits.Add(audIn);
                 _context.SaveChanges();
 
                 return RedirectToAction("Index");
@@ -110,7 +119,6 @@ namespace IkapatigiCapstone.Controllers
             {
                 return Content("Unable to save changes. Please check that you don't have any empty boxes. ");
 
-
             }
            
 
@@ -128,6 +136,16 @@ namespace IkapatigiCapstone.Controllers
             {
                 return RedirectToAction("Index");
             }
+
+            var audIn = new Audit()
+            {
+                RoleId = 3,
+                Reason = "Deleted " + cure.CureName,
+                DateTime = DateTime.Now,
+                UserId = _hcontext.HttpContext.Session.GetInt32("logUserID")
+            };
+            _context.Audits.Add(audIn);
+            _context.SaveChanges();
 
             _context.Cures.Remove(cure);
             _context.SaveChanges();

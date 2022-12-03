@@ -283,6 +283,7 @@ namespace IkapatigiCapstone.Controllers
                 if(user.RoleId == 6)
                 {
                     _hcontext.HttpContext.Session.SetString("Session", "adminlogged");
+                    _hcontext.HttpContext.Session.SetInt32("logUserID", user.UserId); 
                     return RedirectToAction("Index", "User");
                 }
                 if(user.RoleId==3)

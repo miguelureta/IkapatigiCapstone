@@ -51,7 +51,7 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                <a asp-action="ViewImage" asp-controller="Diagnostic" asp-route-id="@item.PlantDiseaseId">
+                <a asp-action="ViewImage" asp-controller="PlantDisease" asp-route-id="@item.PlantDiseaseId">
                     @Html.DisplayFor(modelItem =>item.DiseaseName)
                 </a>
             </td>

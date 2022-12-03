@@ -89,10 +89,19 @@ namespace IkapatigiCapstone.Controllers
                 ImageName = fileName,
                 UserID = (int)_hcontext.HttpContext.Session.GetInt32("logUserID")
             };
+
             _context.Image.Add(dImage);
             _context.SaveChanges();
 
-
+            var audIn = new Audit()
+            {
+                RoleId = 3,
+                Reason = "Created " + plantdisease.DiseaseName,
+                DateTime= DateTime.Now,
+                UserId = _hcontext.HttpContext.Session.GetInt32("logUserID")
+            };
+            _context.Audits.Add(audIn);
+            _context.SaveChanges();
 
             return RedirectToAction("Index");
         }

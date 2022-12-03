@@ -47,7 +47,9 @@
                 </td>*@
                     <td>
                         @*@Html.DisplayFor(modelItem => item.DiseaseList.Where(x => x.PlantDiseaseId == item.Diagnostic.PlantDiseaseId))*@
+                        <a asp-action="ViewImage" asp-controller="Diagnostic" asp-route-id="@item.PlantDiseaseId">
                         @Html.DisplayFor(modelItem => item.PlantDisease.DiseaseName)
+                        </a>
                     </td>
                     <td>
                         @*@Html.DisplayFor(modelItem => item.CureList.Where(x => x.CureId == item.Diagnostic.CureId))*@

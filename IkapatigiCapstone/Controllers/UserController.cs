@@ -92,5 +92,16 @@ namespace IkapatigiCapstone.Controllers
             }
         }
 
+        public ActionResult ViewAudit()
+        {
+            string sesh = _hcontext.HttpContext.Session.GetString("Session");
+            //if (sesh == null || !sesh.Equals("adminlogged"))
+            //{
+            //    return BadRequest("Invalid View");
+            //}
+
+            var audOut = _context.Audits.ToList();
+            return View(audOut);
+        }    
     }
 }

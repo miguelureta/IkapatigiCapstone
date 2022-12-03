@@ -126,6 +126,17 @@ namespace IkapatigiCapstone.Controllers
                 newp.ImageUrl = post.ImageUrl;
                 _context.Forums.Update(newp);
                 _context.SaveChanges();
+
+                var audIn = new Audit()
+                {
+                    RoleId = 5,
+                    UserId = _hcontext.HttpContext.Session.GetInt32("logUserID"),
+                    Reason = "Edited " +newp.Title,
+                    DateTime = DateTime.Now,
+                };
+                _context.Audits.Add(audIn);
+                _context.SaveChanges();
+
                 return RedirectToAction("Index");
             }
             catch (Exception ex)
@@ -168,6 +179,16 @@ namespace IkapatigiCapstone.Controllers
             }
 
             _context.Forums.Remove(post);
+            _context.SaveChanges();
+
+            var audIn = new Audit()
+            {
+                RoleId = 5,
+                Reason = "Deleted " + post.Title,
+                DateTime = DateTime.Now,
+                UserId = _hcontext.HttpContext.Session.GetInt32("logUserID")
+            };
+            _context.Audits.Add(audIn);
             _context.SaveChanges();
 
             return RedirectToAction("Index", "Forum");

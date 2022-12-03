@@ -21,7 +21,7 @@ namespace IkapatigiCapstone.Models
         public int? CureId { get; set; }
         [Display(Name ="User")]
         public int? UserId { get; set; }
-
+        public int? NumberofClicks { get; set; }
         public virtual Tag? Tag { get; set; }
         public virtual User? User { get; set; }
         public virtual ICollection<Image> Images { get; set; }
