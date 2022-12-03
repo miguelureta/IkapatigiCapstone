@@ -122,6 +122,8 @@ namespace IkapatigiCapstone.Data
 
                 entity.Property(e => e.TagId).HasColumnName("TagID");
 
+                //entity.Property(e => e.NumberOfClicks).HasColumnName("NumberOfClicks");
+
                 entity.HasOne(d => d.Cure)
                     .WithMany(p => p.Diagnostics)
                     .HasForeignKey(d => d.CureId)

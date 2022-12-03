@@ -261,6 +261,22 @@ namespace IkapatigiCapstone.Controllers
                 {
                     return RedirectToAction("Index");
                 }
+                var article = _context.HowTos.Where(h => h.HowTosID == id).SingleOrDefault();
+
+
+                var email = new MimeMessage();
+                email.From.Add(MailboxAddress.Parse(_config.GetSection("EmailUsername").Value));
+                email.To.Add(MailboxAddress.Parse(article.User.Email));
+                email.Subject = "Article Deleted";
+                email.Body = new TextPart(TextFormat.Html) { Text = howto.Title + "was deleted! Contact admins to appeal." };
+
+                using var smtp = new SmtpClient();
+                //Commented smtp line is for sending emails when deployed in Capstone Repo
+                //smtp.Connect(_config.GetSection("EmailHost").Value, 25, SecureSocketOptions.StartTlsWhenAvailable);
+                smtp.Connect(_config.GetSection("EmailHost").Value, 587, SecureSocketOptions.StartTlsWhenAvailable);
+                smtp.Authenticate(_config.GetSection("EmailUsername").Value, _config.GetSection("EmailPassword").Value);
+                smtp.Send(email);
+                smtp.Disconnect(true);
 
                 _context.HowTos.Remove(howto);
                 _context.SaveChanges();

@@ -46,6 +46,7 @@ namespace IkapatigiCapstone.Controllers
                 dvm.StatusList = _context.Statuses.ToList();
                 dvm.TagsList = _context.Tags.ToList();
                 dvm.Diagnostic = _context.Diagnostics.ToList();
+                
                 //divm.Images = _context.Image.ToList();
 
                 return View(dvm);
@@ -311,10 +312,10 @@ namespace IkapatigiCapstone.Controllers
                 return RedirectToAction("MemberIndex");
             }
             //Number of Clicks Updater
-            var pd = _context.PlantDiseases.Where(p => p.PlantDiseaseId == id).SingleOrDefault();
-            pd.NumberofClicks = pd.NumberofClicks + 1;
-            _context.PlantDiseases.Update(pd);
-            _context.SaveChanges();
+            //var pd = _context.PlantDiseases.Where(p => p.PlantDiseaseId == id).SingleOrDefault();
+            //pd.NumberofClicks = pd.NumberofClicks + 1;
+            //_context.PlantDiseases.Update(pd);
+            //_context.SaveChanges();
 
             Diagnostic diagtarget = _context.Diagnostics.Find(id);
             DiagnosticDetailModel diag = new DiagnosticDetailModel();
@@ -365,10 +366,10 @@ namespace IkapatigiCapstone.Controllers
             {
                 return RedirectToAction("NonMemberIndex");
             }
-            var pd = _context.PlantDiseases.Where(p => p.PlantDiseaseId == id).SingleOrDefault();
-            pd.NumberofClicks = pd.NumberofClicks + 1;
-            _context.PlantDiseases.Update(pd);
-            _context.SaveChanges();
+            //var pd = _context.PlantDiseases.Where(p => p.PlantDiseaseId == id).SingleOrDefault();
+            //pd.NumberofClicks = pd.NumberofClicks + 1;
+            //_context.PlantDiseases.Update(pd);
+            //_context.SaveChanges();
 
             Diagnostic diagtarget = _context.Diagnostics.Find(id);
             DiagnosticDetailModel diag = new DiagnosticDetailModel();

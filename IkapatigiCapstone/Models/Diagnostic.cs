@@ -19,6 +19,8 @@ namespace IkapatigiCapstone.Models
         [ForeignKey("PlantDisease")]
         public int? PlantDiseaseId { get; set; }
 
+        //public int? NumberOfClicks { get; set; }
+
         [Display(Name = "Cure")]
         public virtual Cure Cure { get; set; }
         [Display(Name = "Plant Disease")]
@@ -27,6 +29,8 @@ namespace IkapatigiCapstone.Models
         public virtual Status Status { get; set; }
         [Display(Name = "Tag")]
         public virtual Tag Tag { get; set; }
+
+
         //Might use this ImageUrl for linking
         //public string ImageUrl { get; set; }
         [Display(Name = "Display Image")]

@@ -13,6 +13,9 @@ namespace IkapatigiCapstone.Models
         [Display(Name = "Status")]
         public IEnumerable<Status> StatusList { get; set; }
         public IEnumerable<Diagnostic> Diagnostic { get; set; }
+
+        //[Display(Name = "Number of Clicks")]
+        //public IEnumerable<int> Clicks { get; set; }
         //[Display(Name ="Image")]
         //public IEnumerable<Image> Images { get; set; }
 
