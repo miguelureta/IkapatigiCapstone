@@ -418,6 +418,10 @@ namespace IkapatigiCapstone.Data
 
                 entity.Property(e => e.UserID).HasColumnName("UserID");
 
+                entity.Property(e => e.ImageText).HasColumnName("ImageText")
+                    .HasMaxLength(200)
+                    .IsUnicode(false);
+
                 entity.HasOne(d => d.Users)
                     .WithMany(p => p.PostImages)
                     .HasForeignKey(d => d.UserID)

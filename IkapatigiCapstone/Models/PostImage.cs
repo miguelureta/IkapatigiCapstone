@@ -17,6 +17,8 @@ namespace IkapatigiCapstone.Models
         public int? PostId { get; set; }
         [ForeignKey("User")]
         public int? UserID { get; set; }
+        [Display(Name ="Description")]
+        public string? ImageText { get; set; }
         //Changed foreignkey to PostId from PostID
         [ForeignKey("PostId")]
         public virtual ICollection<Post> Posts { get; set; }

@@ -396,8 +396,8 @@ namespace IkapatigiCapstone.Controllers
                 var token = CreateRandomToken();
                 nemail.From.Add(MailboxAddress.Parse(_config.GetSection("EmailUsername").Value));
                 nemail.To.Add(MailboxAddress.Parse(request.Email));
-                nemail.Subject = "Test Email Subject";
-                nemail.Body = new TextPart(TextFormat.Html) { Text = token };
+                nemail.Subject = "Forgot Password Request";
+                nemail.Body = new TextPart(TextFormat.Html) { Text = "Link to Password reset with token: "+ token };
 
                 using var smtp = new SmtpClient();
                 smtp.Connect(_config.GetSection("EmailHost").Value, 587, SecureSocketOptions.StartTlsWhenAvailable);

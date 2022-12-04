@@ -50,14 +50,11 @@ namespace IkapatigiCapstone.Controllers
             if (_hcontext.HttpContext.Session.GetString("Session").Equals("howtosmodlogged"))
             {
                 return View();
-
-
-                        }
+            }
             else
             {
                 return Content("Access Denied. This page is not available for your role.");
             }
-
         }
         
         //Added function to send MembersOnly HowTo articles to Users with Member Role = 1
@@ -111,7 +108,7 @@ namespace IkapatigiCapstone.Controllers
                     howto.LikeCount = record.LikeCount;
                     howto.DislikeCount = record.DislikeCount;
                     howto.IsPublic = record.IsPublic;
-                    howto.UserID = record.UserID;
+                    howto.UserID = _hcontext.HttpContext.Session.GetInt32("logMemberID");   
                     howto.StatusID = record.StatusID;
                     howto.PictureCollectionFromID = record.PictureCollectionFromID;
                     howto.DateCreated = DateTime.Now;
@@ -246,8 +243,19 @@ namespace IkapatigiCapstone.Controllers
 
 
         }
-
-        public IActionResult Delete(int? id)
+        public IActionResult Delete()
+        {
+            if (_hcontext.HttpContext.Session.GetString("Session").Equals("howtosmodlogged"))
+            {
+                return View();
+            }
+            else
+            {
+                return Content("Access Denied. This page is not available for your role.");
+            }
+        }
+        [HttpPost]
+        public IActionResult Delete(int? id, DeleteReason reasonIn)
         {
             if (_hcontext.HttpContext.Session.GetString("Session").Equals("howtosmodlogged"))
             {
@@ -266,9 +274,9 @@ namespace IkapatigiCapstone.Controllers
 
                 var email = new MimeMessage();
                 email.From.Add(MailboxAddress.Parse(_config.GetSection("EmailUsername").Value));
-                email.To.Add(MailboxAddress.Parse(article.User.Email));
+                email.To.Add(MailboxAddress.Parse(_context.Users.Where(u => u.UserId == _context.HowTos.Where(h => h.HowTosID==id).SingleOrDefault().UserID).SingleOrDefault().Email));
                 email.Subject = "Article Deleted";
-                email.Body = new TextPart(TextFormat.Html) { Text = howto.Title + "was deleted! Contact admins to appeal." };
+                email.Body = new TextPart(TextFormat.Html) { Text = howto.Title + " was deleted! Reason: " + reasonIn.Reason + " Contact admins to appeal." };
 
                 using var smtp = new SmtpClient();
                 //Commented smtp line is for sending emails when deployed in Capstone Repo
@@ -278,10 +286,22 @@ namespace IkapatigiCapstone.Controllers
                 smtp.Send(email);
                 smtp.Disconnect(true);
 
+
+                var audIn = new Audit()
+                {
+                    RoleId = 4,
+                    Reason = "Deleted "+ article.Title + ". Reason: " + reasonIn.Reason,
+                    DateTime = DateTime.Now,
+                    UserId = _hcontext.HttpContext.Session.GetInt32("logUserID")
+                };
+                _context.Audits.Add(audIn);
+                _context.SaveChanges();
+
                 _context.HowTos.Remove(howto);
                 _context.SaveChanges();
 
-          
+                
+
                 return RedirectToAction("Index");
 
             }
@@ -314,19 +334,38 @@ namespace IkapatigiCapstone.Controllers
                 return Content("Access Denied. This page is not available for your role.");
             }
         }
+        public IActionResult MemberCreate()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult MemberCreate(HowTo record)
+        {
+            try
+            {
+                var howto = new HowTo();
+                howto.Title = record.Title;
+                howto.Description = record.Description;
+                howto.LikeCount = record.LikeCount;
+                howto.DislikeCount = record.DislikeCount;
+                howto.IsPublic = record.IsPublic;
+                howto.UserID = _hcontext.HttpContext.Session.GetInt32("logMemberID");
+                howto.StatusID = record.StatusID;
+                howto.PictureCollectionFromID = record.PictureCollectionFromID;
+                howto.DateCreated = DateTime.Now;
+                howto.ArticleBody = record.ArticleBody;
+                var memberList = _context.Users.Where(u => u.RoleId == 1).ToList();
 
-        //public IActionResult CheckboxDeleteHowTo(List<HowTo> howto)
-        //{
-        //    List<HowTo> howto = new List<HowTo>();
-        //    foreach (var item in howto)
-        //    {
-        //        if (item.Emps.Selected)
-        //        {
-        //            var howto = _context.HowTos.Where(i => i.HowTosID == id).SingleOrDefault();
-        //            howto.Add(selected)
-        //        }
-        //    }
-        //}
+                _context.HowTos.Add(howto);
+                _context.SaveChanges();
+                return RedirectToAction("MemberIndex");
+            }
+            catch (Exception ex)
+            {
+                return Content("Unable to save changes. Please check that you don't have any empty boxes. ");
+
+            }
+        }
 
         //This is Add Details in the Index page.
 

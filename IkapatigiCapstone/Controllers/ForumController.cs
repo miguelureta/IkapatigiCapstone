@@ -440,8 +440,10 @@ namespace IkapatigiCapstone.Controllers
             var newImg = new PostImage
             {
                 ImageName = fileName,
-                UserID = _hcontext.HttpContext.Session.GetInt32("logMemberID")
+                UserID = _hcontext.HttpContext.Session.GetInt32("logMemberID"),
+                ImageText = img.ImageTextIn
             };
+
             _context.PostImages.Add(newImg);
             _context.SaveChanges();
 
@@ -489,7 +491,7 @@ namespace IkapatigiCapstone.Controllers
             return RedirectToAction("MemberIndex");
         }
 
-        public ActionResult ViewImage(int id)
+        public ActionResult ViewImage()
         {
             var postImg = _context.PostImages.ToList();
 
