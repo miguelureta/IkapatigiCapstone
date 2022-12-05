@@ -162,8 +162,34 @@ namespace IkapatigiCapstone.Controllers
         //    smtp.Disconnect(true);
 
         //    return RedirectToAction("Index", "Home");
-        //}
-        //[AllowAnonymous]
+        
+        
+        //New Security Check START////////////////////////////////////////////////////////
+        public IActionResult ResetTokenIn()
+        {
+            return View();
+        }
+        [Route("/Account/")]
+        public IActionResult ResetTokenIn(TokenInputModel token)
+        {
+            var tokenCheck = _context.Users.FirstOrDefault(t => t.VerificationToken == token.TokenIn).VerificationToken;
+            if(tokenCheck ==null||tokenCheck!=token.TokenIn)
+            {
+                ViewData["ErrorMessage"] = "Token incorrect or does not exist.";
+                return View("ResetTokenIn");
+            }
+            else if(_context.Users.FirstOrDefault(u => u.Email == token.EmailIn).Email!=_context.Users.FirstOrDefault(t => t.VerificationToken == token.TokenIn).Email)
+            {
+                ViewData["ErroMessage"] = "Token does not belong with given Email.";
+                return View("ResetTokenIn");
+            }
+            else 
+            {
+                return View("ResetPassword");
+            }
+        }
+        //New Security Check END/////////////////////////////////////////////////////////
+
         [HttpPost("Login")]
         public async Task<IActionResult> Login(UserLoginRequest request)
         {
@@ -412,7 +438,12 @@ namespace IkapatigiCapstone.Controllers
                 _context.Users.Update(tUser);
                 _context.SaveChanges();
                 _hcontext.HttpContext.Session.SetString("ResetToken", token);
-                return View("ResetPassword");
+
+                //Uncomment below to revert back to previous reset password method
+                //return View("ResetPassword");
+
+                //New Reset password process
+                return View("ResetTokenIn");
             }
         }
 
